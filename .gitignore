@@ -1,0 +1,12 @@
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+user_guide
+
+contributing.md
+
+readme.rst
