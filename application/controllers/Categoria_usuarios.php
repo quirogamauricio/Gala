@@ -39,7 +39,38 @@ class Categoria_usuarios extends CI_Controller {
             else
             {
                 $this->categoria_usuarios_model->crear_categoria_usuario();
-                $this->load->view('usuarios/exito');
+                $this->load->view('categoria_usuarios/exito');
             }
+        }
+
+
+        public function ver()
+        {
+            $data['title'] = 'Categorías de usuarios del sistema';
+
+            $this->load->view('templates/header', $data);
+
+            $this->load->library('table');
+
+            $categorias_usuario = $this->categoria_usuarios_model->obtener_categorias_usuario_table();
+
+            $resultado;
+
+            if(!empty($categorias_usuario))
+            {
+                $this->table->set_heading('Categoría');
+
+                $resultado = $this->table->generate($categorias_usuario);
+            }
+            else
+            {
+                $resultado = '<h4>No se encontraron resultados</h4>';
+            }
+
+            $data['tabla'] = $resultado;
+
+            $this->load->view('usuarios/ver', $data);
+
+            $this->load->view('templates/footer');
         }
 }

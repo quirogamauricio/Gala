@@ -21,7 +21,7 @@ class Usuario_model extends CI_Model{
 
         public function obtener_usuarios()
         {
-            $this->load->helper('url');
+            $this->load->helper('url'); // Cargo helper para usar función anchor
 
             $resultado = $this->db->query(
                 'SELECT u.nombre_usuario, cu.categoria, u.email, u.fecha_alta, u.id_usuario as "id"

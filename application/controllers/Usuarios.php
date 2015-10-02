@@ -20,6 +20,10 @@ class Usuarios extends CI_Controller {
         public function nuevo()
         {
             $this->load->library('form_validation');
+            
+            $this->load->model('categoria_usuarios_model');
+
+            $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario();
 
             $data['title'] = 'Crear nuevo usuario';
 
@@ -78,27 +82,38 @@ class Usuarios extends CI_Controller {
             }
         }
 
-        public function ver()
+        public function ver($id_usuario = NULL)
         {
             $data['title'] = 'Usuarios del sistema';
 
-            $this->load->library('table');
+            $this->load->view('templates/header', $data);
 
-            $usuarios = $this->usuario_model->obtener_usuarios();
-
-            if(!empty($usuarios))
+            if ($id_usuario === NULL) 
             {
-                $this->table->set_caption('<strong>USUARIOS</strong>');
-                $this->table->set_heading('Nombre de usuario', 'Categoría', 'Email', 'Fecha de alta');
-                $data['tabla'] = $this->table->generate($usuarios);
+                $this->load->library('table');
+
+                $usuarios = $this->usuario_model->obtener_usuarios();
+                $resultado;
+
+                if(!empty($usuarios))
+                {
+                    $this->table->set_heading('Nombre de usuario', 'Categoría', 'Email', 'Fecha de alta');
+                    $resultado = $this->table->generate($usuarios);
+                }
+                else
+                {
+                    $resultado = '<h4>No se encontraron resultados</h4>';
+                }
+
+                $data['tabla'] = $resultado;
+                $this->load->view('usuarios/ver', $data);
             }
             else
             {
-                $data['tabla'] = '<h4>No se encontraron resultados</h4>';
+                
+
             }
 
-            $this->load->view('templates/header', $data);
-            $this->load->view('usuarios/ver', $data);
             $this->load->view('templates/footer');
         }
 }

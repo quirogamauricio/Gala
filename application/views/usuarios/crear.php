@@ -5,7 +5,8 @@
 <?php echo form_open('usuarios/nuevo'); ?>
 
 	<label for="categoria">Categoría</label>
-	<input type="input" name="categoria" value="<?php echo set_value('categoria');?>"/><br />
+    <?php echo form_dropdown('categoria', $categorias);?>
+	<!-- <input type="input" name="categoria" value="<?php echo set_value('categoria');?>"/> --><br />
 
     <label for="nombre_usuario">Nombre de usuario</label>
     <input type="input" name="nombre_usuario" value="<?php echo set_value('nombre_usuario');?>"/><br />

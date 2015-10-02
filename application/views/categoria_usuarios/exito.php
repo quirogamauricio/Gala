@@ -1,0 +1,1 @@
+<h3><?php echo "¡Cagoría de usuario creada correctamente!" ?></h3>
