@@ -20,10 +20,10 @@ class Usuarios extends CI_Controller {
         public function nuevo()
         {
             $this->load->library('form_validation');
-            
+
             $this->load->model('categoria_usuarios_model');
 
-            $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario();
+            $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
 
             $data['title'] = 'Crear nuevo usuario';
 
