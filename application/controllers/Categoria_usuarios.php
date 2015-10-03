@@ -32,8 +32,8 @@ class Categoria_usuarios extends CI_Controller {
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('templates/header', $data);
-                $this->load->view('categoria_usuarios/crear');
+                $this->load->view('templates/header');
+                $this->load->view('categoria_usuarios/crear', $data);
                 $this->load->view('templates/footer');
             }
             else
@@ -43,12 +43,11 @@ class Categoria_usuarios extends CI_Controller {
             }
         }
 
-
         public function ver()
         {
-            $data['title'] = 'Categorías de usuarios del sistema';
+            $data['titulo'] = 'Categorías de usuarios del sistema';
 
-            $this->load->view('templates/header', $data);
+            $this->load->view('templates/header');
 
             $this->load->library('table');
 
@@ -69,7 +68,7 @@ class Categoria_usuarios extends CI_Controller {
 
             $data['tabla'] = $resultado;
 
-            $this->load->view('usuarios/ver', $data);
+            $this->load->view('categoria_usuarios/ver', $data);
 
             $this->load->view('templates/footer');
         }

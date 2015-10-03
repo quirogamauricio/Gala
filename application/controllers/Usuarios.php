@@ -26,60 +26,32 @@ class Usuarios extends CI_Controller {
 
             $data['titulo'] = 'Crear nuevo usuario';
 
-            $this->form_validation->set_rules(
-                'email',
-                'Email', 
-                array('required', 'valid_email', 'is_unique[usuario.email]'),
-                array('required' => 'El email es requerido', 
-                      'valid_email' => 'El email ingresado no tiene el formato correcto',
-                      'is_unique' => 'El email ingresado ya se encuentra en uso')
-                );
-
-            $this->form_validation->set_rules(
-                'confirmacion_email',
-                'Confirmación de email', 
-                array('required', 'matches[email]'),
-                array('required' => 'La confirmación de email es requerida', 'matches' => 'Los email ingresados no coinciden')
-                );
-
-            $this->form_validation->set_rules(
-                'categoria',
-                'Categoria', 
-                'required',
-                array('required' => 'La categoría es requerida')
-                );
-
-            $this->form_validation->set_rules(
-                'clave', 
-                'Contraseña',
-                array('required', 'min_length[8]'),
-                array('required' => 'La contraseña es requerida', 'min_length' => 'La contraseña debe tener al menos 8 caracteres')
-                );
-
-            $this->form_validation->set_rules(
-                'confirmacion_clave',
-                'Confirmación de contraseña', 
-                array('required', 'matches[clave]'),
-                array('required' => 'La confirmación de contraseña es requerida', 'matches' => 'Las contraseñas ingresadas no coinciden')
-                );
+            $this->establecer_reglas_creacion();
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('templates/header', $data);
-                $this->load->view('usuarios/crear');
+                $this->load->view('templates/header');
+                $this->load->view('usuarios/crear', $data);
                 $this->load->view('templates/footer');
             }
             else
             {
-                $this->usuario_model->crear_usuario();
-                $this->load->view('usuarios/exito');
+                $datos = array(
+                'email' => $this->input->post('email'),
+                'clave' => password_hash($this->input->post('clave'), PASSWORD_DEFAULT),
+                'id_categoria' => $this->input->post('categoria'),
+                'fecha_alta'=> date('Y-m-d H:i:s')
+                 );
+
+                $this->usuario_model->crear_usuario($datos);
+                $data['mensaje'] = "¡Usuario creado correctamente!";
+                $this->load->view('usuarios/exito', $data);
             }
         }
 
         public function ver($id_usuario = NULL)
         {
             $this->load->library('form_validation');
-
             $this->load->view('templates/header');
 
             if ($id_usuario === NULL) 
@@ -93,7 +65,7 @@ class Usuarios extends CI_Controller {
 
                 if(!empty($usuarios))
                 {
-                    $this->table->set_heading('Nombre de usuario', 'Categoría', 'Email', 'Fecha de alta');
+                    $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
                     $resultado = $this->table->generate($usuarios);
                 }
                 else
@@ -126,5 +98,92 @@ class Usuarios extends CI_Controller {
             }
 
             $this->load->view('templates/footer');
+        }
+
+        public function editar()
+        {
+            $this->load->library('form_validation');
+            $this->load->view('templates/header');
+
+            $datos = array(
+                'id_usuario' => $this->input->post('id_usuario'),
+                'email' => $this->input->post('email'),
+                'id_categoria' => $this->input->post('categoria'),
+                 );
+
+            $this-> establecer_reglas_edicion();
+
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header');
+                $this->ver($datos['id_usuario']);
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+                if ($this->usuario_model->editar_usuario($datos)) 
+                {
+                    $data['mensaje'] = '¡Los datos del usuario se actualizaron correctamente!';
+                }
+                else
+                {
+                    $data['mensaje'] = '¡No se actualizó la información!';
+                }
+
+                $this->load->view('usuarios/exito', $data);
+                $this->load->view('templates/footer');
+            }
+        }
+
+        private function establecer_reglas_edicion()
+        {
+            $this->form_validation->set_rules(
+            'email',
+            'Email', 
+            array('required', 'valid_email', 'is_unique[usuario.email]'),
+            array('required' => 'El email es requerido', 
+                  'valid_email' => 'El email ingresado no tiene el formato correcto',
+                  'is_unique' => 'El email ingresado ya se encuentra en uso')
+            );
+
+            $this->form_validation->set_rules(
+                'confirmacion_email',
+                'Confirmación de email', 
+                array('required', 'matches[email]'),
+                array('required' => 'La confirmación de email es requerida', 'matches' => 'Los email ingresados no coinciden')
+                ); 
+        }
+
+        private function establecer_reglas_creacion()
+        {
+                $this->form_validation->set_rules(
+                'email',
+                'Email', 
+                array('required', 'valid_email', 'is_unique[usuario.email]'),
+                array('required' => 'El email es requerido', 
+                      'valid_email' => 'El email ingresado no tiene el formato correcto',
+                      'is_unique' => 'El email ingresado ya se encuentra en uso')
+                );
+
+            $this->form_validation->set_rules(
+                'confirmacion_email',
+                'Confirmación de email', 
+                array('required', 'matches[email]'),
+                array('required' => 'La confirmación de email es requerida', 'matches' => 'Los email ingresados no coinciden')
+                ); 
+
+            $this->form_validation->set_rules(
+                'clave', 
+                'Contraseña',
+                array('required', 'min_length[8]'),
+                array('required' => 'La contraseña es requerida', 'min_length' => 'La contraseña debe tener al menos 8 caracteres')
+                );
+
+            $this->form_validation->set_rules(
+                'confirmacion_clave',
+                'Confirmación de contraseña', 
+                array('required', 'matches[clave]'),
+                array('required' => 'La confirmación de contraseña es requerida', 'matches' => 'Las contraseñas ingresadas no coinciden')
+                );
         }
 }

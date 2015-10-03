@@ -6,16 +6,9 @@ class Usuario_model extends CI_Model{
                 $this->load->database();
         }
 
-        public function crear_usuario()
+        public function crear_usuario($datos)
         {
-            $data = array(
-                'email' => $this->input->post('email'),
-                'clave' => password_hash($this->input->post('clave'), PASSWORD_DEFAULT),
-                'id_categoria' => $this->input->post('categoria'),
-                'fecha_alta'=> date('Y-m-d H:i:s')
-                 );
-
-            return $this->db->insert('usuario', $data);
+            return $this->db->insert('usuario', $datos);
         }
 
         public function obtener_usuarios()
@@ -54,5 +47,13 @@ class Usuario_model extends CI_Model{
             }
 
             return $usuario;
+        }
+
+        public function editar_usuario($datos)
+        {
+             $campos = array('email'=> $datos['email'], 'id_categoria' => $datos['id_categoria']);
+             $condicion = 'id_usuario =' . $datos['id_usuario'];
+             $sentencia = $this->db->update_string('usuario', $campos, $condicion);
+             return $this->db->query($sentencia);
         }
 }
