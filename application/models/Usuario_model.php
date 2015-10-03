@@ -28,7 +28,7 @@ class Usuario_model extends CI_Model{
                  INNER JOIN categoria_usuario cu on u.id_categoria = cu.id_categoria
                  WHERE u.fecha_baja IS NULL
                  ORDER BY u.fecha_alta'
-                )->result_array();
+            )->result_array();
 
             foreach ($resultado as $indice_fila => $fila)
                 {
@@ -36,5 +36,23 @@ class Usuario_model extends CI_Model{
                 }
 
             return $resultado;
+        }
+
+        public function obtener_usuario_por_id($id_usuario)
+        {
+            $resultado = $this->db->query(
+               'SELECT u.id_usuario, u.email, u.id_categoria
+                FROM usuario u
+                WHERE u.id_usuario =' . $id_usuario
+            );
+
+            $usuario = NULL;
+
+            if($resultado->num_rows() > 0)
+            {
+                $usuario = $resultado->row();
+            }
+
+            return $usuario;
         }
 }

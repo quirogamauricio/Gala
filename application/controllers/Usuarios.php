@@ -5,6 +5,7 @@ class Usuarios extends CI_Controller {
         {
                 parent::__construct();
                 $this->load->model('usuario_model');
+                $this->load->model('categoria_usuarios_model');
         }
 
         public function index()
@@ -21,11 +22,9 @@ class Usuarios extends CI_Controller {
         {
             $this->load->library('form_validation');
 
-            $this->load->model('categoria_usuarios_model');
-
             $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
 
-            $data['title'] = 'Crear nuevo usuario';
+            $data['titulo'] = 'Crear nuevo usuario';
 
             $this->form_validation->set_rules(
                 'email',
@@ -79,12 +78,14 @@ class Usuarios extends CI_Controller {
 
         public function ver($id_usuario = NULL)
         {
-            $data['title'] = 'Usuarios del sistema';
+            $this->load->library('form_validation');
 
-            $this->load->view('templates/header', $data);
+            $this->load->view('templates/header');
 
             if ($id_usuario === NULL) 
             {
+                $data['titulo'] = 'Usuarios del sistema';
+
                 $this->load->library('table');
 
                 $usuarios = $this->usuario_model->obtener_usuarios();
@@ -100,13 +101,28 @@ class Usuarios extends CI_Controller {
                     $resultado = '<h4>No se encontraron resultados</h4>';
                 }
 
-                $data['tabla'] = $resultado;
+                $data['contenido'] = $resultado;
                 $this->load->view('usuarios/ver', $data);
             }
             else
             {
-                
+                $data['titulo'] = 'Información del usuario';
 
+                $usuario = $this->usuario_model->obtener_usuario_por_id($id_usuario);
+
+                if ($usuario === NULL) 
+                {
+                    $data['contenido'] = '<h4>Error al recuperar información del usuario seleccionado</h4>';
+                }
+                else
+                {
+                    $data['id_usuario'] = $usuario->id_usuario;
+                    $data['email'] = $usuario->email;
+                    $data['id_categoria'] = $usuario->id_categoria;
+                    $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
+                }
+
+                $this->load->view('usuarios/ver', $data);
             }
 
             $this->load->view('templates/footer');
