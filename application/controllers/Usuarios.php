@@ -28,24 +28,19 @@ class Usuarios extends CI_Controller {
             $data['title'] = 'Crear nuevo usuario';
 
             $this->form_validation->set_rules(
-                'nombre_usuario',
-                'Nombre de usuario', 
-                array('required', 'is_unique[usuario.nombre_usuario]'),
-                array('required' => 'El nombre de usuario es requerido', 'is_unique' => 'El nombre de usuario ingresado ya se encuentra en uso')
-                );
-
-            $this->form_validation->set_rules(
                 'email',
-                'Email',
+                'Email', 
                 array('required', 'valid_email', 'is_unique[usuario.email]'),
-                array('required' => 'El email es requerido', 'valid_email' => 'El email ingresado no tiene el formato correcto', 'is_unique' => 'El email ingresado ya se encuentra en uso')
+                array('required' => 'El email es requerido', 
+                      'valid_email' => 'El email ingresado no tiene el formato correcto',
+                      'is_unique' => 'El email ingresado ya se encuentra en uso')
                 );
 
             $this->form_validation->set_rules(
                 'confirmacion_email',
-                'Confirmación de email',
+                'Confirmación de email', 
                 array('required', 'matches[email]'),
-                array('required' => 'La confirmación de email es requerida', 'matches' => 'Los emails ingresados no coinciden')
+                array('required' => 'La confirmación de email es requerida', 'matches' => 'Los email ingresados no coinciden')
                 );
 
             $this->form_validation->set_rules(
