@@ -51,7 +51,6 @@ class Usuarios extends CI_Controller {
 
         public function ver($id_usuario = NULL)
         {
-            $this->load->library('form_validation');
             $this->load->view('templates/header');
 
             if ($id_usuario === NULL) 
@@ -59,8 +58,15 @@ class Usuarios extends CI_Controller {
                 $data['titulo'] = 'Usuarios del sistema';
 
                 $this->load->library('table');
+                $this->load->helper('url'); // Cargo helper para usar función anchor
 
                 $usuarios = $this->usuario_model->obtener_usuarios();
+
+                foreach ($usuarios as $indice_fila => $fila)
+                {
+                    $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver'); //Permite generar el link para ver el usuario particular
+                }
+
                 $resultado;
 
                 if(!empty($usuarios))
@@ -78,6 +84,8 @@ class Usuarios extends CI_Controller {
             }
             else
             {
+                $this->load->library('form_validation');
+                
                 $data['titulo'] = 'Información del usuario';
 
                 $usuario = $this->usuario_model->obtener_usuario_por_id($id_usuario);
@@ -133,6 +141,23 @@ class Usuarios extends CI_Controller {
                 $this->load->view('usuarios/exito', $data);
                 $this->load->view('templates/footer');
             }
+        }
+
+        public function eliminar()
+        {
+            $id_usuario = $this->uri->segment(3);
+
+            if ($this->usuario_model->eliminar_usuario($id_usuario)) 
+            {
+                $data['mensaje'] = '¡Usuario eliminado correctamente!';
+            }
+            else
+            {
+                $data['mensaje'] = '¡Usuario inexistente!';   
+            }
+
+            $this->load->view('usuarios/exito', $data);
+            $this->load->view('templates/footer');
         }
 
         private function establecer_reglas_edicion()

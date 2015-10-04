@@ -1,3 +1,5 @@
+<?php $this->load->helper('url'); ?>
+
 <h2><?php echo $titulo; ?></h2>
 <div>
 	<?php if(isset($contenido)) 
@@ -22,7 +24,7 @@
 	    <input type="input" name="confirmacion_email" value="<?php echo set_value('confirmacion_email', $email);?>"/><br />
 
 	    <input type="submit" name="submit" value="Actualizar"/>
-	    <a href="#">Eliminar</a>
+	    <a href="<?php echo site_url('usuarios/eliminar') . '/' . $id_usuario ?>">Eliminar</a>
 
 		</form>	
 	<?php } ?>
