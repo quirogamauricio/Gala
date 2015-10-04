@@ -27,7 +27,8 @@ class Usuario_model extends CI_Model{
             $resultado = $this->db->query(
                'SELECT u.id_usuario, u.email, u.id_categoria
                 FROM usuario u
-                WHERE u.id_usuario =' . $id_usuario
+                WHERE u.id_usuario =' . $id_usuario .
+                ' AND u.fecha_baja IS NULL'
             );
 
             $usuario = NULL;

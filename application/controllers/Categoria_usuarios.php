@@ -43,31 +43,58 @@ class Categoria_usuarios extends CI_Controller {
             }
         }
 
-        public function ver()
+        public function ver($id_categoria_usuario = NULL)
         {
-            $data['titulo'] = 'Categorías de usuarios del sistema';
-
             $this->load->view('templates/header');
 
-            $this->load->library('table');
-
-            $categorias_usuario = $this->categoria_usuarios_model->obtener_categorias_usuario_table();
-
-            $resultado;
-
-            if(!empty($categorias_usuario))
+            if ($id_categoria_usuario === NULL)
             {
-                $this->table->set_heading('Categoría');
+                $data['titulo'] = 'Categorías de usuarios del sistema';
 
-                $resultado = $this->table->generate($categorias_usuario);
+                $this->load->library('table');
+                $this->load->helper('url');
+
+                $categorias_usuario = $this->categoria_usuarios_model->obtener_categorias_usuario_table();
+
+                foreach ($categorias_usuario as $indice_fila => $fila)
+                {
+                    $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver'); //Permite generar el link para ver el usuario particular
+                }
+
+                $resultado;
+
+                if(!empty($categorias_usuario))
+                {
+                    $this->table->set_heading('Categoría');
+
+                    $resultado = $this->table->generate($categorias_usuario);
+                }
+                else
+                {
+                    $resultado = '<h4>No se encontraron resultados</h4>';
+                }
+
+                $data['contenido'] = $resultado;
             }
             else
-            {
-                $resultado = '<h4>No se encontraron resultados</h4>';
+            { 
+                $this->load->library('form_validation');
+
+                $data['titulo'] = 'Información de la categoría de usuario';
+
+                $categoria_usuario = $this->categoria_usuarios_model->obtener_categoria_usuario_por_id($id_categoria_usuario);
+
+                if ($categoria_usuario === NULL) 
+                {
+                    $data['contenido'] = '<h4>Error al recuperar información de la categoría de  usuario seleccionada</h4>';
+                }
+                else
+                {
+                    $data['id_categoria'] = $categoria_usuario->id_categoria;
+                    $data['categoria'] = $categoria_usuario->categoria;
+                }
             }
-
-            $data['tabla'] = $resultado;
-
+    
             $this->load->view('categoria_usuarios/ver', $data);
 
             $this->load->view('templates/footer');

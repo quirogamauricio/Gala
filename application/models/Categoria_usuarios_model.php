@@ -17,7 +17,7 @@ class Categoria_usuarios_model extends CI_Model{
         {
         	$categorias_array = array();
 
-        	$resultado = $this->db->query('SELECT * FROM categoria_usuario')->result();
+        	$resultado = $this->db->query('SELECT * FROM categoria_usuario WHERE fecha_baja IS NULL')->result();
 
         	foreach ($resultado as $fila)
         	{
@@ -29,6 +29,25 @@ class Categoria_usuarios_model extends CI_Model{
 
         public function obtener_categorias_usuario_table()
         {
-            return $this->db->query('SELECT cu.categoria FROM categoria_usuario cu')->result_array();
+            return $this->db->query('SELECT categoria, id_categoria FROM categoria_usuario WHERE fecha_baja IS NULL')->result_array();
+        }
+
+        public function obtener_categoria_usuario_por_id($id_categoria_usuario)
+        {
+            $resultado = $this->db->query(
+               'SELECT *
+                FROM categoria_usuario cu
+                WHERE cu.id_categoria =' . $id_categoria_usuario .
+                ' AND fecha_baja IS NULL'
+            );
+
+            $categoria_usuario = NULL;
+
+            if($resultado->num_rows() > 0)
+            {
+                $categoria_usuario = $resultado->row();
+            }
+
+            return $categoria_usuario;
         }
 }
