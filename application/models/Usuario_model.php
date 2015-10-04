@@ -51,8 +51,9 @@ class Usuario_model extends CI_Model{
         public function eliminar_usuario($id_usuario)
         {
             $campos = array('fecha_baja' => date('Y-m-d H:i:s'));
-            $condicion = 'id_usuario =' . $id_usuario;
+            $condicion = 'id_usuario =' . $id_usuario . ' AND fecha_baja IS NULL';
             $sentencia = $this->db->update_string('usuario', $campos, $condicion);
-            return $this->db->query($sentencia);
+            $this->db->query($sentencia);
+            return $this->db->affected_rows();
         }
 }

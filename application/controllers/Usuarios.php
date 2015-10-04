@@ -85,7 +85,7 @@ class Usuarios extends CI_Controller {
             else
             {
                 $this->load->library('form_validation');
-                
+
                 $data['titulo'] = 'Información del usuario';
 
                 $usuario = $this->usuario_model->obtener_usuario_por_id($id_usuario);
@@ -147,13 +147,17 @@ class Usuarios extends CI_Controller {
         {
             $id_usuario = $this->uri->segment(3);
 
-            if ($this->usuario_model->eliminar_usuario($id_usuario)) 
+            if ($id_usuario === NULL)
+            {
+                 $data['mensaje'] = 'No se especificó un usuario a eliminar';
+            }
+            elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
             {
                 $data['mensaje'] = '¡Usuario eliminado correctamente!';
             }
             else
             {
-                $data['mensaje'] = '¡Usuario inexistente!';   
+                  $data['mensaje'] = '¡Usuario inexistente!';
             }
 
             $this->load->view('usuarios/exito', $data);
