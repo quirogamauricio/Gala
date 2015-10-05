@@ -28,11 +28,11 @@ class Usuarios extends CI_Controller {
 
             $this->establecer_reglas_creacion();
 
+            $this->cargar_header_y_principal();
+
             if ($this->form_validation->run() === FALSE)
             {
-                $this->cargar_header_y_principal();
                 $this->load->view('usuarios/crear', $data);
-                $this->load->view('templates/footer');
             }
             else
             {
@@ -47,6 +47,8 @@ class Usuarios extends CI_Controller {
                 $data['mensaje'] = "¡Usuario creado correctamente!";
                 $this->load->view('usuarios/exito', $data);
             }
+
+            $this->load->view('templates/footer');
         }
 
         public function ver($id_usuario = NULL)
@@ -111,7 +113,6 @@ class Usuarios extends CI_Controller {
         public function editar()
         {
             $this->load->library('form_validation');
-            $this->cargar_header_y_principal();
 
             $datos = array(
                 'id_usuario' => $this->input->post('id_usuario'),
@@ -123,9 +124,7 @@ class Usuarios extends CI_Controller {
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('templates/header');
                 $this->ver($datos['id_usuario']);
-                $this->load->view('templates/footer');
             }
             else
             {
@@ -136,8 +135,8 @@ class Usuarios extends CI_Controller {
                 else
                 {
                     $data['mensaje'] = '¡No se actualizó la información!';
-                }
-
+                }   
+                $this->cargar_header_y_principal();
                 $this->load->view('usuarios/exito', $data);
                 $this->load->view('templates/footer');
             }
@@ -216,7 +215,7 @@ class Usuarios extends CI_Controller {
                 array('required' => 'La confirmación de contraseña es requerida', 'matches' => 'Las contraseñas ingresadas no coinciden')
                 );
         }
-        
+
         private function cargar_header_y_principal()
         {
             $this->load->view('templates/header');

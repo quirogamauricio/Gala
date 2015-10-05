@@ -23,25 +23,23 @@ class Categoria_usuarios extends CI_Controller {
 
             $data['title'] = 'Crear nueva categoría de usuario';
 
-            $this->form_validation->set_rules(
-                'categoria',
-                'Categoria', 
-                array('required', 'is_unique[categoria_usuario.categoria]'),
-                array('required' => 'La categoría es requerida', 'is_unique' => 'La categoría ingresada ya existe')
-                );
+            $this->establecer_reglas();
+
+            $this->cargar_header_y_principal();
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->cargar_header_y_principal();
                 $this->load->view('categoria_usuarios/crear', $data);
-                $this->load->view('templates/footer');
             }
             else
             {
                 $data = array('categoria' => $this->input->post('categoria'));
                 $this->categoria_usuarios_model->crear_categoria_usuario($data);
-                $this->load->view('categoria_usuarios/exito');
+                $data['mensaje'] = "Categoría de usuario creada correctamente!";
+                $this->load->view('categoria_usuarios/exito', $data);
             }
+
+            $this->load->view('templates/footer');
         }
 
         public function ver($id_categoria_usuario = NULL)
@@ -101,9 +99,51 @@ class Categoria_usuarios extends CI_Controller {
             $this->load->view('templates/footer');
         }
 
+        public function editar()
+        {
+            $this->load->library('form_validation');
+
+            $datos = array(
+                'id_categoria' => $this->input->post('id_categoria'),
+                'categoria' => $this->input->post('categoria')
+                );
+
+            $this-> establecer_reglas();
+
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->library('form_validation');
+                $this->ver($datos['id_categoria']);
+            }
+            else
+            {
+                if ($this->categoria_usuarios_model->editar_categoria_usuario($datos)) 
+                {
+                    $data['mensaje'] = '¡Los datos de la categoría de usuario se actualizaron correctamente!';
+                }
+                else
+                {
+                    $data['mensaje'] = '¡No se actualizó la información!';
+                }
+                $this->cargar_header_y_principal();
+                $this->load->view('categoria_usuarios/exito', $data);
+                $this->load->view('templates/footer');
+            }
+        }
+
         private function cargar_header_y_principal()
         {
             $this->load->view('templates/header');
             $this->load->view('templates/principal');
+        }
+
+        private function establecer_reglas()
+        {
+            $this->form_validation->set_rules(
+                'categoria',
+                'Categoria', 
+                array('required', 'is_unique[categoria_usuario.categoria]'),
+                array('required' => 'La categoría es requerida', 'is_unique' => 'La categoría ingresada ya existe')
+                );
         }
 }

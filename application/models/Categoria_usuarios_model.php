@@ -49,4 +49,12 @@ class Categoria_usuarios_model extends CI_Model{
 
             return $categoria_usuario;
         }
+
+        public function editar_categoria_usuario($datos)
+        {
+            $campos = array('categoria' => $datos['categoria']);
+            $condicion = 'id_categoria =' . $datos['id_categoria'];
+            $sentencia = $this->db->update_string('categoria_usuario', $campos, $condicion);
+            return $this->db->query($sentencia);
+        }
 }
