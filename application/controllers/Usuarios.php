@@ -30,7 +30,7 @@ class Usuarios extends CI_Controller {
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('templates/header');
+                $this->cargar_header_y_principal();
                 $this->load->view('usuarios/crear', $data);
                 $this->load->view('templates/footer');
             }
@@ -51,7 +51,7 @@ class Usuarios extends CI_Controller {
 
         public function ver($id_usuario = NULL)
         {
-            $this->load->view('templates/header');
+            $this->cargar_header_y_principal();
 
             if ($id_usuario === NULL) 
             {
@@ -111,7 +111,7 @@ class Usuarios extends CI_Controller {
         public function editar()
         {
             $this->load->library('form_validation');
-            $this->load->view('templates/header');
+            $this->cargar_header_y_principal();
 
             $datos = array(
                 'id_usuario' => $this->input->post('id_usuario'),
@@ -145,6 +145,7 @@ class Usuarios extends CI_Controller {
 
         public function eliminar()
         {
+            $this->cargar_header_y_principal();
             $id_usuario = $this->uri->segment(3);
 
             if ($id_usuario === NULL)
@@ -214,5 +215,11 @@ class Usuarios extends CI_Controller {
                 array('required', 'matches[clave]'),
                 array('required' => 'La confirmación de contraseña es requerida', 'matches' => 'Las contraseñas ingresadas no coinciden')
                 );
+        }
+        
+        private function cargar_header_y_principal()
+        {
+            $this->load->view('templates/header');
+            $this->load->view('templates/principal');
         }
 }

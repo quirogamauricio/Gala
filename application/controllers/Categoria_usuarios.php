@@ -32,8 +32,7 @@ class Categoria_usuarios extends CI_Controller {
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->view('templates/header');
-
+                $this->cargar_header_y_principal();
                 $this->load->view('categoria_usuarios/crear', $data);
                 $this->load->view('templates/footer');
             }
@@ -47,7 +46,7 @@ class Categoria_usuarios extends CI_Controller {
 
         public function ver($id_categoria_usuario = NULL)
         {
-            $this->load->view('templates/header');
+            $this->cargar_header_y_principal();
 
             if ($id_categoria_usuario === NULL)
             {
@@ -100,5 +99,11 @@ class Categoria_usuarios extends CI_Controller {
             $this->load->view('categoria_usuarios/ver', $data);
 
             $this->load->view('templates/footer');
+        }
+
+        private function cargar_header_y_principal()
+        {
+            $this->load->view('templates/header');
+            $this->load->view('templates/principal');
         }
 }
