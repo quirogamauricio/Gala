@@ -20,6 +20,7 @@ class Categoria_usuarios extends CI_Controller {
         public function nueva()
         {
             $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $data['title'] = 'Crear nueva categoría de usuario';
 
@@ -58,10 +59,11 @@ class Categoria_usuarios extends CI_Controller {
                 {
                     $this->load->library('table');
                     $this->load->helper('url');
+                    $this->table->set_template(array('table_open' => '<table class="table">'));
 
                     foreach ($categorias_usuario as $indice_fila => $fila)
                     {
-                        $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver'); //Permite generar el link para ver el usuario particular
+                        $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el usuario particular
                     }
 
                     $this->table->set_heading('Categoría');
@@ -103,6 +105,7 @@ class Categoria_usuarios extends CI_Controller {
         public function editar()
         {
             $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(
                 'id_categoria' => $this->input->post('id_categoria'),

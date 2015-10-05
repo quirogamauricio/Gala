@@ -1,26 +1,35 @@
-<div class="container">
+<div class="container bs-example">
     <h2><?php echo $titulo; ?></h2>
 
     <?php echo validation_errors(); ?>
 
     <?php echo form_open('usuarios/nuevo'); ?>
 
-    <label for="categoria">Categoría</label>
-    <?php echo form_dropdown('categoria', $categorias);?><br />
+    <div class="form-group">
+        <label for="categoria">Categoría</label>
+        <?php echo form_dropdown('categoria', $categorias, array(), 'class="form-control"');?><br />
+    </div>
 
-    <label for="nombre_usuario">Email</label>
-    <input type="input" name="email" value="<?php echo set_value('email');?>"/><br />
+    <div class="form-group">
+        <label for="nombre_usuario">Email</label>
+        <input type="input" class="form-control" name="email" value="<?php echo set_value('email');?>"/><br />
+    </div>
 
-    <label for="nombre_usuario">Confirmación de email</label>
-    <input type="input" name="confirmacion_email" value="<?php echo set_value('confirmacion_email');?>"/><br />
+    <div class="form-group">
+        <label for="nombre_usuario">Confirmación de email</label>
+        <input type="input" class="form-control" name="confirmacion_email" value="<?php echo set_value('confirmacion_email');?>"/><br />
+    </div>
 
-    <label for="clave">Contraseña</label>
-    <input type="password" name="clave"/><br />
+    <div class="form-group">
+        <label for="clave">Contraseña</label>
+        <input type="password" class="form-control" name="clave"/><br />
+    </div>    
 
-     <label for="confirmacion_clave">Confirmación de contraseña</label>
-    <input type="password" name="confirmacion_clave"/><br />
+    <div class="form-group">
+        <label for="confirmacion_clave">Confirmación de contraseña</label>
+        <input type="password" class="form-control" name="confirmacion_clave"/><br />
+    </div>
 
-    <input type="submit" name="submit" value="Aceptar" />
-
+    <input type="submit" class="btn btn-default" name="submit" value="Aceptar" />
 </form> 
 </div>

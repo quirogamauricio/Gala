@@ -18,9 +18,9 @@
 	    <label for="categoria">Categoría</label>
 	    <input type="input" name="categoria" value="<?php echo set_value('categoria', $categoria);?>"/><br />
 
-	    <input type="submit" name="submit" value="Actualizar"/>
+	    <input type="submit" name="submit" value="Actualizar" class="btn"/>
 
-	    <a href="<?php echo site_url('categoria_usuarios/eliminar') . '/' . $id_categoria?>">Eliminar</a>
+	    <a href="<?php echo site_url('categoria_usuarios/eliminar') . '/' . $id_categoria?>" class="btn btn-danger">Eliminar</a>
 
 		</form>	
 <?php } ?>

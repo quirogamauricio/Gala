@@ -24,8 +24,8 @@
 	    <label for="nombre_usuario">Confirmación de email</label>
 	    <input type="input" name="confirmacion_email" value="<?php echo set_value('confirmacion_email', $email);?>"/><br />
 
-	    <input type="submit" name="submit" value="Actualizar"/>
-	    <a href="<?php echo site_url('usuarios/eliminar') . '/' . $id_usuario ?>">Eliminar</a>
+	    <input type="submit" name="submit" value="Actualizar" class="btn"/>
+	    <a href="<?php echo site_url('usuarios/eliminar') . '/' . $id_usuario ?>" class="btn btn-danger">Eliminar</a>
 
 		</form>	
 	<?php } ?>

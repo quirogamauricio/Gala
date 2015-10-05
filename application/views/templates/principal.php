@@ -11,12 +11,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Gala</a>
+            <a class="navbar-brand" href="#">GALA</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Usuarios <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url("index.php/usuarios/nuevo"); ?>">Crear usuario</a></li>
                   <li><a href="<?php echo base_url("index.php/usuarios/ver"); ?>">Ver usuarios</a></li>
@@ -25,7 +25,7 @@
             </ul>
              <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorías de usuario <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Categorías de usuario <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url("index.php/categoria_usuarios/nueva"); ?>">Crear categoría</a></li>
                   <li><a href="<?php echo base_url("index.php/categoria_usuarios/ver"); ?>">Ver categorías</a></li>

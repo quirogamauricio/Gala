@@ -5,10 +5,12 @@
 
 	<?php echo form_open('categoria_usuarios/nueva'); ?>
 
-	<label for="categoria">Categoría</label>
-	<input type="input" name="categoria" value="<?php echo set_value('categoria');?>"/><br />
+	<div class="form-group">
+		<label for="categoria">Categoría</label>
+		<input type="input" class="form-control" name="categoria" value="<?php echo set_value('categoria');?>"/><br />
+	</div>
 
-    <input type="submit" name="submit" value="Aceptar" />
+    <input type="submit" class="btn btn-default"name="submit" value="Aceptar" />
 
 </form>	
 </div>

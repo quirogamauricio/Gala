@@ -1,6 +1,6 @@
             <footer class="footer">
 		     	<div class="container">
-		        <p class="text-muted"><em>Copyright &copy; 2015 Gala</em></p>
+		        <p class="text-muted"><em>Copyright &copy; 2015 GALA</em></p>
 		      </div>
 		    </footer>
 <script type="text/javascript" src="<?php echo base_url("assets/js/jquery.min.js"); ?>"></script>

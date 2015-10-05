@@ -21,6 +21,7 @@ class Usuarios extends CI_Controller {
         public function nuevo()
         {
             $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
 
@@ -69,10 +70,11 @@ class Usuarios extends CI_Controller {
                     $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
+                    $this->table->set_template(array('table_open' => '<table class="table">'));
 
                     foreach ($usuarios as $indice_fila => $fila)
                     {
-                        $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver'); //Permite generar el link para ver el usuario particular
+                        $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el usuario particular
                     }
 
                     $resultado = $this->table->generate($usuarios);
@@ -112,6 +114,7 @@ class Usuarios extends CI_Controller {
         public function editar()
         {
             $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(
                 'id_usuario' => $this->input->post('id_usuario'),
