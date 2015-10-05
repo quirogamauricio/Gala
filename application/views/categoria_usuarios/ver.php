@@ -1,8 +1,8 @@
 <?php $this->load->helper('url'); ?>
 
-<h2><?php echo $titulo; ?></h2>
-
-<?php if(isset($contenido)) 
+<div class="container">
+	<h2><?php echo $titulo; ?></h2>
+	<?php if(isset($contenido)) 
 	{ 
 		echo $contenido;
 	} 
@@ -23,3 +23,6 @@
 
 		</form>	
 <?php } ?>
+</div>
+
+

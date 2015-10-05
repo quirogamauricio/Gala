@@ -131,6 +131,28 @@ class Categoria_usuarios extends CI_Controller {
             }
         }
 
+        public function eliminar()
+        {
+            $this->cargar_header_y_principal();
+            $id_categoria_usuario = $this->uri->segment(3);
+
+            if ($id_categoria_usuario === NULL)
+            {
+                 $data['mensaje'] = 'No se especificó una categoría de usuario a eliminar';
+            }
+            elseif($this->categoria_usuarios_model->eliminar_categoria_usuario($id_categoria_usuario) > 0)
+            {
+                $data['mensaje'] = '¡Categoría de usuario eliminada correctamente!';
+            }
+            else
+            {
+                $data['mensaje'] = 'Categoría inexistente!';
+            }
+
+            $this->load->view('categoria_usuarios/exito', $data);
+            $this->load->view('templates/footer');
+        }
+
         private function cargar_header_y_principal()
         {
             $this->load->view('templates/header');

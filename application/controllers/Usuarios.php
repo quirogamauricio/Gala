@@ -82,7 +82,6 @@ class Usuarios extends CI_Controller {
                 }
 
                 $data['contenido'] = $resultado;
-                $this->load->view('usuarios/ver', $data);
             }
             else
             {
@@ -103,10 +102,8 @@ class Usuarios extends CI_Controller {
                     $data['id_categoria'] = $usuario->id_categoria;
                     $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
                 }
-
-                $this->load->view('usuarios/ver', $data);
             }
-
+            $this->load->view('usuarios/ver', $data);
             $this->load->view('templates/footer');
         }
 

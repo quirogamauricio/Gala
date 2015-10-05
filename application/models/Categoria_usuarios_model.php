@@ -57,4 +57,13 @@ class Categoria_usuarios_model extends CI_Model{
             $sentencia = $this->db->update_string('categoria_usuario', $campos, $condicion);
             return $this->db->query($sentencia);
         }
+
+        public function eliminar_categoria_usuario($id_categoria_usuario)
+        {
+            $campos = array('fecha_baja' => date('Y-m-d H:i:s'));
+            $condicion = 'id_categoria =' . $id_categoria_usuario . ' AND fecha_baja IS NULL';
+            $sentencia = $this->db->update_string('categoria_usuario', $campos, $condicion);
+            $this->db->query($sentencia);
+            return $this->db->affected_rows();
+        }
 }
