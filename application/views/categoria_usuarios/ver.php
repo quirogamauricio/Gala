@@ -13,6 +13,7 @@
 		<?php echo form_open('categoria_usuarios/editar'); ?>
 
 		<input type="hidden" name="id_categoria" value="<?php echo set_value('id_categoria', $id_categoria);?>"/>
+		<input type="hidden" name="categoria_original" value="<?php echo set_value('categoria_original', $categoria_original);?>"/>
 
 	    <label for="categoria">Categoría</label>
 	    <input type="input" name="categoria" value="<?php echo set_value('categoria', $categoria);?>"/><br />

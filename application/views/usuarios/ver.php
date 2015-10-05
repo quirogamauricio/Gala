@@ -13,6 +13,7 @@
 		<?php echo form_open('usuarios/editar'); ?>
 
 		<input type="hidden" name="id_usuario" value="<?php echo set_value('id_usuario', $id_usuario);?>"/>
+		<input type="hidden" name="email_original" value="<?php echo set_value('email_original', $email_original);?>"/>
 
 		<label for="categoria">Categoría</label>
 	    <?php echo form_dropdown('categoria', $categorias, $id_categoria);?><br />

@@ -1,10 +1,11 @@
-<h2><?php echo $titulo; ?></h2>
+<div class="container">
+    <h2><?php echo $titulo; ?></h2>
 
-<?php echo validation_errors(); ?>
+    <?php echo validation_errors(); ?>
 
-<?php echo form_open('usuarios/nuevo'); ?>
+    <?php echo form_open('usuarios/nuevo'); ?>
 
-	<label for="categoria">Categoría</label>
+    <label for="categoria">Categoría</label>
     <?php echo form_dropdown('categoria', $categorias);?><br />
 
     <label for="nombre_usuario">Email</label>
@@ -21,4 +22,5 @@
 
     <input type="submit" name="submit" value="Aceptar" />
 
-</form>	
+</form> 
+</div>

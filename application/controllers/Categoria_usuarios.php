@@ -23,9 +23,9 @@ class Categoria_usuarios extends CI_Controller {
 
             $data['title'] = 'Crear nueva categoría de usuario';
 
-            $this->establecer_reglas();
-
             $this->cargar_header_y_principal();
+
+            $this->establecer_reglas(TRUE);
 
             if ($this->form_validation->run() === FALSE)
             {
@@ -35,7 +35,7 @@ class Categoria_usuarios extends CI_Controller {
             {
                 $data = array('categoria' => $this->input->post('categoria'));
                 $this->categoria_usuarios_model->crear_categoria_usuario($data);
-                $data['mensaje'] = "Categoría de usuario creada correctamente!";
+                $data['mensaje'] = "¡Categoría de usuario creada correctamente!";
                 $this->load->view('categoria_usuarios/exito', $data);
             }
 
@@ -58,7 +58,7 @@ class Categoria_usuarios extends CI_Controller {
                 {
                     $this->load->library('table');
                     $this->load->helper('url');
-                    
+
                     foreach ($categorias_usuario as $indice_fila => $fila)
                     {
                         $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver'); //Permite generar el link para ver el usuario particular
@@ -91,6 +91,7 @@ class Categoria_usuarios extends CI_Controller {
                 {
                     $data['id_categoria'] = $categoria_usuario->id_categoria;
                     $data['categoria'] = $categoria_usuario->categoria;
+                    $data['categoria_original'] = $categoria_usuario->categoria;
                 }
             }
     
@@ -108,11 +109,17 @@ class Categoria_usuarios extends CI_Controller {
                 'categoria' => $this->input->post('categoria')
                 );
 
-            $this-> establecer_reglas();
+            $validar_categoria_unica = TRUE;
+
+            if ($datos['categoria'] === $this->input->post('categoria_original'))
+            {
+                 $validar_categoria_unica = FALSE;
+            }
+
+            $this-> establecer_reglas($validar_categoria_unica);
 
             if ($this->form_validation->run() === FALSE)
             {
-                $this->load->library('form_validation');
                 $this->ver($datos['id_categoria']);
             }
             else
@@ -159,13 +166,17 @@ class Categoria_usuarios extends CI_Controller {
             $this->load->view('templates/principal');
         }
 
-        private function establecer_reglas()
+        private function establecer_reglas($validar_categoria_unica)
         {
-            $this->form_validation->set_rules(
-                'categoria',
-                'Categoria', 
-                array('required', 'is_unique[categoria_usuario.categoria]'),
-                array('required' => 'La categoría es requerida', 'is_unique' => 'La categoría ingresada ya existe')
-                );
+            $array_validaciones = array('required');
+            $array_mensajes = array('required' => 'La categoría es requerida');
+
+            if ($validar_categoria_unica)
+            {
+                array_push($array_validaciones, 'is_unique[categoria_usuario.categoria]');
+                $array_mensajes['is_unique'] = 'La categoría ingresada ya existe';
+            }
+
+            $this->form_validation->set_rules('categoria', 'Categoria', $array_validaciones, $array_mensajes);
         }
 }

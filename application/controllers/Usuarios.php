@@ -69,7 +69,7 @@ class Usuarios extends CI_Controller {
                     $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
-                    
+
                     foreach ($usuarios as $indice_fila => $fila)
                     {
                         $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver'); //Permite generar el link para ver el usuario particular
@@ -100,6 +100,7 @@ class Usuarios extends CI_Controller {
                 {
                     $data['id_usuario'] = $usuario->id_usuario;
                     $data['email'] = $usuario->email;
+                    $data['email_original'] = $usuario->email;
                     $data['id_categoria'] = $usuario->id_categoria;
                     $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
                 }
@@ -118,7 +119,14 @@ class Usuarios extends CI_Controller {
                 'id_categoria' => $this->input->post('categoria'),
                  );
 
-            $this-> establecer_reglas_edicion();
+            $validar_email_unico = TRUE;
+
+            if ($datos['email'] === $this->input->post('email_original'))
+            {
+                 $validar_email_unico = FALSE;
+            }
+
+            $this-> establecer_reglas_edicion($validar_email_unico);
 
             if ($this->form_validation->run() === FALSE)
             {
@@ -162,16 +170,20 @@ class Usuarios extends CI_Controller {
             $this->load->view('templates/footer');
         }
 
-        private function establecer_reglas_edicion()
+        private function establecer_reglas_edicion($validar_email_unico)
         {
-            $this->form_validation->set_rules(
-            'email',
-            'Email', 
-            array('required', 'valid_email', 'is_unique[usuario.email]'),
-            array('required' => 'El email es requerido', 
-                  'valid_email' => 'El email ingresado no tiene el formato correcto',
-                  'is_unique' => 'El email ingresado ya se encuentra en uso')
-            );
+            $array_validaciones = array('required', 'valid_email');
+
+            $array_mensajes = array('required' => 'El email es requerido', 
+                                    'valid_email' => 'El email ingresado no tiene el formato correcto');
+
+            if ($validar_email_unico) 
+            {
+                array_push($array_validaciones, 'is_unique[usuario.email]') ;
+                $array_mensajes['is_unique'] = 'El email ingresado ya se encuentra en uso';
+            }
+
+            $this->form_validation->set_rules('email','Email', $array_validaciones, $array_mensajes);
 
             $this->form_validation->set_rules(
                 'confirmacion_email',
