@@ -58,22 +58,23 @@ class Usuarios extends CI_Controller {
             if ($id_usuario === NULL) 
             {
                 $data['titulo'] = 'Usuarios del sistema';
-
-                $this->load->library('table');
-                $this->load->helper('url'); // Cargo helper para usar función anchor
-
+                
                 $usuarios = $this->usuario_model->obtener_usuarios();
-
-                foreach ($usuarios as $indice_fila => $fila)
-                {
-                    $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver'); //Permite generar el link para ver el usuario particular
-                }
 
                 $resultado;
 
                 if(!empty($usuarios))
                 {
+
+                    $this->load->library('table');
+                    $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
+                    
+                    foreach ($usuarios as $indice_fila => $fila)
+                    {
+                        $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver'); //Permite generar el link para ver el usuario particular
+                    }
+
                     $resultado = $this->table->generate($usuarios);
                 }
                 else

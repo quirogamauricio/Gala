@@ -6,7 +6,7 @@
 	<title>Gala</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="<?php echo base_url("content/css/bootstrap.min.css"); ?>">
-	<link rel="stylesheet" href="<?php echo base_url("content/css/sticky-footer-navbar.css"); ?>">
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>">
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/sticky-footer-navbar.css"); ?>">
 </head>
 <body>

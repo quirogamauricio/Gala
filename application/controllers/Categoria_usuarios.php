@@ -50,20 +50,20 @@ class Categoria_usuarios extends CI_Controller {
             {
                 $data['titulo'] = 'Categorías de usuarios del sistema';
 
-                $this->load->library('table');
-                $this->load->helper('url');
-
                 $categorias_usuario = $this->categoria_usuarios_model->obtener_categorias_usuario_table();
-
-                foreach ($categorias_usuario as $indice_fila => $fila)
-                {
-                    $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver'); //Permite generar el link para ver el usuario particular
-                }
 
                 $resultado;
 
                 if(!empty($categorias_usuario))
                 {
+                    $this->load->library('table');
+                    $this->load->helper('url');
+                    
+                    foreach ($categorias_usuario as $indice_fila => $fila)
+                    {
+                        $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver'); //Permite generar el link para ver el usuario particular
+                    }
+
                     $this->table->set_heading('Categoría');
 
                     $resultado = $this->table->generate($categorias_usuario);
