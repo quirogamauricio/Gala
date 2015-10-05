@@ -33,12 +33,14 @@ class Categoria_usuarios extends CI_Controller {
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/header');
+
                 $this->load->view('categoria_usuarios/crear', $data);
                 $this->load->view('templates/footer');
             }
             else
             {
-                $this->categoria_usuarios_model->crear_categoria_usuario();
+                $data = array('categoria' => $this->input->post('categoria'));
+                $this->categoria_usuarios_model->crear_categoria_usuario($data);
                 $this->load->view('categoria_usuarios/exito');
             }
         }

@@ -3,9 +3,9 @@ class Usuarios extends CI_Controller {
 
         public function __construct()
         {
-                parent::__construct();
-                $this->load->model('usuario_model');
-                $this->load->model('categoria_usuarios_model');
+            parent::__construct();
+            $this->load->model('usuario_model');
+            $this->load->model('categoria_usuarios_model');
         }
 
         public function index()
