@@ -41,6 +41,17 @@ class Usuario_model extends CI_Model{
             return $usuario;
         }
 
+       public function obtener_usuario_por_email($email)
+        {
+            $resultado = $this->db->query(
+               'SELECT u.id_usuario, u.email
+                FROM usuario u
+                WHERE u.email = "' . $email .
+                '" AND u.fecha_baja IS NULL');
+
+            return $resultado->row();
+        }
+
         public function editar_usuario($datos)
         {
             $campos = array('email' => $datos['email'], 'id_categoria' => $datos['id_categoria']);

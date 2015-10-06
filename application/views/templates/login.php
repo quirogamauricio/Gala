@@ -29,7 +29,7 @@
 
       <?php echo form_open('login/autenticar', 'class="form-signin"'); ?>
         <h2 class="form-signin-heading">Inicio de sesión</h2>
-        <label for="email">Email</label>
+        <label for="email" class="sr-only">Email</label>
         <input type="email" name="email" class="form-control" placeholder="Email" autofocus="">
         <label for="clave" class="sr-only">Contraseña</label>
         <input type="password" name="clave" class="form-control" placeholder="Contraseña">
