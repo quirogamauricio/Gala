@@ -11,16 +11,18 @@
 		<?php echo validation_errors(); ?>
 
 		<?php echo form_open('categoria_usuarios/editar'); ?>
-
+	
 		<input type="hidden" name="id_categoria" value="<?php echo set_value('id_categoria', $id_categoria);?>"/>
 		<input type="hidden" name="categoria_original" value="<?php echo set_value('categoria_original', $categoria_original);?>"/>
-
-	    <label for="categoria">Categoría</label>
-	    <input type="input" name="categoria" value="<?php echo set_value('categoria', $categoria);?>"/><br />
+		
+		<div class="form-group">
+		    <label for="categoria">Categoría</label>
+		    <input type="input" name="categoria" class="form-control"value="<?php echo set_value('categoria', $categoria);?>"/><br />
+		</div>
 
 	    <input type="submit" name="submit" value="Actualizar" class="btn"/>
 
-	    <a href="<?php echo site_url('categoria_usuarios/eliminar') . '/' . $id_categoria?>" class="btn btn-danger">Eliminar</a>
+	    <a href="<?php echo site_url('categoria_usuarios/eliminar') . '/' . $id_categoria?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar esta categoría?');">Eliminar</a>
 
 		</form>	
 <?php } ?>
