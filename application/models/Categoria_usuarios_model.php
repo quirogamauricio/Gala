@@ -8,7 +8,6 @@ class Categoria_usuarios_model extends CI_Model
 
         public function crear_categoria_usuario($data)
         {
-
             return $this->db->insert('categoria_usuario', $data);
         }
 
