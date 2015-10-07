@@ -6,11 +6,7 @@ class Usuarios extends CI_Controller {
             parent::__construct();
             $this->load->library('session');
 
-            if (!isset($_SESSION['usuario_autenticado']) || !$_SESSION['usuario_autenticado'] === TRUE)
-            {
-                $this->load->helper('url');
-                redirect('login');
-            }
+            $this->session->user_is_authenticated();
 
             $this->load->model('usuario_model');
             $this->load->model('categoria_usuarios_model');
@@ -72,12 +68,14 @@ class Usuarios extends CI_Controller {
 
                     $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
+                    $this->load->helper('date');
                     $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
                     $this->table->set_template(array('table_open' => '<table class="table">'));
 
                     foreach ($usuarios as $indice_fila => $fila)
                     {
                         $usuarios[$indice_fila]['id'] = anchor('usuarios/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el usuario particular
+                        $usuarios[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
                     }
 
                     $resultado = $this->table->generate($usuarios);

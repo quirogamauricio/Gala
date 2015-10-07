@@ -5,12 +5,7 @@ class Principal extends CI_Controller {
         {
             parent::__construct();
             $this->load->library('session');
-
-            if (!isset($_SESSION['usuario_autenticado']) || !$_SESSION['usuario_autenticado'] === TRUE)
-            {
-                $this->load->helper('url');
-                redirect('login');
-            }
+            user_is_authenticated();
         }
 
         public function index()

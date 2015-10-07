@@ -3,16 +3,12 @@ class Categoria_usuarios extends CI_Controller {
 
         public function __construct()
         {
-                parent::__construct();
-                $this->load->library('session');
+            parent::__construct();
+            $this->load->library('session');
 
-                if (!isset($_SESSION['usuario_autenticado']) || !$_SESSION['usuario_autenticado'] === TRUE)
-                {
-                    $this->load->helper('url');
-                    redirect('login');
-                }
-                
-                $this->load->model('categoria_usuarios_model');
+            user_is_authenticated();
+            
+            $this->load->model('categoria_usuarios_model');
         }
 
         public function index()
