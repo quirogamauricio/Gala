@@ -6,7 +6,7 @@ class Categoria_usuarios extends CI_Controller {
             parent::__construct();
             $this->load->library('session');
 
-            user_is_authenticated();
+            $this->session->user_is_authenticated();
             
             $this->load->model('categoria_usuarios_model');
         }
