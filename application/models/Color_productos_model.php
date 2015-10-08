@@ -11,6 +11,20 @@ class Color_productos_model extends CI_Model{
             return $this->db->insert('color_producto', $data);
         }
 
+        public function obtener_colores_producto_dropdown()
+        {
+            $colores_array = array();
+
+            $resultado = $this->db->query('SELECT * FROM color_producto')->result();
+
+            foreach ($resultado as $fila)
+            {
+                $colores_array[$fila->id_color_producto] = $fila->color;
+            }
+
+            return $colores_array;
+        }
+
         public function obtener_color_productos_table()
         {
             return $this->db->query('SELECT color, id_color_producto FROM color_producto')->result_array();

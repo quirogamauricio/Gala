@@ -11,6 +11,20 @@ class Tipo_productos_model extends CI_Model
             return $this->db->insert('tipo_producto', $data);
         }
 
+        public function obtener_tipos_producto_dropdown()
+        {
+            $tipos_array = array();
+
+            $resultado = $this->db->query('SELECT * FROM tipo_producto')->result();
+
+            foreach ($resultado as $fila)
+            {
+                $tipos_array[$fila->id_tipo_producto] = $fila->tipo;
+            }
+
+            return $tipos_array;
+        }
+
         public function obtener_tipo_productos_table()
         {
             return $this->db->query('SELECT tipo, id_tipo_producto FROM tipo_producto')->result_array();
