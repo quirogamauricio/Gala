@@ -1,4 +1,4 @@
-<div class="container bs-example">
+<div class="container">
     <h2><?php echo $titulo; ?></h2>
 
     <?php echo validation_errors(); ?>

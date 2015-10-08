@@ -31,6 +31,8 @@
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url("index.php/tipo_productos/nuevo"); ?>">Crear tipo de producto</a></li>
                   <li><a href="<?php echo base_url("index.php/tipo_productos/ver"); ?>">Ver tipos de productos</a></li>
+                  <li><a href="<?php echo base_url("index.php/color_productos/nuevo"); ?>">Crear color de producto</a></li>
+                  <li><a href="<?php echo base_url("index.php/color_productos/ver"); ?>">Ver colores de productos</a></li>
                 </ul>
               </li>
             </ul>
