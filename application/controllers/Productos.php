@@ -42,10 +42,10 @@ class Productos extends CI_Controller {
                 $datos = array(
                 'precio_costo' => $this->input->post('precio_costo'),
                 'codigo' => $this->input->post('codigo'),
-                'talle' => $this->input->post('talle'),
-                'numero' => $this->input->post('numero'),
-                'publicado' => $this->input->post('publicado'),
-                'detalles' => $this->input->post('detalles'),
+                'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
+                'numero' => !empty($this->input->post('numero')) ? $this->input->post('numero') : NULL,
+                'publicado' => $this->input->post('publicado') == 0 ? FALSE : TRUE,
+                'detalles' => !empty($this->input->post('detalles')) ? $this->input->post('detalles') : NULL,
                 'id_tipo_producto' => $this->input->post('tipo'),
                 'id_color_producto' => $this->input->post('color'),
                 'fecha_alta'=> date('Y-m-d H:i:s')

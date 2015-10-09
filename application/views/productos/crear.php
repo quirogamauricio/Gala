@@ -32,21 +32,21 @@
 
     <div class="form-group">
         <label for="Talle">Talle</label>
-        <input type="input" class="form-control" name="talle"/><br />
+        <input type="input" class="form-control" name="talle" value="<?php echo set_value('talle');?>"/><br />
     </div>    
 
     <div class="form-group">
         <label for="numero">Número</label>
-        <input type="input" class="form-control" name="numero"/><br />
+        <input type="input" class="form-control" name="numero" value="<?php echo set_value('numero');?>"/><br />
     </div>
 
     <div class="form-inline">
         <div class="controls-row">
             <label for="publicado" class="radio inline control-label">Publicado</label>
 
-            <label class="radio inline"> Si <input type="radio"  name="publicado" value="1"/> </label> 
+            <label class="radio inline"> Si <input type="radio"  name="publicado" value="1" <?php echo  set_radio('publicado', '1'); ?>/> </label> 
             
-            <label class="radio inline">No <input type="radio"  name="publicado" value="0"/> </label>
+            <label class="radio inline">No <input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', TRUE); ?>/> </label>
         </div>
     </div>
 

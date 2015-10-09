@@ -1,6 +1,5 @@
 
 <div class="container">
-
       <!-- Static navbar -->
       <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -29,6 +28,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Productos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url("index.php/productos/nuevo"); ?>">Crear producto</a></li>
                   <li><a href="<?php echo base_url("index.php/tipo_productos/nuevo"); ?>">Crear tipo de producto</a></li>
                   <li><a href="<?php echo base_url("index.php/tipo_productos/ver"); ?>">Ver tipos de productos</a></li>
                   <li><a href="<?php echo base_url("index.php/color_productos/nuevo"); ?>">Crear color de producto</a></li>
@@ -46,4 +46,4 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-    </div>
+</div>
