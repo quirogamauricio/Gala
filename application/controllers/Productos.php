@@ -177,6 +177,28 @@ class Productos extends CI_Controller{
             }
         }
 
+        public function eliminar()
+        {
+            $this->cargar_header_y_principal();
+            $id_producto = $this->uri->segment(3);
+
+            if ($id_producto === NULL)
+            {
+                $data['mensaje'] = 'No se especificó un producto a eliminar';
+            }
+            elseif($this->producto_model->eliminar_producto($id_producto) > 0)
+            {
+                $data['mensaje'] = '¡Producto eliminado correctamente!';
+            }
+            else
+            {
+                $data['mensaje'] = '¡Producto inexistente!';
+            }
+
+            $this->load->view('productos/exito', $data);
+            $this->load->view('templates/footer');
+        }
+
         private function establecer_reglas_edicion($validar_codigo_unico)
         {
             $array_validaciones = array('required');

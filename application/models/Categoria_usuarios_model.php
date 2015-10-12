@@ -1,4 +1,4 @@
-<?php
+    <?php
 class Categoria_usuarios_model extends CI_Model
 {
         public function __construct()
@@ -15,7 +15,7 @@ class Categoria_usuarios_model extends CI_Model
         {
         	$categorias_array = array();
 
-        	$resultado = $this->db->query('SELECT * FROM categoria_usuario WHERE fecha_baja IS NULL')->result();
+        	$resultado = $this->db->query('SELECT * FROM categoria_usuario')->result();
 
         	foreach ($resultado as $fila)
         	{
@@ -27,7 +27,7 @@ class Categoria_usuarios_model extends CI_Model
 
         public function obtener_categorias_usuario_table()
         {
-            return $this->db->query('SELECT categoria, id_categoria FROM categoria_usuario WHERE fecha_baja IS NULL')->result_array();
+            return $this->db->query('SELECT categoria, id_categoria FROM categoria_usuario')->result_array();
         }
 
         public function obtener_categoria_usuario_por_id($id_categoria_usuario)
@@ -35,8 +35,7 @@ class Categoria_usuarios_model extends CI_Model
             $resultado = $this->db->query(
                'SELECT *
                 FROM categoria_usuario cu
-                WHERE cu.id_categoria =' . $id_categoria_usuario .
-                ' AND fecha_baja IS NULL'
+                WHERE cu.id_categoria =' . $id_categoria_usuario
             );
 
             $categoria_usuario = NULL;
@@ -59,10 +58,7 @@ class Categoria_usuarios_model extends CI_Model
 
         public function eliminar_categoria_usuario($id_categoria_usuario)
         {
-            $campos = array('fecha_baja' => date('Y-m-d H:i:s'));
-            $condicion = 'id_categoria =' . $id_categoria_usuario . ' AND fecha_baja IS NULL';
-            $sentencia = $this->db->update_string('categoria_usuario', $campos, $condicion);
-            $this->db->query($sentencia);
-            return $this->db->affected_rows();
+           $this->db->query('DELETE FROM categoria_usuario WHERE id_categoria = ' . $id_categoria_usuario);
+           return $this->db->affected_rows();
         }
 }

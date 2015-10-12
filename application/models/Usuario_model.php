@@ -17,7 +17,6 @@ class Usuario_model extends CI_Model{
                 'SELECT u.email, cu.categoria, u.fecha_alta, u.id_usuario as "id"
                  FROM usuario u
                  INNER JOIN categoria_usuario cu on u.id_categoria = cu.id_categoria
-                 WHERE u.fecha_baja IS NULL
                  ORDER BY u.fecha_alta'
             )->result_array();
         }
@@ -27,8 +26,7 @@ class Usuario_model extends CI_Model{
             $resultado = $this->db->query(
                'SELECT u.id_usuario, u.email, u.id_categoria
                 FROM usuario u
-                WHERE u.id_usuario =' . $id_usuario .
-                ' AND u.fecha_baja IS NULL'
+                WHERE u.id_usuario =' . $id_usuario
             );
 
             $usuario = NULL;
@@ -46,8 +44,8 @@ class Usuario_model extends CI_Model{
             $resultado = $this->db->query(
                'SELECT u.id_usuario, u.email
                 FROM usuario u
-                WHERE u.email = "' . $email .
-                '" AND u.fecha_baja IS NULL');
+                WHERE u.email = "' . $email
+                );
 
             return $resultado->row();
         }
@@ -62,10 +60,7 @@ class Usuario_model extends CI_Model{
 
         public function eliminar_usuario($id_usuario)
         {
-            $campos = array('fecha_baja' => date('Y-m-d H:i:s'));
-            $condicion = 'id_usuario =' . $id_usuario . ' AND fecha_baja IS NULL';
-            $sentencia = $this->db->update_string('usuario', $campos, $condicion);
-            $this->db->query($sentencia);
-            return $this->db->affected_rows();
+           $this->db->query('DELETE FROM usuario WHERE id_usuario = ' . $id_usuario);
+           return $this->db->affected_rows();
         }
 }

@@ -57,30 +57,9 @@ class Producto_model extends CI_Model{
         return $this->db->query($sentencia);
     }
 
-    //     $producto = NULL;
-
-    //     if($resultado->num_rows() > 0)
-    //     {
-    //         $producto = $resultado->row();
-    //     }
-
-    //     return $producto;
-    // }
-
-    // public function editar_producto($datos)
-    // {
-    //     $campos = array('codigo' => $datos['codigo'], 'id_tipo' => $datos['id_tipo']);
-    //     $condicion = 'id_producto =' . $datos['id_producto'];
-    //     $sentencia = $this->db->update_string('producto', $campos, $condicion);
-    //     return $this->db->query($sentencia);
-    // }
-
-    // public function eliminar_producto($id_producto)
-    // {
-    //     $campos = array('fecha_baja' => date('Y-m-d H:i:s'));
-    //     $condicion = 'id_producto =' . $id_producto . ' AND fecha_baja IS NULL';
-    //     $sentencia = $this->db->update_string('producto', $campos, $condicion);
-    //     $this->db->query($sentencia);
-    //     return $this->db->affected_rows();
-    // }
+    public function eliminar_producto($id_producto)
+    {
+        $this->db->query('DELETE FROM producto WHERE id_producto = ' . $id_producto);
+        return $this->db->affected_rows();
+    }
 }
