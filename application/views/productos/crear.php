@@ -10,7 +10,7 @@
         <?php echo form_dropdown('tipo', $tipos, array(), 'class="form-control"');?><br />
     </div>
 
-   <div class="form-group">
+    <div class="form-group">
         <label for="color">Color</label>
         <?php echo form_dropdown('color', $colores, array(), 'class="form-control"');?><br />
     </div>

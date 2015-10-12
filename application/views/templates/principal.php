@@ -29,6 +29,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Productos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url("index.php/productos/nuevo"); ?>">Crear producto</a></li>
+                  <li><a href="<?php echo base_url("index.php/productos/ver"); ?>">Ver productos</a></li>
                   <li><a href="<?php echo base_url("index.php/tipo_productos/nuevo"); ?>">Crear tipo de producto</a></li>
                   <li><a href="<?php echo base_url("index.php/tipo_productos/ver"); ?>">Ver tipos de productos</a></li>
                   <li><a href="<?php echo base_url("index.php/color_productos/nuevo"); ?>">Crear color de producto</a></li>
@@ -39,7 +40,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
                 <a href="<?php echo base_url("index.php/logout/terminar_sesion"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" onclick="return confirm('¿Cerrar sesión?');">
-                  <span class="glyphicon glyphicon-off"></span> Cerrar sesión <span class="caret"></span>
+                  <span class="glyphicon glyphicon-off"></span> Cerrar sesión
                 </a>
               </li>
             </ul>

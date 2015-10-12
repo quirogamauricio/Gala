@@ -13,21 +13,31 @@
 		<?php echo form_open('productos/editar'); ?>
 
 		<input type="hidden" name="id_producto" value="<?php echo set_value('id_producto', $id_producto);?>"/>
-		<input type="hidden" name="email_original" value="<?php echo set_value('email_original', $email_original);?>"/>
+		<input type="hidden" name="codigo_original" value="<?php echo set_value('codigo_original', $codigo_original);?>"/>
 
 		<div class="form-group">
-			<label for="categoria">Categoría</label>
-		    <?php echo form_dropdown('categoria', $categorias, $id_categoria, 'class="form-control"');?><br />
+	        <label for="tipo">Tipo</label>
+	        <?php echo form_dropdown('tipo', $tipos, array(), 'class="form-control"');?><br />
+	    </div>
+
+	    <div class="form-group">
+	        <label for="color">Color</label>
+	        <?php echo form_dropdown('color', $colores, array(), 'class="form-control"');?><br />
+    	</div>
+
+		<div class="form-group">
+		    <label for="nombre_producto">Código</label>
+		    <input type="input" class="form-control" name="codigo" value="<?php echo set_value('codigo', $codigo);?>"/><br />
 		</div>
 
 		<div class="form-group">
-		    <label for="nombre_producto">Email</label>
-		    <input type="input" class="form-control" name="email" value="<?php echo set_value('email', $email);?>"/><br />
-		</div>
+	        <label for="nombre_usuario">Precio de costo</label>
+	        <input type="input" class="form-control" name="precio_costo" value="<?php echo set_value('precio_costo');?>"/><br />
+    	</div>
 
 		<div class="form-group">
-		    <label for="nombre_producto">Confirmación de email</label>
-		    <input type="input" class="form-control" name="confirmacion_email" value="<?php echo set_value('confirmacion_email', $email);?>"/><br />
+		    <label for="nombre_producto">Confirmación de codigo</label>
+		    <input type="input" class="form-control" name="confirmacion_codigo" value="<?php echo set_value('confirmacion_codigo', $codigo);?>"/><br />
 		</div>
 
 	    <input type="submit" name="submit" value="Actualizar" class="btn"/>

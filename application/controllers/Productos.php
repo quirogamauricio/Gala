@@ -65,7 +65,7 @@ class Productos extends CI_Controller {
 
             if ($id_producto === NULL) 
             {
-                $data['titulo'] = 'productos del sistema';
+                $data['titulo'] = 'Productos del sistema';
                 
                 $productos = $this->producto_model->obtener_productos();
 
@@ -77,8 +77,9 @@ class Productos extends CI_Controller {
                     $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->load->helper('date');
-                    $this->table->set_heading('Email', 'Categoría', 'Fecha de alta');
+                    $this->table->set_heading('Código', 'Tipo', 'Precio', 'Color', 'Detalles', 'Número', 'Talle', 'Publicado', 'Fecha de alta');
                     $this->table->set_template(array('table_open' => '<table class="table">'));
+                    $this->table->set_empty('-');
 
                     foreach ($productos as $indice_fila => $fila)
                     {
