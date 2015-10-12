@@ -199,14 +199,14 @@ class Usuarios extends CI_Controller {
 
         private function establecer_reglas_creacion()
         {
-                $this->form_validation->set_rules(
-                'email',
-                'Email', 
-                array('required', 'valid_email', 'is_unique[usuario.email]'),
-                array('required' => 'El email es requerido', 
-                      'valid_email' => 'El email ingresado no tiene el formato correcto',
-                      'is_unique' => 'El email ingresado ya se encuentra en uso')
-                );
+            $this->form_validation->set_rules(
+            'email',
+            'Email', 
+            array('required', 'valid_email', 'is_unique[usuario.email]'),
+            array('required' => 'El email es requerido', 
+                  'valid_email' => 'El email ingresado no tiene el formato correcto',
+                  'is_unique' => 'El email ingresado ya se encuentra en uso')
+            );
 
             $this->form_validation->set_rules(
                 'confirmacion_email',

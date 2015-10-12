@@ -11,6 +11,11 @@ class Tipo_productos extends CI_Controller {
             $this->load->model('tipo_productos_model');
         }
 
+        public function index()
+        {
+            $this->ver();
+        }
+
         public function nuevo()
         {
             $this->load->library('form_validation');

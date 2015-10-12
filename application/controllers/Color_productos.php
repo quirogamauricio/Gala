@@ -11,6 +11,11 @@ class Color_productos extends CI_Controller {
             $this->load->model('color_productos_model');
         }
 
+        public function index()
+        {
+            $this->ver();
+        }
+
         public function nuevo()
         {
             $this->load->library('form_validation');
@@ -60,7 +65,7 @@ class Color_productos extends CI_Controller {
                         $color_productos[$indice_fila]['id_color_producto'] = anchor('color_productos/ver/'.$fila['id_color_producto'],'Ver', 'class="btn btn-info"');
                     }
 
-                    $this->table->set_heading('color');
+                    $this->table->set_heading('Color');
 
                     $resultado = $this->table->generate($color_productos);
                 }
