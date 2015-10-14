@@ -8,7 +8,7 @@ class Login_model extends CI_Model
 
     public function autenticar_usuario($datos)
     {
-    	$resultado_consulta = $this->db->query('SELECT email, clave FROM usuario WHERE email = "' . $datos['email'] . '" AND fecha_baja IS NULL');
+    	$resultado_consulta = $this->db->query('SELECT email, clave FROM usuario WHERE email = "' . $datos['email'] .'"');
 
     	if ($resultado_consulta->num_rows() > 0)
     	{

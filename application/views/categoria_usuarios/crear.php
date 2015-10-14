@@ -7,8 +7,10 @@
 
 	<div class="form-group">
 		<label for="categoria">Categoría</label>
-		<input type="input" class="form-control" name="categoria" value="<?php echo set_value('categoria');?>"/><br />
+		<input type="input" class="form-control" name="categoria" value="<?php echo set_value('categoria');?>"/>
 	</div>
+
+	<br />
 
     <input type="submit" class="btn btn-default"name="submit" value="Aceptar" />
 

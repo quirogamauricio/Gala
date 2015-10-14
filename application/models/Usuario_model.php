@@ -44,7 +44,7 @@ class Usuario_model extends CI_Model{
             $resultado = $this->db->query(
                'SELECT u.id_usuario, u.email
                 FROM usuario u
-                WHERE u.email = "' . $email
+                WHERE u.email = "' . $email . ' " '
                 );
 
             return $resultado->row();
