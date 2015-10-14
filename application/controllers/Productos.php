@@ -45,6 +45,7 @@ class Productos extends CI_Controller{
                 'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
                 'numero' => !empty($this->input->post('numero')) ? $this->input->post('numero') : NULL,
                 'detalles' => !empty($this->input->post('detalles')) ? $this->input->post('detalles') : NULL,
+                'imagen_url' => $this->subir_imagen(),
                 'publicado' => $this->input->post('publicado') == 0 ? FALSE : TRUE,
                 'id_tipo_producto' => $this->input->post('tipo'),
                 'id_color_producto' => $this->input->post('color'),
@@ -76,8 +77,9 @@ class Productos extends CI_Controller{
 
                     $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
+                    $this->load->helper('html'); //Helper para usar img() 
                     $this->load->helper('date');
-                    $this->table->set_heading('Código', 'Tipo', 'Precio de costo', 'Color', 'Detalles', 'Número', 'Talle', 'Publicado', 'Fecha de alta');
+                    $this->table->set_heading('Código', 'Tipo', 'Precio de costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha de alta');
                     $this->table->set_template(array('table_open' => '<table class="table">'));
                     $this->table->set_empty('-');
 
@@ -85,6 +87,11 @@ class Productos extends CI_Controller{
                     {
                         $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
                         $productos[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
+
+                        if (!empty($fila['imagen_url']))
+                        {
+                            $productos[$indice_fila]['imagen_url'] = img(substr($fila['imagen_url'], 22), FALSE, array('class' => 'img-responsive'));
+                        }
                     }
 
                     $resultado = $this->table->generate($productos);
@@ -252,5 +259,19 @@ class Productos extends CI_Controller{
         {
             $this->load->view('templates/header');
             $this->load->view('templates/principal');
+        }
+
+        private function subir_imagen()
+        {
+            $imagen_url = NULL;
+
+            $this->load->library('upload');
+
+            if ($this->upload->do_upload('imagen')) 
+            {
+                $imagen_url = $this->upload->data('full_path');
+            }
+
+            return $imagen_url;
         }
 }

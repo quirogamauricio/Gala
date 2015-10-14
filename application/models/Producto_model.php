@@ -14,7 +14,7 @@ class Producto_model extends CI_Model{
     public function obtener_productos()
     {
         return $this->db->query(
-            "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, (case when p.publicado = 0 then 'No' else 'Si' end), p.fecha_alta, p.id_producto as 'id'
+            "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), p.fecha_alta, p.id_producto as 'id'
              FROM producto p
              INNER JOIN tipo_producto tp on p.id_tipo_producto = tp.id_tipo_producto
              INNER JOIN color_producto cp on p.id_color_producto = cp.id_color_producto
