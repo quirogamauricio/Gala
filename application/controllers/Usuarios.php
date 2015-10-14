@@ -161,6 +161,10 @@ class Usuarios extends CI_Controller {
             {
                  $data['mensaje'] = 'No se especificó un usuario a eliminar';
             }
+            elseif($id_usuario == $_SESSION['usuario_id'])
+            {
+                $data['mensaje'] = '¡No es posible eliminar el usuario actual!';
+            }
             elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
             {
                 $data['mensaje'] = '¡Usuario eliminado correctamente!';
