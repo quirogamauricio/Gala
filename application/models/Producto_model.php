@@ -59,7 +59,17 @@ class Producto_model extends CI_Model{
 
     public function eliminar_producto($id_producto)
     {
-        $this->db->query('DELETE FROM producto WHERE id_producto = ' . $id_producto);
-        return $this->db->affected_rows();
+        $numero_retorno;
+
+        if ($this->db->query('DELETE FROM producto WHERE id_producto = ' . $id_producto)) 
+        {
+            $numero_retorno = $this->db->affected_rows();
+        }
+        else
+        {
+            $numero_retorno = $this->db->error()['code'];
+        }
+
+        return $numero_retorno;
     }
 }

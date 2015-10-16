@@ -58,7 +58,18 @@ class Categoria_usuarios_model extends CI_Model
 
         public function eliminar_categoria_usuario($id_categoria_usuario)
         {
-           $this->db->query('DELETE FROM categoria_usuario WHERE id_categoria = ' . $id_categoria_usuario);
-           return $this->db->affected_rows();
+           $numero_retorno;
+
+            if (!$this->db->query('DELETE FROM categoria_usuario WHERE id_categoria = ' . $id_categoria_usuario)) 
+            {
+                $numero_retorno = $this->db->error()['code'];
+            }
+            else
+            {
+                
+                $numero_retorno = $this->db->affected_rows();
+            }
+            
+            return $numero_retorno;
         }
 }

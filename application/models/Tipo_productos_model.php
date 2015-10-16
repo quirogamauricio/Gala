@@ -57,7 +57,18 @@ class Tipo_productos_model extends CI_Model
 
         public function eliminar_tipo_producto($id_tipo_producto)
         {
-            $this->db->query('DELETE FROM tipo_producto WHERE id_tipo_producto = ' . $id_tipo_producto);
-            return $this->db->affected_rows();
+            $numero_retorno;
+
+            if (!$this->db->query('DELETE FROM tipo_producto WHERE id_tipo_producto = ' . $id_tipo_producto)) 
+            {
+                $numero_retorno = $this->db->error()['code'];
+            }
+            else
+            {
+                
+                $numero_retorno = $this->db->affected_rows();
+            }
+            
+            return $numero_retorno;
         }
 }

@@ -90,7 +90,8 @@ class Productos extends CI_Controller{
 
                         if (!empty($fila['imagen_url']))
                         {
-                            $productos[$indice_fila]['imagen_url'] = img(substr($fila['imagen_url'], 22), FALSE, array('class' => 'img-responsive'));
+                            // $productos[$indice_fila]['imagen_url'] = img(substr($fila['imagen_url'], 22), FALSE, array('class' => 'img-responsive'));
+                            $productos[$indice_fila]['imagen_url'] = img('assets/img/'.$fila['imagen_url'], FALSE, array('class' => 'img-responsive'));
                         }
                     }
 
@@ -193,9 +194,13 @@ class Productos extends CI_Controller{
             {
                 $data['mensaje'] = 'No se especificó un producto a eliminar';
             }
-            elseif($this->producto_model->eliminar_producto($id_producto) > 0)
+            elseif($this->producto_model->eliminar_producto($id_producto) == 1)
             {
                 $data['mensaje'] = '¡Producto eliminado correctamente!';
+            }
+            elseif($this->producto_model->eliminar_producto($id_producto) == 1451)
+            {
+                $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
             }
             else
             {
@@ -269,7 +274,7 @@ class Productos extends CI_Controller{
 
             if ($this->upload->do_upload('imagen')) 
             {
-                $imagen_url = $this->upload->data('full_path');
+                $imagen_url = $this->upload->data('file_name');
             }
 
             return $imagen_url;

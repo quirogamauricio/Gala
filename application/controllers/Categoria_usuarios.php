@@ -149,13 +149,17 @@ class Categoria_usuarios extends CI_Controller {
             {
                  $data['mensaje'] = 'No se especificó una categoría de usuario a eliminar';
             }
-            elseif($this->categoria_usuarios_model->eliminar_categoria_usuario($id_categoria_usuario) > 0)
+            elseif($this->categoria_usuarios_model->eliminar_categoria_usuario($id_categoria_usuario) == 1)
             {
                 $data['mensaje'] = '¡Categoría de usuario eliminada correctamente!';
             }
+            elseif($this->categoria_usuarios_model->eliminar_categoria_usuario($id_categoria_usuario) == 1451)
+            {
+                $data['mensaje'] = '¡No se puede eliminar una categoría de usuario que se encuentra en uso!';
+            }
             else
             {
-                $data['mensaje'] = 'Categoría inexistente!';
+                $data['mensaje'] = '¡Categoría inexistente!';
             }
 
             $this->load->view('categoria_usuarios/exito', $data);

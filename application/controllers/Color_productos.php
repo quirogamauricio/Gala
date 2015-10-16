@@ -148,9 +148,13 @@ class Color_productos extends CI_Controller {
             {
                  $data['mensaje'] = 'No se especificó un color de producto a eliminar';
             }
-            elseif($this->color_productos_model->eliminar_color_producto($id_color_producto) > 0)
+            elseif($this->color_productos_model->eliminar_color_producto($id_color_producto) == 1)
             {
                 $data['mensaje'] = '¡Color de producto eliminado correctamente!';
+            }
+            elseif($this->color_productos_model->eliminar_color_producto($id_color_producto) == 1451)
+            {
+                $data['mensaje'] = '¡No se puede eliminar un color que se encuentra en uso!';
             }
             else
             {

@@ -148,9 +148,13 @@ class Tipo_productos extends CI_Controller {
             {
                  $data['mensaje'] = 'No se especificó un tipo de producto a eliminar';
             }
-            elseif($this->tipo_productos_model->eliminar_tipo_producto($id_tipo_producto) > 0)
+            elseif($this->tipo_productos_model->eliminar_tipo_producto($id_tipo_producto) == 1)
             {
                 $data['mensaje'] = '¡Tipo de producto eliminado correctamente!';
+            }
+            elseif($this->tipo_productos_model->eliminar_tipo_producto($id_tipo_producto) == 1451)
+            {
+                $data['mensaje'] = '¡No se puede eliminar un tipo de producto que se encuentra en uso!';
             }
             else
             {
