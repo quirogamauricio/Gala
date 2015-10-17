@@ -39,6 +39,15 @@
             </ul>
             <ul class="nav navbar-nav navbar-left">
               <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Stock <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url("index.php/stock/nuevo"); ?>">Crear stock</a></li>
+                  <li><a href="<?php echo base_url("index.php/stock/ver"); ?>">Ver stock</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+              <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Sucursales <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url("index.php/sucursales/nueva"); ?>">Crear sucursal</a></li>

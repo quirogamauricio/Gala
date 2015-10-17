@@ -26,11 +26,16 @@ class Producto_model extends CI_Model{
     {
         $tipos_array = array();
 
-        $resultado = $this->db->query('SELECT * FROM producto')->result();
+        $resultado = $this->db->query(
+            'SELECT p.id_producto, p.codigo, tp.tipo
+             FROM producto p 
+             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
+             ORDER BY tp.tipo'
+        )->result();
 
         foreach ($resultado as $fila)
         {
-            $tipos_array[$fila->id_producto] = $fila->codigo;
+            $tipos_array[$fila->id_producto] = '[ '. $fila->tipo .' ]' . ' - ' . $fila->codigo;
         }
 
         return $tipos_array;
