@@ -24,7 +24,7 @@ class Producto_model extends CI_Model{
 
     public function obtener_productos_dropdown()
     {
-        $tipos_array = array();
+        $productos_array = array();
 
         $resultado = $this->db->query(
             'SELECT p.id_producto, p.codigo, tp.tipo
@@ -35,10 +35,10 @@ class Producto_model extends CI_Model{
 
         foreach ($resultado as $fila)
         {
-            $tipos_array[$fila->id_producto] = '[ '. $fila->tipo .' ]' . ' - ' . $fila->codigo;
+            $productos_array[$fila->id_producto] = '[ '. $fila->tipo .' ]' . ' - ' . $fila->codigo;
         }
 
-        return $tipos_array;
+        return $productos_array;
     }
 
     public function obtener_producto_por_id($id_producto)

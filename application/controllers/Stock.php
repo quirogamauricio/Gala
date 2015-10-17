@@ -57,7 +57,7 @@ class Stock extends CI_Controller {
             {
                 $data['titulo'] = 'Stock de productos';
 
-                $stock = $this->stock_model->obtener_stock_table();
+                $stock = $this->stock_model->obtener_stock();
 
                 $resultado;
 
@@ -72,7 +72,7 @@ class Stock extends CI_Controller {
                         $stock[$indice_fila]['id_stock'] = anchor('stock/ver/'.$fila['id_stock'],'Ver', 'class="btn btn-info"');
                     }
 
-                    $this->table->set_heading('Código de producto', 'Sucursal', 'Stock actual', 'Stock mínimo');
+                    $this->table->set_heading('Tipo de producto', 'Código', 'Sucursal', 'Stock actual', 'Stock mínimo');
 
                     $resultado = $this->table->generate($stock);
                 }
@@ -87,19 +87,24 @@ class Stock extends CI_Controller {
             { 
                 $this->load->library('form_validation');
 
-                $data['titulo'] = 'Información del Stock';
+                $data['titulo'] = 'Información del stock de producto';
 
                 $stock = $this->stock_model->obtener_stock_por_id($id_stock);
 
                 if ($stock === NULL) 
                 {
-                    $data['contenido'] = '<h4>Error al recuperar información del Stock seleccionado</h4>';
+                    $data['contenido'] = '<h4>Error al recuperar información del stock seleccionado</h4>';
                 }
                 else
                 {
                     $data['id_stock'] = $stock->id_stock;
-                    $data['tipo'] = $stock->tipo;
-                    $data['tipo_original'] = $stock->tipo;
+                    $data['productos'] = $this->producto_model->obtener_productos_dropdown();
+                    $data['id_producto'] = $stock->id_producto;
+                    $data['id_producto_original'] = $stock->id_producto;
+                    $data['sucursales'] = $this->sucursal_model->obtener_sucursales_dropdown();
+                    $data['id_sucursal'] = $stock->id_sucursal;
+                    $data['stock_actual'] = $stock->stock_actual;
+                    $data['stock_minimo'] = $stock->stock_minimo;
                 }
             }
     
@@ -115,11 +120,14 @@ class Stock extends CI_Controller {
 
             $datos = array(
                 'id_stock' => $this->input->post('id_stock'),
-                'tipo' => $this->input->post('tipo'));
+                'id_producto' => $this->input->post('producto'),
+                'id_sucursal' => $this->input->post('sucursal'),
+                'stock_actual' => $this->input->post('stock_actual'),
+                'stock_minimo' => $this->input->post('stock_minimo'));
 
             $validar_producto_unico = TRUE;
 
-            if ($datos['tipo'] === $this->input->post('tipo_original'))
+            if ($datos['id_producto'] === $this->input->post('id_producto_original'))
             {
                  $validar_producto_unico = FALSE;
             }
@@ -134,7 +142,7 @@ class Stock extends CI_Controller {
             {
                 if ($this->stock_model->editar_stock($datos)) 
                 {
-                    $data['mensaje'] = '¡Los datos del Stock se actualizaron correctamente!';
+                    $data['mensaje'] = '¡Los datos del stock se actualizaron correctamente!';
                 }
                 else
                 {
