@@ -16,10 +16,24 @@ class Producto_model extends CI_Model{
         return $this->db->query(
             "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), p.fecha_alta, p.id_producto as 'id'
              FROM producto p
-             INNER JOIN tipo_producto tp on p.id_tipo_producto = tp.id_tipo_producto
-             INNER JOIN color_producto cp on p.id_color_producto = cp.id_color_producto
+             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
+             INNER JOIN color_producto cp ON p.id_color_producto = cp.id_color_producto
              ORDER BY p.fecha_alta DESC"
         )->result_array();
+    }
+
+    public function obtener_productos_dropdown()
+    {
+        $tipos_array = array();
+
+        $resultado = $this->db->query('SELECT * FROM producto')->result();
+
+        foreach ($resultado as $fila)
+        {
+            $tipos_array[$fila->id_producto] = $fila->codigo;
+        }
+
+        return $tipos_array;
     }
 
     public function obtener_producto_por_id($id_producto)

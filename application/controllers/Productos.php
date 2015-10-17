@@ -29,7 +29,7 @@ class Productos extends CI_Controller{
 
             $data['titulo'] = 'Crear nuevo producto';
 
-            $this->establecer_reglas_creacion();
+            $this->establecer_reglas(TRUE);
 
             $this->cargar_header_y_principal();
 
@@ -90,7 +90,6 @@ class Productos extends CI_Controller{
 
                         if (!empty($fila['imagen_url']))
                         {
-                            // $productos[$indice_fila]['imagen_url'] = img(substr($fila['imagen_url'], 22), FALSE, array('class' => 'img-responsive'));
                             $productos[$indice_fila]['imagen_url'] = img('assets/img/'.$fila['imagen_url'], FALSE, array('class' => 'img-responsive'));
                         }
                     }
@@ -163,7 +162,7 @@ class Productos extends CI_Controller{
                  $validar_codigo_unico = FALSE;
             }
 
-            $this-> establecer_reglas_edicion($validar_codigo_unico);
+            $this-> establecer_reglas($validar_codigo_unico);
 
             if ($this->form_validation->run() === FALSE)
             {
@@ -211,7 +210,7 @@ class Productos extends CI_Controller{
             $this->load->view('templates/footer');
         }
 
-        private function establecer_reglas_edicion($validar_codigo_unico)
+        private function establecer_reglas($validar_codigo_unico)
         {
             $array_validaciones = array('required');
 
@@ -224,24 +223,7 @@ class Productos extends CI_Controller{
             }
 
             $this->form_validation->set_rules('codigo','Código', $array_validaciones, $array_mensajes);
-            $this->establecer_reglas_comunes();
-        }
-
-        private function establecer_reglas_creacion()
-        {
-            $this->form_validation->set_rules(
-                'codigo',
-                'Código', 
-                array('required', 'is_unique[producto.codigo]'),
-                array('required' => 'El código es requerido',
-                      'is_unique' => 'Ya existe un producto con el código ingresado')
-                ); 
-
-            $this->establecer_reglas_comunes();
-        }
-
-        private function establecer_reglas_comunes()
-        {
+       
             $this->form_validation->set_rules(
             'numero', 
             'Número',
