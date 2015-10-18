@@ -5,9 +5,8 @@ class Productos extends CI_Controller{
         {
             parent::__construct();
             $this->load->library('session');
-
             $this->session->user_is_authenticated();
-
+            $this->load->library('form_validation');
             $this->load->model('producto_model');
             $this->load->model('tipo_productos_model');
             $this->load->model('color_productos_model');
@@ -20,7 +19,6 @@ class Productos extends CI_Controller{
         
         public function nuevo()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $data['tipos'] = $this->tipo_productos_model->obtener_tipos_producto_dropdown();
@@ -105,8 +103,6 @@ class Productos extends CI_Controller{
             }
             else
             {
-                $this->load->library('form_validation');
-
                 $data['titulo'] = 'Información del producto';
 
                 $producto = $this->producto_model->obtener_producto_por_id($id_producto);
@@ -140,7 +136,6 @@ class Productos extends CI_Controller{
 
         public function editar()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(

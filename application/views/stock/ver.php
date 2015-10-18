@@ -1,6 +1,9 @@
-<?php $this->load->helper('url'); ?>
+<?php $this->load->helper('url');
+$this->load->library('form_validation');?>
+
 
 <div class="container">
+	<?php echo validation_errors(); ?>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h2 class="panel-title"><?php echo $titulo; ?></h2>
@@ -12,8 +15,6 @@
 			} 
 			else
 			{?>
-			<?php echo validation_errors(); ?>
-
 				<?php echo form_open('stock/editar'); ?>
 
 					<input type="hidden" name="id_stock" value="<?php echo set_value('id_stock', $id_stock);?>"/>

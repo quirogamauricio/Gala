@@ -58,7 +58,17 @@ class Sucursal_model extends CI_Model
 
         public function eliminar_sucursal($id_sucursal)
         {
-           $this->db->query('DELETE FROM sucursal WHERE id_sucursal = ' . $id_sucursal);
-           return $this->db->affected_rows();
+            $numero_retorno;
+
+            if ($this->db->query('DELETE FROM sucursal WHERE id_sucursal = ' . $id_sucursal)) 
+            {
+                $numero_retorno = $this->db->affected_rows();
+            }
+            else
+            {
+                $numero_retorno = $this->db->error()['code'];
+            }
+
+            return $numero_retorno;
         }
 }

@@ -56,7 +56,17 @@ class Stock_model extends CI_Model
 
     public function eliminar_stock($id_stock)
     {
-       $this->db->query('DELETE FROM stock WHERE id_stock = ' . $id_stock);
-       return $this->db->affected_rows();
+        $numero_retorno;
+
+            if ($this->db->query('DELETE FROM stock WHERE id_stock = ' . $id_stock)) 
+            {
+                $numero_retorno = $this->db->affected_rows();
+            }
+            else
+            {
+                $numero_retorno = $this->db->error()['code'];
+            }
+
+            return $numero_retorno;
     }
 }

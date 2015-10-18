@@ -5,9 +5,8 @@ class Categoria_usuarios extends CI_Controller {
         {
             parent::__construct();
             $this->load->library('session');
-
             $this->session->user_is_authenticated();
-            
+            $this->load->library('form_validation');
             $this->load->model('categoria_usuarios_model');
         }
 
@@ -18,10 +17,9 @@ class Categoria_usuarios extends CI_Controller {
         
         public function nueva()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
-            $data['title'] = 'Crear nueva categoría de usuario';
+            $data['titulo'] = 'Crear nueva categoría de usuario';
 
             $this->cargar_header_y_principal();
 
@@ -78,8 +76,6 @@ class Categoria_usuarios extends CI_Controller {
             }
             else
             { 
-                $this->load->library('form_validation');
-
                 $data['titulo'] = 'Información de la categoría de usuario';
 
                 $categoria_usuario = $this->categoria_usuarios_model->obtener_categoria_usuario_por_id($id_categoria_usuario);
@@ -103,7 +99,6 @@ class Categoria_usuarios extends CI_Controller {
 
         public function editar()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(

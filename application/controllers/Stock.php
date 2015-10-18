@@ -6,6 +6,7 @@ class Stock extends CI_Controller {
             parent::__construct();
             $this->load->library('session');
             $this->session->user_is_authenticated();
+            $this->load->library('form_validation');
             $this->load->model('stock_model');
             $this->load->model('sucursal_model');
             $this->load->model('producto_model');
@@ -18,7 +19,6 @@ class Stock extends CI_Controller {
 
         public function nuevo()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $data['productos'] = $this->producto_model->obtener_productos_dropdown();
@@ -85,8 +85,6 @@ class Stock extends CI_Controller {
             }
             else
             { 
-                $this->load->library('form_validation');
-
                 $data['titulo'] = 'Información del stock de producto';
 
                 $stock = $this->stock_model->obtener_stock_por_id($id_stock);
@@ -115,7 +113,6 @@ class Stock extends CI_Controller {
 
         public function editar()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(
@@ -161,7 +158,7 @@ class Stock extends CI_Controller {
 
             if ($id_stock === NULL)
             {
-                 $data['mensaje'] = 'No se especificó un Stock a eliminar';
+                 $data['mensaje'] = 'No se especificó un stock a eliminar';
             }
             elseif($this->stock_model->eliminar_stock($id_stock) == 1)
             {
@@ -169,11 +166,11 @@ class Stock extends CI_Controller {
             }
             elseif($this->stock_model->eliminar_stock($id_stock) == 1451)
             {
-                $data['mensaje'] = '¡No se puede eliminar un Stock que se encuentra en uso!';
+                $data['mensaje'] = '¡No se puede eliminar un stock que se encuentra en uso!';
             }
             else
             {
-                $data['mensaje'] = '¡Tipo inexistente!';
+                $data['mensaje'] = 'Stock inexistente!';
             }
 
             $this->load->view('stock/exito', $data);

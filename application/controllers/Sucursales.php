@@ -5,9 +5,8 @@ class Sucursales extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
-
         $this->session->user_is_authenticated();
-        
+        $this->load->library('form_validation');
         $this->load->model('sucursal_model');
     }
 
@@ -18,10 +17,9 @@ class Sucursales extends CI_Controller {
     
     public function nueva()
     {
-        $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
-        $data['title'] = 'Crear nueva sucursal';
+        $data['titulo'] = 'Crear nueva sucursal';
 
         $this->cargar_header_y_principal();
 
@@ -83,8 +81,6 @@ class Sucursales extends CI_Controller {
         }
         else
         { 
-            $this->load->library('form_validation');
-
             $data['titulo'] = 'Información de la sucursal';
 
             $sucursal = $this->sucursal_model->obtener_sucursal_por_id($id_sucursal);
@@ -109,7 +105,6 @@ class Sucursales extends CI_Controller {
 
     public function editar()
     {
-        $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
         $datos = array(
@@ -156,9 +151,13 @@ class Sucursales extends CI_Controller {
         {
              $data['mensaje'] = 'No se especificó una sucursal a eliminar';
         }
-        elseif($this->sucursal_model->eliminar_sucursal($id_sucursal) > 0)
+        elseif($this->sucursal_model->eliminar_sucursal($id_sucursal) == 1)
         {
             $data['mensaje'] = '¡Sucursal eliminada correctamente!';
+        }
+        elseif($this->sucursal_model->eliminar_sucursal($id_sucursal) == 1451)
+        {
+            $data['mensaje'] = '¡No se puede eliminar una sucursal que se encuentra en uso!';
         }
         else
         {

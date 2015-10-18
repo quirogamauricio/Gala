@@ -5,9 +5,8 @@ class Usuarios extends CI_Controller {
         {
             parent::__construct();
             $this->load->library('session');
-
             $this->session->user_is_authenticated();
-
+            $this->load->library('form_validation');
             $this->load->model('usuario_model');
             $this->load->model('categoria_usuarios_model');
         }
@@ -19,7 +18,6 @@ class Usuarios extends CI_Controller {
         
         public function nuevo()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $data['categorias'] = $this->categoria_usuarios_model->obtener_categorias_usuario_dropdown();
@@ -89,8 +87,6 @@ class Usuarios extends CI_Controller {
             }
             else
             {
-                $this->load->library('form_validation');
-
                 $data['titulo'] = 'Información del usuario';
 
                 $usuario = $this->usuario_model->obtener_usuario_por_id($id_usuario);
@@ -114,7 +110,6 @@ class Usuarios extends CI_Controller {
 
         public function editar()
         {
-            $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             $datos = array(
