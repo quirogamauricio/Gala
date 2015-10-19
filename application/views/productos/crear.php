@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label for="detalles">Detalles</label>
-                <input type="input" class="form-control" name="detalles" value="<?php echo set_value('detalles');?>"/><br />
+                <textarea class="form-control" rows="5"name="detalles"><?php echo set_value('detalles');?></textarea><br />
             </div>
 
             <div class="form-group">
@@ -65,11 +65,11 @@
                 <p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>
             </div>
 
-             <br/>
+            <br/>
 
             <input type="submit" class="btn btn-default" name="submit" value="Aceptar" />
-            </form> 
-        </div> <!-- Fin panel body-->
-    </div> <!-- Fin panel -->
-    
+        </form> 
+    </div> <!-- Fin panel body-->
+</div> <!-- Fin panel -->
+
 </div>

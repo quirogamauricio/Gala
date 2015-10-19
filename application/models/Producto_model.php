@@ -15,11 +15,20 @@ class Producto_model extends CI_Model{
     {
         return $this->db->query(
             "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), p.fecha_alta, p.id_producto as 'id'
-             FROM producto p
-             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
-             INNER JOIN color_producto cp ON p.id_color_producto = cp.id_color_producto
-             ORDER BY p.fecha_alta DESC"
-        )->result_array();
+            FROM producto p
+            INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
+            INNER JOIN color_producto cp ON p.id_color_producto = cp.id_color_producto
+            ORDER BY p.fecha_alta DESC"
+            )->result_array();
+    }
+
+    public function obtener_productos_publicados()
+    {
+        return $this->db->query(
+            "SELECT p.imagen_url, p.detalles, p.codigo
+            FROM producto p
+            WHERE p.publicado = 1 AND  p.imagen_url IS NOT NULl"
+            )->result_array();
     }
 
     public function obtener_productos_dropdown()
@@ -28,10 +37,10 @@ class Producto_model extends CI_Model{
 
         $resultado = $this->db->query(
             'SELECT p.id_producto, p.codigo, tp.tipo
-             FROM producto p 
-             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
-             ORDER BY tp.tipo'
-        )->result();
+            FROM producto p 
+            INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
+            ORDER BY tp.tipo'
+            )->result();
 
         foreach ($resultado as $fila)
         {
@@ -44,10 +53,10 @@ class Producto_model extends CI_Model{
     public function obtener_producto_por_id($id_producto)
     {
         $resultado = $this->db->query(
-           'SELECT *
-            FROM producto p
-            WHERE p.id_producto =' . $id_producto
-        );
+         'SELECT *
+         FROM producto p
+         WHERE p.id_producto =' . $id_producto
+         );
 
         $producto = NULL;
 
@@ -62,14 +71,14 @@ class Producto_model extends CI_Model{
     public function editar_producto($datos)
     {
         $campos = array('codigo' => $datos['codigo'], 
-                        'id_tipo_producto' => $datos['id_tipo_producto'],
-                        'id_color_producto' => $datos['id_color_producto'],
-                        'precio_costo' => $datos['precio_costo'],
-                        'detalles' => $datos['detalles'],
-                        'talle' => $datos['talle'],
-                        'numero' => $datos['numero'],
-                        'publicado' => $datos['publicado']
-                        );
+            'id_tipo_producto' => $datos['id_tipo_producto'],
+            'id_color_producto' => $datos['id_color_producto'],
+            'precio_costo' => $datos['precio_costo'],
+            'detalles' => $datos['detalles'],
+            'talle' => $datos['talle'],
+            'numero' => $datos['numero'],
+            'publicado' => $datos['publicado']
+            );
 
         $condicion = 'id_producto = ' . $datos['id_producto'];
         $sentencia = $this->db->update_string('producto', $campos, $condicion);

@@ -1,43 +1,43 @@
 <?php
 class Productos extends CI_Controller{
 
-        public function __construct()
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('session');
+        $this->session->user_is_authenticated();
+        $this->load->library('form_validation');
+        $this->load->model('producto_model');
+        $this->load->model('tipo_productos_model');
+        $this->load->model('color_productos_model');
+    }
+
+    public function index()
+    {
+        $this->ver();
+    }
+
+    public function nuevo()
+    {
+        $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+
+        $data['tipos'] = $this->tipo_productos_model->obtener_tipos_producto_dropdown();
+
+        $data['colores'] = $this->color_productos_model->obtener_colores_producto_dropdown();
+
+        $data['titulo'] = 'Crear nuevo producto';
+
+        $this->establecer_reglas(TRUE);
+
+        $this->cargar_header_y_principal();
+
+        if ($this->form_validation->run() === FALSE)
         {
-            parent::__construct();
-            $this->load->library('session');
-            $this->session->user_is_authenticated();
-            $this->load->library('form_validation');
-            $this->load->model('producto_model');
-            $this->load->model('tipo_productos_model');
-            $this->load->model('color_productos_model');
+            $this->load->view('productos/crear', $data);
         }
-
-        public function index()
+        else
         {
-            $this->ver();
-        }
-        
-        public function nuevo()
-        {
-            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
-
-            $data['tipos'] = $this->tipo_productos_model->obtener_tipos_producto_dropdown();
-
-            $data['colores'] = $this->color_productos_model->obtener_colores_producto_dropdown();
-
-            $data['titulo'] = 'Crear nuevo producto';
-
-            $this->establecer_reglas(TRUE);
-
-            $this->cargar_header_y_principal();
-
-            if ($this->form_validation->run() === FALSE)
-            {
-                $this->load->view('productos/crear', $data);
-            }
-            else
-            {
-                $datos = array(
+            $datos = array(
                 'precio_costo' => $this->input->post('precio_costo'),
                 'codigo' => $this->input->post('codigo'),
                 'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
@@ -48,36 +48,36 @@ class Productos extends CI_Controller{
                 'id_tipo_producto' => $this->input->post('tipo'),
                 'id_color_producto' => $this->input->post('color'),
                 'fecha_alta'=> date('Y-m-d H:i:s')
-                 );
+                );
 
-                $this->producto_model->crear_producto($datos);
-                $data['mensaje'] = "¡Producto creado correctamente!";
-                $this->load->view('productos/exito', $data);
-            }
-
-            $this->load->view('templates/footer');
+            $this->producto_model->crear_producto($datos);
+            $data['mensaje'] = "¡Producto creado correctamente!";
+            $this->load->view('productos/exito', $data);
         }
 
-        public function ver($id_producto = NULL)
+        $this->load->view('templates/footer');
+    }
+
+    public function ver($id_producto = NULL)
+    {
+        $this->cargar_header_y_principal();
+
+        if ($id_producto === NULL) 
         {
-            $this->cargar_header_y_principal();
+            $data['titulo'] = 'Productos del sistema';
 
-            if ($id_producto === NULL) 
+            $productos = $this->producto_model->obtener_productos();
+
+            $resultado;
+
+            if(!empty($productos))
             {
-                $data['titulo'] = 'Productos del sistema';
-                
-                $productos = $this->producto_model->obtener_productos();
 
-                $resultado;
-
-                if(!empty($productos))
-                {
-
-                    $this->load->library('table');
+                $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->load->helper('html'); //Helper para usar img() 
                     $this->load->helper('date');
-                    $this->table->set_heading('Código', 'Tipo', 'Precio de costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha de alta');
+                    $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha alta', '');
                     $this->table->set_template(array('table_open' => '<table class="table">'));
                     $this->table->set_empty('-');
 
@@ -154,106 +154,106 @@ class Productos extends CI_Controller{
 
             if ($datos['codigo'] === $this->input->post('codigo_original'))
             {
-                 $validar_codigo_unico = FALSE;
-            }
+             $validar_codigo_unico = FALSE;
+         }
 
-            $this-> establecer_reglas($validar_codigo_unico);
+         $this-> establecer_reglas($validar_codigo_unico);
 
-            if ($this->form_validation->run() === FALSE)
-            {
-                $this->ver($datos['id_producto']);
-            }
-            else
-            {
-                if ($this->producto_model->editar_producto($datos)) 
-                {
-                    $data['mensaje'] = '¡Los datos del producto se actualizaron correctamente!';
-                }
-                else
-                {
-                    $data['mensaje'] = '¡No se actualizó la información!';
-                }   
-                $this->cargar_header_y_principal();
-                $this->load->view('productos/exito', $data);
-                $this->load->view('templates/footer');
-            }
+         if ($this->form_validation->run() === FALSE)
+         {
+            $this->ver($datos['id_producto']);
         }
-
-        public function eliminar()
+        else
         {
-            $this->cargar_header_y_principal();
-            $id_producto = $this->uri->segment(3);
-
-            if ($id_producto === NULL)
+            if ($this->producto_model->editar_producto($datos)) 
             {
-                $data['mensaje'] = 'No se especificó un producto a eliminar';
-            }
-            elseif($this->producto_model->eliminar_producto($id_producto) == 1)
-            {
-                $data['mensaje'] = '¡Producto eliminado correctamente!';
-            }
-            elseif($this->producto_model->eliminar_producto($id_producto) == 1451)
-            {
-                $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
+                $data['mensaje'] = '¡Los datos del producto se actualizaron correctamente!';
             }
             else
             {
-                $data['mensaje'] = '¡Producto inexistente!';
-            }
-
+                $data['mensaje'] = '¡No se actualizó la información!';
+            }   
+            $this->cargar_header_y_principal();
             $this->load->view('productos/exito', $data);
             $this->load->view('templates/footer');
         }
+    }
 
-        private function establecer_reglas($validar_codigo_unico)
+    public function eliminar()
+    {
+        $this->cargar_header_y_principal();
+        $id_producto = $this->uri->segment(3);
+
+        if ($id_producto === NULL)
         {
-            $array_validaciones = array('required');
+            $data['mensaje'] = 'No se especificó un producto a eliminar';
+        }
+        elseif($this->producto_model->eliminar_producto($id_producto) == 1)
+        {
+            $data['mensaje'] = '¡Producto eliminado correctamente!';
+        }
+        elseif($this->producto_model->eliminar_producto($id_producto) == 1451)
+        {
+            $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
+        }
+        else
+        {
+            $data['mensaje'] = '¡Producto inexistente!';
+        }
 
-            $array_mensajes = array('required' => 'El codigo es requerido');
+        $this->load->view('productos/exito', $data);
+        $this->load->view('templates/footer');
+    }
 
-            if ($validar_codigo_unico) 
-            {
-                array_push($array_validaciones, 'is_unique[producto.codigo]') ;
-                $array_mensajes['is_unique'] = 'El código ingresado ya se encuentra en uso';
-            }
+    private function establecer_reglas($validar_codigo_unico)
+    {
+        $array_validaciones = array('required');
 
-            $this->form_validation->set_rules('codigo','Código', $array_validaciones, $array_mensajes);
-       
-            $this->form_validation->set_rules(
+        $array_mensajes = array('required' => 'El codigo es requerido');
+
+        if ($validar_codigo_unico) 
+        {
+            array_push($array_validaciones, 'is_unique[producto.codigo]') ;
+            $array_mensajes['is_unique'] = 'El código ingresado ya se encuentra en uso';
+        }
+
+        $this->form_validation->set_rules('codigo','Código', $array_validaciones, $array_mensajes);
+
+        $this->form_validation->set_rules(
             'numero', 
             'Número',
             array('numeric', 'greater_than_equal_to[0]'),
             array('numeric' => 'El número debe ser un valor numérico',
-                  'greater_than_equal_to' => 'El número debe ser mayor o igual a cero')
+              'greater_than_equal_to' => 'El número debe ser mayor o igual a cero')
             );
 
-            $this->form_validation->set_rules(
+        $this->form_validation->set_rules(
             'precio_costo',
             'Precio de costo', 
             array('required', 'decimal', 'greater_than_equal_to[0]'),
             array('required' => 'El precio de costo es requerido', 
-                  'decimal' => 'El precio costo debe ser un valor decimal',
-                  'greater_than_equal_to' => 'El precio de costo debe ser mayor o igual a cero')
+              'decimal' => 'El precio costo debe ser un valor decimal',
+              'greater_than_equal_to' => 'El precio de costo debe ser mayor o igual a cero')
             );
-        }
+    }
 
-        private function cargar_header_y_principal()
+    private function cargar_header_y_principal()
+    {
+        $this->load->view('templates/header');
+        $this->load->view('templates/principal');
+    }
+
+    private function subir_imagen()
+    {
+        $imagen_url = NULL;
+
+        $this->load->library('upload');
+
+        if ($this->upload->do_upload('imagen')) 
         {
-            $this->load->view('templates/header');
-            $this->load->view('templates/principal');
+            $imagen_url = $this->upload->data('file_name');
         }
 
-        private function subir_imagen()
-        {
-            $imagen_url = NULL;
-
-            $this->load->library('upload');
-
-            if ($this->upload->do_upload('imagen')) 
-            {
-                $imagen_url = $this->upload->data('file_name');
-            }
-
-            return $imagen_url;
-        }
+        return $imagen_url;
+    }
 }
