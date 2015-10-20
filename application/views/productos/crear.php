@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label for="detalles">Detalles</label>
-                <textarea class="form-control" rows="5"name="detalles"><?php echo set_value('detalles');?></textarea><br />
+                <textarea class="form-control" rows="5" name="detalles"><?php echo set_value('detalles');?></textarea><br />
             </div>
 
             <div class="form-group">
@@ -61,7 +61,7 @@
             <br />
             <div class="form-group">
                 <label for="imagen">Imagen</label>
-                <input type="file" name="imagen" value="<?php echo set_value('imagen');?>"/><br />
+                <input type="file" name="imagen"/><br />
                 <p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>
             </div>
 

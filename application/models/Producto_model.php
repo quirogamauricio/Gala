@@ -77,7 +77,8 @@ class Producto_model extends CI_Model{
             'detalles' => $datos['detalles'],
             'talle' => $datos['talle'],
             'numero' => $datos['numero'],
-            'publicado' => $datos['publicado']
+            'publicado' => $datos['publicado'],
+            'imagen_url' => empty($datos['imagen_url']) ? NULL : $datos['imagen_url']
             );
 
         $condicion = 'id_producto = ' . $datos['id_producto'];

@@ -13,8 +13,8 @@ $this->load->library('form_validation'); ?>
 				echo $contenido;
 			} 
 			else
-				{?>
-			<?php echo form_open('productos/editar'); ?>
+			{?>
+			<?php echo form_open_multipart('productos/editar'); ?>
 
 			<input type="hidden" name="id_producto" value="<?php echo set_value('id_producto', $id_producto);?>"/>
 			<input type="hidden" name="codigo_original" value="<?php echo set_value('codigo_original', $codigo_original);?>"/>
@@ -68,8 +68,16 @@ $this->load->library('form_validation'); ?>
 					<label class="radio inline">No <input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', $no_esta_publicado); ?>/> </label>
 				</div>
 			</div>
-
 			<br />
+			<input type="hidden" name="imagen_original" value="<?php echo set_value('imagen_original', $imagen_original);?>"/>
+			<div class="form-group">
+				<label for="imagen">Imagen</label>
+				<?php if(!empty($imagen_original)) {echo img('assets/img/'.$imagen_original, FALSE, array('class' => 'img-responsive'));} ?><br />
+				<input type="file" name="imagen"/><br />
+				<p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>
+			</div>
+
+			<br/>
 
 			<input type="submit" name="submit" value="Actualizar" class="btn"/>
 			<a href="<?php echo site_url('productos/eliminar') . '/' . $id_producto ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar éste producto?');">Eliminar</a>

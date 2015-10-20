@@ -61,6 +61,7 @@ class Productos extends CI_Controller{
     public function ver($id_producto = NULL)
     {
         $this->cargar_header_y_principal();
+        $this->load->helper('html'); //Helper para usar img() 
 
         if ($id_producto === NULL) 
         {
@@ -74,23 +75,22 @@ class Productos extends CI_Controller{
             {
 
                 $this->load->library('table');
-                    $this->load->helper('url'); // Cargo helper para usar función anchor
-                    $this->load->helper('html'); //Helper para usar img() 
-                    $this->load->helper('date');
-                    $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha alta', '');
-                    $this->table->set_template(array('table_open' => '<table class="table">'));
-                    $this->table->set_empty('-');
+                $this->load->helper('url'); // Cargo helper para usar función anchor
+                $this->load->helper('date');
+                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha alta', '');
+                $this->table->set_template(array('table_open' => '<table class="table">'));
+                $this->table->set_empty('-');
 
-                    foreach ($productos as $indice_fila => $fila)
+                foreach ($productos as $indice_fila => $fila)
+                {
+                    $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
+                    $productos[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
+
+                    if (!empty($fila['imagen_url']))
                     {
-                        $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
-                        $productos[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
-
-                        if (!empty($fila['imagen_url']))
-                        {
-                            $productos[$indice_fila]['imagen_url'] = img('assets/img/'.$fila['imagen_url'], FALSE, array('class' => 'img-responsive'));
-                        }
+                        $productos[$indice_fila]['imagen_url'] = img('assets/img/'.$fila['imagen_url'], FALSE, array('class' => 'img-responsive'));
                     }
+                }
 
                     $resultado = $this->table->generate($productos);
                 }
@@ -127,6 +127,7 @@ class Productos extends CI_Controller{
                     $data['numero'] = $producto->numero;
                     $data['esta_publicado'] = $producto->publicado == 1 ? TRUE : FALSE;
                     $data['no_esta_publicado'] = $producto->publicado == 0 ? TRUE : FALSE;
+                    $data['imagen_original'] = $producto->imagen_url;
                 }
             }
 
@@ -138,6 +139,8 @@ class Productos extends CI_Controller{
         {
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
+            $imagen_subida = $this->subir_imagen();
+
             $datos = array(
                 'id_producto' => $this->input->post('id_producto'),
                 'codigo' => $this->input->post('codigo'),
@@ -147,22 +150,23 @@ class Productos extends CI_Controller{
                 'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
                 'numero' => !empty($this->input->post('numero')) ? $this->input->post('numero') : NULL,
                 'detalles' => !empty($this->input->post('detalles')) ? $this->input->post('detalles') : NULL,
-                'publicado' => $this->input->post('publicado') == 0 ? FALSE : TRUE
+                'publicado' => $this->input->post('publicado') == 0 ? FALSE : TRUE,
+                'imagen_url' =>  $imagen_subida === NULL ?  $this->input->post('imagen_original') : $imagen_subida
                 );
 
             $validar_codigo_unico = TRUE;
 
-            if ($datos['codigo'] === $this->input->post('codigo_original'))
+        if ($datos['codigo'] === $this->input->post('codigo_original'))
             {
-             $validar_codigo_unico = FALSE;
-         }
+               $validar_codigo_unico = FALSE;
+            }
 
-         $this-> establecer_reglas($validar_codigo_unico);
+           $this-> establecer_reglas($validar_codigo_unico);
 
-         if ($this->form_validation->run() === FALSE)
-         {
-            $this->ver($datos['id_producto']);
-        }
+        if ($this->form_validation->run() === FALSE)
+            {
+                $this->ver($datos['id_producto']);
+            }
         else
         {
             if ($this->producto_model->editar_producto($datos)) 
@@ -253,7 +257,6 @@ class Productos extends CI_Controller{
         {
             $imagen_url = $this->upload->data('file_name');
         }
-
         return $imagen_url;
     }
 }
