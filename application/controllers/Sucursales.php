@@ -68,7 +68,7 @@ class Sucursales extends CI_Controller {
                     $sucursales[$indice_fila]['id_sucursal'] = anchor('sucursales/ver/'.$fila['id_sucursal'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el usuario particular
                 }
 
-                $this->table->set_heading('Sucursal', 'Direccion');
+                $this->table->set_heading('Sucursal', 'Dirección');
 
                 $resultado = $this->table->generate($sucursales);
             }
