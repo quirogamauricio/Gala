@@ -17,8 +17,6 @@ $this->load->library('form_validation'); ?>
 			<?php echo form_open_multipart('productos/editar'); ?>
 
 			<input type="hidden" name="id_producto" value="<?php echo set_value('id_producto', $id_producto);?>"/>
-			<input type="hidden" name="codigo_original" value="<?php echo set_value('codigo_original', $codigo_original);?>"/>
-			<input type="hidden" name="precio_costo_original" value="<?php echo set_value('precio_costo_original', $precio_costo_original);?>"/>
 
 			<div class="form-group">
 				<label for="tipo">Tipo</label>

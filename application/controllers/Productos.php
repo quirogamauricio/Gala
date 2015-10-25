@@ -27,7 +27,7 @@ class Productos extends CI_Controller{
 
         $data['titulo'] = 'Crear nuevo producto';
 
-        $this->establecer_reglas(TRUE);
+        $this->establecer_reglas();
 
         $this->cargar_header_y_principal();
 
@@ -115,7 +115,6 @@ class Productos extends CI_Controller{
                 {
                     $data['id_producto'] = $producto->id_producto;
                     $data['codigo'] = $producto->codigo;
-                    $data['codigo_original'] = $producto->codigo;
                     $data['precio_costo'] = $producto->precio_costo;
                     $data['precio_costo_original'] = $producto->precio_costo;
                     $data['id_tipo_producto'] = $producto->id_tipo_producto;
@@ -154,33 +153,26 @@ class Productos extends CI_Controller{
                 'imagen_url' =>  $imagen_subida === NULL ?  $this->input->post('imagen_original') : $imagen_subida
                 );
 
-            $validar_codigo_unico = TRUE;
+            $this-> establecer_reglas();
 
-        if ($datos['codigo'] === $this->input->post('codigo_original'))
-            {
-               $validar_codigo_unico = FALSE;
-            }
-
-           $this-> establecer_reglas($validar_codigo_unico);
-
-        if ($this->form_validation->run() === FALSE)
-            {
-                $this->ver($datos['id_producto']);
-            }
-        else
-        {
-            if ($this->producto_model->editar_producto($datos)) 
-            {
-                $data['mensaje'] = '¡Los datos del producto se actualizaron correctamente!';
-            }
+            if ($this->form_validation->run() === FALSE)
+                {
+                    $this->ver($datos['id_producto']);
+                }
             else
             {
-                $data['mensaje'] = '¡No se actualizó la información!';
-            }   
-            $this->cargar_header_y_principal();
-            $this->load->view('productos/exito', $data);
-            $this->load->view('templates/footer');
-        }
+                if ($this->producto_model->editar_producto($datos)) 
+                {
+                    $data['mensaje'] = '¡Los datos del producto se actualizaron correctamente!';
+                }
+                else
+                {
+                    $data['mensaje'] = '¡No se actualizó la información!';
+                }   
+                $this->cargar_header_y_principal();
+                $this->load->view('productos/exito', $data);
+                $this->load->view('templates/footer');
+            }
     }
 
     public function eliminar()
@@ -209,19 +201,9 @@ class Productos extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
-    private function establecer_reglas($validar_codigo_unico)
+    private function establecer_reglas()
     {
-        $array_validaciones = array('required');
-
-        $array_mensajes = array('required' => 'El codigo es requerido');
-
-        if ($validar_codigo_unico) 
-        {
-            array_push($array_validaciones, 'is_unique[producto.codigo]') ;
-            $array_mensajes['is_unique'] = 'El código ingresado ya se encuentra en uso';
-        }
-
-        $this->form_validation->set_rules('codigo','Código', $array_validaciones, $array_mensajes);
+        $this->form_validation->set_rules('codigo','Código',  array('required'), array('required' => 'El codigo es requerido'));
 
         $this->form_validation->set_rules(
             'numero', 
