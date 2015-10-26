@@ -19,6 +19,20 @@ class Caja_model extends CI_Model
                                  ORDER BY s.sucursal')->result_array();
     }
 
+    public function obtener_cajas_dropdown()
+    {
+        $cajas_array = array();
+
+        $resultado = $this->db->query('SELECT * FROM caja')->result();
+
+        foreach ($resultado as $fila)
+        {
+            $cajas_array[$fila->id_caja] = $fila->descripcion;
+        }
+
+        return $cajas_array;
+    }
+
     public function obtener_caja_por_id($id_caja)
     {
         $resultado = $this->db->query(

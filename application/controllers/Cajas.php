@@ -35,7 +35,7 @@ class Cajas extends CI_Controller {
         {
             $data = array(
                 'descripcion' => $this->input->post('descripcion'),
-                'id_sucursal' => $this->input->post('sucursal'),);
+                'id_sucursal' => $this->input->post('sucursal'));
             
             $this->caja_model->crear_caja($data);
             $data['mensaje'] = "¡Caja creada correctamente!";
