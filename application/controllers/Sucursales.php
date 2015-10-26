@@ -32,7 +32,7 @@ class Sucursales extends CI_Controller {
         else
         {
             $data = array(
-                'sucursal' => $this->input->post('sucursal'),
+                'id_sucursal' => $this->input->post('sucursal'),
                 'direccion' => !empty($this->input->post('direccion')) ? $this->input->post('direccion') : NULL
                 );
             
