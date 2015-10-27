@@ -6,7 +6,7 @@ class Movimiento_caja_model extends CI_Model
         $this->load->database();
     }
 
-    public function crear_movimiento_caja($data)
+    public function registrar_movimiento_caja($data)
     {
         return $this->db->insert('movimiento_caja', $data);
     }

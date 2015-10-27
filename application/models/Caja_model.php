@@ -27,7 +27,7 @@ class Caja_model extends CI_Model
 
         foreach ($resultado as $fila)
         {
-            $cajas_array[$fila->id_caja] = $fila->descripcion;
+            $cajas_array[$fila->id_caja] = $fila->descripcion . ' - Saldo: $' . $fila->saldo;
         }
 
         return $cajas_array;
@@ -54,6 +54,14 @@ class Caja_model extends CI_Model
     public function editar_caja($datos)
     {
         $campos = array('descripcion' => $datos['descripcion'], 'id_sucursal' => $datos['id_sucursal']);
+        $condicion = 'id_caja =' . $datos['id_caja'];
+        $sentencia = $this->db->update_string('caja', $campos, $condicion);
+        return $this->db->query($sentencia);
+    }
+
+    public function actualizar_saldo_caja($datos)
+    {
+        $campos = array('saldo' => $datos['saldo']);
         $condicion = 'id_caja =' . $datos['id_caja'];
         $sentencia = $this->db->update_string('caja', $campos, $condicion);
         return $this->db->query($sentencia);

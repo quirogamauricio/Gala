@@ -33,15 +33,23 @@ class Movimientos_caja extends CI_Controller {
         }
         else
         {
+            $id_caja_seleccionada = $this->input->post('caja');
+            $importe = $this->input->post('importe');
+            $caja_seleccionada = $this->caja_model->obtener_caja_por_id($id_caja_seleccionada);
+            $saldo_caja = $caja_seleccionada->saldo;
+
             $data = array(
-                'importe' => $this->input->post('importe'),
-                'id_caja' => $this->input->post('caja'),
+                'importe' =>$importe,
+                'id_caja' => $id_caja_seleccionada,
                 'concepto' => $this->input->post('concepto'),
                 );
-            
-            $this->caja_model->crear_caja($data);
-            $data['mensaje'] = "Movimiento de caja registrado correctamente!";
-            $this->load->view('movimientos_cajas/exito', $data);
+
+            $this->actualizar_saldo_caja($id_caja_seleccionada, $importe, $saldo_caja);
+            //TODO: Registro operación
+            $this->movimiento_caja_model->registrar_movimiento_caja($data);
+
+            $data['mensaje'] = "¡Movimiento de caja registrado correctamente!";
+            $this->load->view('movimientos_caja/exito', $data);
         }
 
         $this->load->view('templates/footer');
@@ -116,6 +124,37 @@ class Movimientos_caja extends CI_Controller {
 
     private function establecer_reglas()
     {
-        $this->form_validation->set_rules('descripcion', 'Descripción', array('required'), array('required' => 'La descripción es requerida'));
+        $this->form_validation->set_rules('importe', 
+                                          'Importe', 
+                                           array('required', 'decimal', 'callback_validar_diferencia_saldo'),
+                                           array('required' => 'El importe es requerido',
+                                                 'decimal' => 'El importe debe ser un valor decimal',
+                                                 'validar_diferencia_saldo' => 'El saldo de la caja no puede ser menor a cero'));
+
+        $this->form_validation->set_rules('concepto', 'Concepto', array('required'), array('required' => 'El concepto es requerido'));
+    }
+
+    public function validar_diferencia_saldo()
+    {
+        $id_caja_seleccionada = $this->input->post('caja');
+        $importe = $this->input->post('importe');
+        $caja_seleccionada = $this->caja_model->obtener_caja_por_id($id_caja_seleccionada);
+        $saldo_caja = $caja_seleccionada->saldo;
+
+        if ($importe<0 && ($saldo_caja+$importe) < 0 ) 
+        {
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+
+    private function actualizar_saldo_caja($id_caja_seleccionada, $importe, $saldo)
+    {
+        $saldo = $saldo + $importe;
+
+        $datos_actualizacion = array('id_caja' => $id_caja_seleccionada, 'saldo' => $saldo);
+
+        $this->caja_model->actualizar_saldo_caja($datos_actualizacion);
     }
 }

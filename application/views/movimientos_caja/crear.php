@@ -14,7 +14,11 @@
 				</div>
 				<div class="form-group">
 					<label for="importe">Importe</label>  <span class="badge">Requerido</span>
-					<input type="input" class="form-control" name="importe" value="<?php echo set_value('importe');?>"/><br />
+					<div class="input-group">
+						<span class="input-group-addon">$</span>
+						<input type="input" class="form-control" name="importe" value="<?php echo set_value('importe');?>"/><br />
+					</div>
+					<p class="help-block">Ingresar un valor decimal utilizando '.' para separar los decimales</p>
 				</div>
 				<div class="form-group">
 					<label for="concepto">Concepto</label> <span class="badge">Requerido</span>
