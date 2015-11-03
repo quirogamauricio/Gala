@@ -11,18 +11,6 @@ class Stock_model extends CI_Model
         return $this->db->insert('stock', $datos);
     }
 
-    public function obtener_stock()
-    {
-       return $this->db->query(
-            'SELECT tp.tipo, p.codigo , su.sucursal, s.stock_actual, s.stock_minimo, s.id_stock
-             FROM stock s
-             INNER JOIN producto p ON s.id_producto = p.id_producto
-             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
-             INNER JOIN sucursal su ON s.id_sucursal = su.id_sucursal
-             ORDER BY s.id_stock DESC'
-         )->result_array();
-    }
-
     public function obtener_stock_por_id($id_stock)
     {
         $resultado = $this->db->query(
@@ -44,9 +32,7 @@ class Stock_model extends CI_Model
     public function editar_stock($datos)
     {
         $campos = array('stock_actual' => $datos['stock_actual'], 
-                        'stock_minimo' => $datos['stock_minimo'],
-                        'id_producto' => $datos['id_producto'],
-                        'id_sucursal' => $datos['id_sucursal']
+                        'stock_minimo' => $datos['stock_minimo']
                         );
 
         $condicion = 'id_stock =' . $datos['id_stock'];
@@ -54,11 +40,11 @@ class Stock_model extends CI_Model
         return $this->db->query($sentencia);
     }
 
-    public function eliminar_stock($id_stock)
+    public function eliminar_stock($id_producto)
     {
         $numero_retorno;
 
-            if ($this->db->query('DELETE FROM stock WHERE id_stock = ' . $id_stock)) 
+            if ($this->db->query('DELETE FROM stock WHERE id_producto = ' . $id_producto)) 
             {
                 $numero_retorno = $this->db->affected_rows();
             }

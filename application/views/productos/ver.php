@@ -77,7 +77,7 @@ $this->load->library('form_validation'); ?>
 
 			<br/>
 
-			<input type="submit" name="submit" value="Actualizar" class="btn"/>
+			<input type="submit" name="submit" value="Actualizar" class="btn btn-default"/>
 			<a href="<?php echo site_url('productos/eliminar') . '/' . $id_producto ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar éste producto?');">Eliminar</a>
 
 		</form>	

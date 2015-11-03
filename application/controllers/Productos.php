@@ -10,6 +10,7 @@ class Productos extends CI_Controller{
         $this->load->model('producto_model');
         $this->load->model('tipo_productos_model');
         $this->load->model('color_productos_model');
+        $this->load->model('stock_model');
     }
 
     public function index()
@@ -50,7 +51,13 @@ class Productos extends CI_Controller{
                 'fecha_alta'=> date('Y-m-d H:i:s')
                 );
 
-            $this->producto_model->crear_producto($datos);
+            //Creo producto
+            $id_nuevo_producto = $this->producto_model->crear_producto($datos);
+
+            //Creo stock
+            $datos_stock = array('id_producto' => $id_nuevo_producto, 'stock_actual' => 0, 'stock_minimo' => 0);
+            $this->stock_model->crear_stock($datos_stock);
+
             $data['mensaje'] = "¡Producto creado correctamente!";
             $this->load->view('productos/exito', $data);
         }
@@ -77,14 +84,14 @@ class Productos extends CI_Controller{
                 $this->load->library('table');
                 $this->load->helper('url'); // Cargo helper para usar función anchor
                 $this->load->helper('date');
-                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Fecha alta', '');
+                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Stock actual', 'Stock mínimo', '', '');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
                 $this->table->set_empty('-');
 
                 foreach ($productos as $indice_fila => $fila)
                 {
-                    $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
-                    $productos[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
+                    $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"');
+                    $productos[$indice_fila]['id_stock'] = anchor('stock/ver/'.$fila['id_stock'],'Stock', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
 
                     if (!empty($fila['imagen_url']))
                     {
@@ -184,7 +191,7 @@ class Productos extends CI_Controller{
         {
             $data['mensaje'] = 'No se especificó un producto a eliminar';
         }
-        elseif($this->producto_model->eliminar_producto($id_producto) == 1)
+        elseif($this->stock_model->eliminar_stock($id_producto) == 1 && $this->producto_model->eliminar_producto($id_producto) == 1)
         {
             $data['mensaje'] = '¡Producto eliminado correctamente!';
         }

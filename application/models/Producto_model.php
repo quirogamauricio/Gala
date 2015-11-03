@@ -8,16 +8,18 @@ class Producto_model extends CI_Model{
 
     public function crear_producto($datos)
     {
-        return $this->db->insert('producto', $datos);
+        $this->db->insert('producto', $datos);
+        return $this->db->insert_id();
     }
 
     public function obtener_productos()
     {
         return $this->db->query(
-            "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), p.fecha_alta, p.id_producto as 'id'
+            "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), s.stock_actual, s.stock_minimo, s.id_stock, p.id_producto as 'id'
             FROM producto p
             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
             INNER JOIN color_producto cp ON p.id_color_producto = cp.id_color_producto
+            INNER JOIN stock s ON s.id_producto = p.id_producto
             ORDER BY p.fecha_alta DESC"
             )->result_array();
     }
