@@ -18,12 +18,6 @@ $this->load->library('form_validation');?>
 				<?php echo form_open('cajas/editar'); ?>
 				
 					<input type="hidden" name="id_caja" value="<?php echo set_value('id_caja', $id_caja);?>"/>
-					<input type="hidden" name="id_sucursal_original" value="<?php echo set_value('id_sucursal_original', $id_sucursal_original);?>"/>
-					
-					<div class="form-group">
-						<label for="sucursal">Sucursal</label>
-						 <?php echo form_dropdown('sucursal', $sucursales, $id_sucursal, 'class="form-control"');?><br />
-					</div>
 
 					<div class="form-group">
 					    <label for="descripcion">Descripción</label> <span class="badge"> Requerido</span>

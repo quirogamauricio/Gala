@@ -155,23 +155,23 @@ class Usuarios extends CI_Controller {
         if ($id_usuario === NULL)
         {
            $data['mensaje'] = 'No se especificó un usuario a eliminar';
-       }
+        }
        elseif($id_usuario == $_SESSION['usuario_id'])
-       {
-        $data['mensaje'] = '¡No es posible eliminar el usuario actual!';
-    }
-    elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
-    {
-        $data['mensaje'] = '¡Usuario eliminado correctamente!';
-    }
-    else
-    {
-      $data['mensaje'] = '¡Usuario inexistente!';
-  }
+        {
+            $data['mensaje'] = '¡No es posible eliminar el usuario actual!';
+        }
+        elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
+        {
+            $data['mensaje'] = '¡Usuario eliminado correctamente!';
+        }
+        else
+        {
+          $data['mensaje'] = '¡Usuario inexistente!';
+        }
 
-  $this->load->view('usuarios/exito', $data);
-  $this->load->view('templates/footer');
-}
+      $this->load->view('usuarios/exito', $data);
+      $this->load->view('templates/footer');
+    }
 
 private function establecer_reglas_edicion($validar_email_unico)
 {

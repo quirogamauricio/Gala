@@ -13,10 +13,9 @@ class Caja_model extends CI_Model
 
     public function obtener_cajas_table()
     {
-        return $this->db->query('SELECT s.sucursal, c.saldo, c.descripcion, c.id_caja
+        return $this->db->query('SELECT c.saldo, c.descripcion, c.id_caja
                                  FROM caja c
-                                 INNER JOIN sucursal s ON s.id_sucursal = c.id_sucursal
-                                 ORDER BY s.sucursal')->result_array();
+                                 ORDER BY c.id_caja')->result_array();
     }
 
     public function obtener_cajas_dropdown()
@@ -53,7 +52,7 @@ class Caja_model extends CI_Model
 
     public function editar_caja($datos)
     {
-        $campos = array('descripcion' => $datos['descripcion'], 'id_sucursal' => $datos['id_sucursal']);
+        $campos = array('descripcion' => $datos['descripcion']);
         $condicion = 'id_caja =' . $datos['id_caja'];
         $sentencia = $this->db->update_string('caja', $campos, $condicion);
         return $this->db->query($sentencia);

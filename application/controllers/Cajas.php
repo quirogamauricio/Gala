@@ -8,7 +8,6 @@ class Cajas extends CI_Controller {
         $this->session->user_is_authenticated();
         $this->load->library('form_validation');
         $this->load->model('caja_model');
-        $this->load->model('sucursal_model');
     }
 
     public function index()
@@ -21,7 +20,6 @@ class Cajas extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
         $data['titulo'] = 'Crear nueva caja';
-        $data['sucursales'] = $this->sucursal_model->obtener_sucursales_dropdown();
 
         $this->cargar_header_y_principal();
 
@@ -33,9 +31,7 @@ class Cajas extends CI_Controller {
         }
         else
         {
-            $data = array(
-                'descripcion' => $this->input->post('descripcion'),
-                'id_sucursal' => $this->input->post('sucursal'));
+            $data = array('descripcion' => $this->input->post('descripcion'));
             
             $this->caja_model->crear_caja($data);
             $data['mensaje'] = "¡Caja creada correctamente!";
@@ -69,7 +65,7 @@ class Cajas extends CI_Controller {
                     $cajas[$indice_fila]['id_caja'] = anchor('cajas/ver/'.$fila['id_caja'],'Ver', 'class="btn btn-info"');
                 }
 
-                $this->table->set_heading('Sucursal', 'Saldo', 'Descripción');
+                $this->table->set_heading('Saldo', 'Descripción', '');
 
                 $resultado = $this->table->generate($cajas);
             }
@@ -83,7 +79,6 @@ class Cajas extends CI_Controller {
         else
         { 
             $data['titulo'] = 'Información de la caja';
-            $data['sucursales'] = $this->sucursal_model->obtener_sucursales_dropdown();
 
             $caja = $this->caja_model->obtener_caja_por_id($id_caja);
 
@@ -94,8 +89,6 @@ class Cajas extends CI_Controller {
             else
             {
                 $data['id_caja'] = $caja->id_caja;
-                $data['id_sucursal'] = $caja->id_sucursal;
-                $data['id_sucursal_original'] = $caja->id_sucursal;
                 $data['descripcion'] = $caja->descripcion;
                 $data['saldo'] = $caja->saldo;
             }
@@ -112,19 +105,10 @@ class Cajas extends CI_Controller {
 
         $datos = array(
             'id_caja' => $this->input->post('id_caja'),
-            'id_sucursal' => $this->input->post('sucursal'),
             'descripcion' => $this->input->post('descripcion')
             );
 
-        $validar_sucursal_unica = TRUE;
-
-        if ($datos['id_sucursal'] === $this->input->post('id_sucursal_original'))
-        {
-             $validar_sucursal_unica = FALSE;
-             
-        }
-
-        $this-> establecer_reglas($validar_sucursal_unica);
+        $this-> establecer_reglas();
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -178,16 +162,9 @@ class Cajas extends CI_Controller {
         $this->load->view('templates/principal');
     }
 
-    private function establecer_reglas($validar_sucursal_unica)
+    private function establecer_reglas()
     {
-        if ($validar_sucursal_unica)
-        {
-            $this->form_validation->set_rules('sucursal', 
-                                             'Sucursal',
-                                             array('is_unique[caja.id_sucursal]'), 
-                                             array('is_unique' => 'Ya existe una caja vinculada a la sucursal seleccionada'));
-        }
-
-        $this->form_validation->set_rules('descripcion', 'Descripción', array('required'), array('required' => 'La descripción es requerida'));
+        $this->form_validation->set_rules('descripcion', 'Descripción', array('required', 'is_unique[caja.descripcion]'),
+         array('required' => 'La descripción es requerida', 'is_unique' => 'Ya existe una caja con la descripción ingresada'));
     }
 }

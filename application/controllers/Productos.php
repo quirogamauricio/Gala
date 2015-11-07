@@ -191,11 +191,11 @@ class Productos extends CI_Controller{
         {
             $data['mensaje'] = 'No se especificó un producto a eliminar';
         }
-        elseif($this->stock_model->eliminar_stock($id_producto) == 1 && $this->producto_model->eliminar_producto($id_producto) == 1)
+        elseif($this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
             $data['mensaje'] = '¡Producto eliminado correctamente!';
         }
-        elseif($this->producto_model->eliminar_producto($id_producto) == 1451)
+        elseif(!$this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
             $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
         }

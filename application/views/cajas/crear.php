@@ -9,10 +9,6 @@
 			<?php echo form_open('cajas/nueva'); ?>
 
 				<div class="form-group">
-					<label for="sucursal">Sucursal</label>
-					 <?php echo form_dropdown('sucursal', $sucursales, array(), 'class="form-control"');?><br />
-				</div>
-				<div class="form-group">
 					<label for="descripcion">Descripción</label> 
 					<input type="input" class="form-control" name="descripcion" value="<?php echo set_value('descripcion');?>"/><br />
 				</div>

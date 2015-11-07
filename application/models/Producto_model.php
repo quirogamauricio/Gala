@@ -88,19 +88,16 @@ class Producto_model extends CI_Model{
         return $this->db->query($sentencia);
     }
 
-    public function eliminar_producto($id_producto)
+    public function eliminar_producto_y_stock_asociado($id_producto)
     {
-        $numero_retorno;
+        /* Se utiliza transacción para evitar eliminar el stock si no se puede eliminar
+         el producto por restricción de FK */
 
-        if ($this->db->query('DELETE FROM producto WHERE id_producto = ' . $id_producto)) 
-        {
-            $numero_retorno = $this->db->affected_rows();
-        }
-        else
-        {
-            $numero_retorno = $this->db->error()['code'];
-        }
+        $this->db->trans_start();
+        $this->db->query('DELETE FROM stock WHERE id_producto = ' . $id_producto);
+        $this->db->query('DELETE FROM producto WHERE id_producto = ' . $id_producto);
+        $this->db->trans_complete();
 
-        return $numero_retorno;
+        return $this->db->trans_status();
     }
 }

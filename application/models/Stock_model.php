@@ -39,20 +39,4 @@ class Stock_model extends CI_Model
         $sentencia = $this->db->update_string('stock', $campos, $condicion);
         return $this->db->query($sentencia);
     }
-
-    public function eliminar_stock($id_producto)
-    {
-        $numero_retorno;
-
-            if ($this->db->query('DELETE FROM stock WHERE id_producto = ' . $id_producto)) 
-            {
-                $numero_retorno = $this->db->affected_rows();
-            }
-            else
-            {
-                $numero_retorno = $this->db->error()['code'];
-            }
-
-            return $numero_retorno;
-    }
 }
