@@ -40,7 +40,7 @@ class Categoria_usuarios_model extends CI_Model
 
         $categoria_usuario = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $categoria_usuario = $resultado->row();
         }

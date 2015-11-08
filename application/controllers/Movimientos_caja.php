@@ -100,7 +100,7 @@ class Movimientos_caja extends CI_Controller {
 
             $data['titulo'] = 'Movimientos de ' . ($caja != NULL ? $caja->descripcion : 'caja');
 
-            if (empty($movimientos)) 
+            if (empty($movimientos) || $movimientos === NULL) 
             {
                 $data['contenido'] = '<h4>No se encontraron movimientos para la caja seleccionada</h4>';
             }

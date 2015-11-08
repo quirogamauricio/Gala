@@ -39,7 +39,7 @@ class Tipo_productos_model extends CI_Model
 
         $tipo_producto = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $tipo_producto = $resultado->row();
         }

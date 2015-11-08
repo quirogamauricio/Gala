@@ -21,7 +21,7 @@ class Stock_model extends CI_Model
 
         $stock = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $stock = $resultado->row();
         }

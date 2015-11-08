@@ -48,7 +48,7 @@ class Cliente_model extends CI_Model{
 
         $cliente = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $cliente = $resultado->row();
         }

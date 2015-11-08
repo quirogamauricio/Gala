@@ -31,7 +31,7 @@ class Usuario_model extends CI_Model{
 
             $usuario = NULL;
 
-            if($resultado->num_rows() > 0)
+            if($resultado && $resultado->num_rows() > 0)
             {
                 $usuario = $resultado->row();
             }

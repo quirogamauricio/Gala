@@ -39,7 +39,7 @@ class Color_productos_model extends CI_Model{
 
         $color_producto = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $color_producto = $resultado->row();
         }

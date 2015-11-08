@@ -62,7 +62,7 @@ class Producto_model extends CI_Model{
 
         $producto = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $producto = $resultado->row();
         }
