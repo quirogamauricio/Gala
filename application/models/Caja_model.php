@@ -42,7 +42,7 @@ class Caja_model extends CI_Model
 
         $caja = NULL;
 
-        if($resultado->num_rows() > 0)
+        if($resultado && $resultado->num_rows() > 0)
         {
             $caja = $resultado->row();
         }

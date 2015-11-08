@@ -46,6 +46,8 @@
             <ul class="dropdown-menu">
               <li><a href="<?php echo base_url("index.php/cajas/nueva"); ?>">Crear caja</a></li>
               <li><a href="<?php echo base_url("index.php/cajas/ver"); ?>">Ver cajas</a></li>
+              <li><a href="<?php echo base_url("index.php/movimientos_caja/nuevo"); ?>">Registrar movimiento</a></li>
+              <li><a href="<?php echo base_url("index.php/movimientos_caja/ver"); ?>">Ver movimientos</a></li>
             </ul>
           </li>
         </ul>

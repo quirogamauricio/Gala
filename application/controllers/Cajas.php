@@ -58,14 +58,14 @@ class Cajas extends CI_Controller {
                 $this->load->library('table');
                 $this->load->helper('url');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
+                $this->table->set_heading('Saldo', 'Descripción', '', '');
                 $this->table->set_empty('-');
 
                 foreach ($cajas as $indice_fila => $fila)
                 {
                     $cajas[$indice_fila]['id_caja'] = anchor('cajas/ver/'.$fila['id_caja'],'Ver', 'class="btn btn-info"');
+                    array_push($cajas[$indice_fila], anchor('movimientos_caja/ver/'.$fila['id_caja'],'Movimientos', 'class="btn btn-info"'));
                 }
-
-                $this->table->set_heading('Saldo', 'Descripción', '');
 
                 $resultado = $this->table->generate($cajas);
             }

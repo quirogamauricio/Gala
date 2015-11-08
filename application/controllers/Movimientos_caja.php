@@ -65,27 +65,25 @@ class Movimientos_caja extends CI_Controller {
 
         if ($id_caja === NULL)
         {
-            $data['titulo'] = 'Cajas';
+            $data['titulo'] = 'Movimientos de cajas';
 
-            $cajas = $this->caja_model->obtener_cajas_table();
+            $movimientos = $this->movimiento_caja_model->obtener_movimientos_table();
 
             $resultado;
 
-            if(!empty($cajas))
+            if(!empty($movimientos))
             {
+                $this->load->helper('date');
                 $this->load->library('table');
-                $this->load->helper('url');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
-                $this->table->set_empty('-');
+                $this->table->set_heading('Caja','Importe', 'Concepto', 'Fecha', 'Descripción', 'Usuario');
 
-                foreach ($cajas as $indice_fila => $fila)
+                foreach ($movimientos as $indice => $fila) 
                 {
-                    $cajas[$indice_fila]['id_caja'] = anchor('cajas/ver/'.$fila['id_caja'],'Ver', 'class="btn btn-info"');
+                    $movimientos[$indice]['fecha'] = transform_date($fila['fecha']);
                 }
 
-                $this->table->set_heading('Sucursal', 'Saldo', 'Descripción');
-
-                $resultado = $this->table->generate($cajas);
+                $resultado = $this->table->generate($movimientos);
             }
             else
             {
@@ -96,26 +94,33 @@ class Movimientos_caja extends CI_Controller {
         }
         else
         { 
-            $data['titulo'] = 'Información de la caja';
-            $data['sucursales'] = $this->sucursal_model->obtener_sucursales_dropdown();
-
             $caja = $this->caja_model->obtener_caja_por_id($id_caja);
 
-            if ($caja === NULL) 
+            $movimientos = $this->movimiento_caja_model->obtener_movimientos_por_caja_table($id_caja);
+
+            $data['titulo'] = 'Movimientos de ' . ($caja != NULL ? $caja->descripcion : 'caja');
+
+            if (empty($movimientos)) 
             {
-                $data['contenido'] = '<h4>Error al recuperar información de la caja seleccionada</h4>';
+                $data['contenido'] = '<h4>No se encontraron movimientos para la caja seleccionada</h4>';
             }
             else
             {
-                $data['id_caja'] = $caja->id_caja;
-                $data['id_sucursal'] = $caja->id_sucursal;
-                $data['id_sucursal_original'] = $caja->id_sucursal;
-                $data['descripcion'] = $caja->descripcion;
-                $data['saldo'] = $caja->saldo;
+                $this->load->helper('date');
+                $this->load->library('table');
+                $this->table->set_template(array('table_open' => '<table class="table">'));
+                $this->table->set_heading('Importe', 'Concepto', 'Fecha', 'Descripción', 'Usuario');
+
+                foreach ($movimientos as $indice => $fila) 
+                {
+                    $movimientos[$indice]['fecha'] = transform_date($fila['fecha']);
+                }
+
+                $data['contenido'] = $this->table->generate($movimientos);
             }
         }
 
-        $this->load->view('cajas/ver', $data);
+        $this->load->view('movimientos_caja/ver', $data);
 
         $this->load->view('templates/footer');
     }
