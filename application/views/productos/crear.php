@@ -30,7 +30,28 @@
                 <div class="input-group">
                     <span class="input-group-addon">$</span>
                     <input type="input" class="form-control" name="precio_costo" value="<?php echo set_value('precio_costo');?>"/>
-                </div> <br />
+                </div> 
+                <br />
+                <p class="help-block">Ingresar un valor decimal utilizando '.' para separar los decimales</p>
+            </div>
+
+            <div class="form-group">
+                <label for="precio_venta_efectivo">Precio de venta en efectivo</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="input" class="form-control" name="precio_venta_efectivo" value="<?php echo set_value('precio_venta_efectivo');?>"/>
+                </div> 
+                <br />
+                <p class="help-block">Ingresar un valor decimal utilizando '.' para separar los decimales</p>
+            </div>
+
+            <div class="form-group">
+                <label for="precio_venta_tarjeta">Precio de venta con tarjeta</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="input" class="form-control" name="precio_venta_tarjeta" value="<?php echo set_value('precio_venta_tarjeta');?>"/>
+                </div> 
+                <br />
                 <p class="help-block">Ingresar un valor decimal utilizando '.' para separar los decimales</p>
             </div>
 

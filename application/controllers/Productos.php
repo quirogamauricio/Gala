@@ -40,6 +40,8 @@ class Productos extends CI_Controller{
         {
             $datos = array(
                 'precio_costo' => $this->input->post('precio_costo'),
+                'precio_venta_efectivo' => !empty($this->input->post('precio_venta_efectivo')) ? $this->input->post('precio_venta_efectivo') : NULL,
+                'precio_venta_tarjeta' => !empty($this->input->post('precio_venta_tarjeta')) ? $this->input->post('precio_venta_tarjeta') : NULL,
                 'codigo' => $this->input->post('codigo'),
                 'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
                 'numero' => !empty($this->input->post('numero')) ? $this->input->post('numero') : NULL,
@@ -84,7 +86,7 @@ class Productos extends CI_Controller{
                 $this->load->library('table');
                 $this->load->helper('url'); // Cargo helper para usar función anchor
                 $this->load->helper('date');
-                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Stock actual', 'Stock mínimo', '', '');
+                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Precio venta efectivo', 'Precio venta tarjeta', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Stock actual', 'Stock mínimo', '', '');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
                 $this->table->set_empty('-');
 
@@ -124,6 +126,8 @@ class Productos extends CI_Controller{
                     $data['codigo'] = $producto->codigo;
                     $data['precio_costo'] = $producto->precio_costo;
                     $data['precio_costo_original'] = $producto->precio_costo;
+                    $data['precio_venta_efectivo'] = $producto->precio_venta_efectivo;
+                    $data['precio_venta_tarjeta'] = $producto->precio_venta_tarjeta;
                     $data['id_tipo_producto'] = $producto->id_tipo_producto;
                     $data['tipos'] = $this->tipo_productos_model->obtener_tipos_producto_dropdown();
                     $data['id_color_producto'] = $producto->id_color_producto;
@@ -153,6 +157,8 @@ class Productos extends CI_Controller{
                 'id_tipo_producto' => $this->input->post('tipo'),
                 'id_color_producto' => $this->input->post('color'),
                 'precio_costo' => $this->input->post('precio_costo'),
+                'precio_venta_efectivo' => !empty($this->input->post('precio_venta_efectivo')) ? $this->input->post('precio_venta_efectivo') : NULL,
+                'precio_venta_tarjeta' => !empty($this->input->post('precio_venta_tarjeta')) ? $this->input->post('precio_venta_tarjeta') : NULL,
                 'talle' => !empty($this->input->post('talle')) ? $this->input->post('talle') : NULL,
                 'numero' => !empty($this->input->post('numero')) ? $this->input->post('numero') : NULL,
                 'detalles' => !empty($this->input->post('detalles')) ? $this->input->post('detalles') : NULL,

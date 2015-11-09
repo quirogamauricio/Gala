@@ -15,7 +15,11 @@ class Producto_model extends CI_Model{
     public function obtener_productos()
     {
         return $this->db->query(
-            "SELECT p.codigo, tp.tipo, p.precio_costo, cp.color, p.detalles, p.numero, p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), s.stock_actual, s.stock_minimo, s.id_stock, p.id_producto as 'id'
+            "SELECT p.codigo, tp.tipo, p.precio_costo, p.precio_venta_efectivo, 
+                    p.precio_venta_tarjeta, cp.color, p.detalles, p.numero,
+                    p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), s.stock_actual,
+                    s.stock_minimo, s.id_stock, p.id_producto as 'id'
+
             FROM producto p
             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
             INNER JOIN color_producto cp ON p.id_color_producto = cp.id_color_producto
@@ -76,6 +80,8 @@ class Producto_model extends CI_Model{
             'id_tipo_producto' => $datos['id_tipo_producto'],
             'id_color_producto' => $datos['id_color_producto'],
             'precio_costo' => $datos['precio_costo'],
+            'precio_venta_efectivo' => $datos['precio_venta_efectivo'],
+            'precio_venta_tarjeta' => $datos['precio_venta_tarjeta'],
             'detalles' => $datos['detalles'],
             'talle' => $datos['talle'],
             'numero' => $datos['numero'],
