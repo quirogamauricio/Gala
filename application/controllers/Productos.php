@@ -231,8 +231,26 @@ class Productos extends CI_Controller{
             'Precio de costo', 
             array('required', 'decimal', 'greater_than_equal_to[0]'),
             array('required' => 'El precio de costo es requerido', 
-              'decimal' => 'El precio costo debe ser un valor decimal',
+              'decimal' => 'El precio de costo debe ser un valor decimal',
               'greater_than_equal_to' => 'El precio de costo debe ser mayor o igual a cero')
+            );
+
+        $this->form_validation->set_rules(
+            'precio_venta_tarjeta',
+            'Precio de venta con tarjeta', 
+            array('required', 'decimal', 'greater_than_equal_to[0]'),
+            array('required' => 'El precio de venta con tarjeta es requerido', 
+              'decimal' => 'El precio de venta con tarjeta debe ser un valor decimal',
+              'greater_than_equal_to' => 'El precio de venta con tarjeta debe ser mayor o igual a cero')
+            );
+
+        $this->form_validation->set_rules(
+            'precio_venta_efectivo',
+            'Precio de venta en efectivo', 
+            array('required', 'decimal', 'greater_than_equal_to[0]'),
+            array('required' => 'El precio de venta en efectivo es requerido', 
+              'decimal' => 'El precio de venta en efectivo debe ser un valor decimal',
+              'greater_than_equal_to' => 'El precio de venta en efectivo debe ser mayor o igual a cero')
             );
     }
 

@@ -44,7 +44,7 @@ $this->load->library('form_validation'); ?>
 			</div>
 
 			<div class="form-group">
-				<label for="precio_venta_efectivo">Precio de venta en efectivo</label>
+				<label for="precio_venta_efectivo">Precio de venta en efectivo</label> <span class="badge">Requerido</span>
 				<div class="input-group">
 					<span class="input-group-addon">$</span>
 					<input type="input" class="form-control" name="precio_venta_efectivo" value="<?php echo set_value('precio_venta_efectivo', $precio_venta_efectivo);?>"/>
@@ -54,7 +54,7 @@ $this->load->library('form_validation'); ?>
 			</div>
 
 			<div class="form-group">
-				<label for="precio_venta_tarjeta">Precio de venta con tarjeta</label>
+				<label for="precio_venta_tarjeta">Precio de venta con tarjeta</label> <span class="badge">Requerido</span>
 				<div class="input-group">
 					<span class="input-group-addon">$</span>
 					<input type="input" class="form-control" name="precio_venta_tarjeta" value="<?php echo set_value('precio_venta_tarjeta', $precio_venta_tarjeta);?>"/>
