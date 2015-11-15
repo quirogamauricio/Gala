@@ -5,4 +5,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	const ingreso_caja = 'Ingreso de dinero a caja';
 	const egreso_caja = 'Egreso de dinero de caja';
+	const registro_venta = 'Venta registrada';
 }

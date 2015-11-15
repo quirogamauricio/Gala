@@ -7,7 +7,7 @@ class Ventas extends CI_Controller {
         $this->load->library('session');
         $this->session->user_is_authenticated();
         $this->load->library('form_validation');
-        // $this->load->model('venta_model');
+        $this->load->model('venta_model');
         $this->load->model('cliente_model');
         $this->load->model('producto_model');
         $this->load->model('caja_model');
@@ -20,30 +20,13 @@ class Ventas extends CI_Controller {
     
     public function nueva()
     {
-        $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
-
         $data['titulo'] = 'Registrar nueva venta';
         $data['productos'] = $this->producto_model->obtener_productos_dropdown();
         $data['clientes'] = $this->cliente_model->obtener_clientes_dropdown();
         $data['cajas'] = $this->caja_model->obtener_cajas_dropdown();
 
         $this->cargar_header_y_principal();
-
-        $this->establecer_reglas(TRUE);
-
-        if ($this->form_validation->run() === FALSE)
-        {
-            $this->load->view('ventas/crear', $data);
-        }
-        else
-        {
-            $data = array('descripcion' => $this->input->post('descripcion'));
-            
-            $this->venta_model->crear_venta($data);
-            $data['mensaje'] = "¡venta creada correctamente!";
-            $this->load->view('ventas/exito', $data);
-        }
-
+        $this->load->view('ventas/crear', $data);
         $this->load->view('templates/footer');
     }
 
@@ -55,11 +38,34 @@ class Ventas extends CI_Controller {
          {
             $datos = $this->producto_model->obtener_datos_producto($id_producto);
 
-               header('Content-Type: application/json');
-               echo json_encode( $datos );
+           header('Content-Type: application/json');
+           echo json_encode( $datos );
          }
     }
 
+    public function registrar_venta()
+    {
+        $venta = $this->input->post('venta');
+
+        $resultado = 0;
+
+        if ($this->venta_model->registrar_venta($venta))
+        {
+            $resultado = 1;
+        }
+
+        echo $resultado;
+    }
+
+    public function resultado($resultado)
+    {
+        $data['mensaje'] = $resultado == 1 ? "¡Venta registrada exitosamente!" : "Error al intentar registrar venta";
+        $this->cargar_header_y_principal();
+        $this->load->view('ventas/exito', $data);
+        $this->load->view('templates/footer');
+    }
+
+  
     // public function ver($id_venta = NULL)
     // {
     //     $this->cargar_header_y_principal();
@@ -179,11 +185,5 @@ class Ventas extends CI_Controller {
     {
         $this->load->view('templates/header');
         $this->load->view('templates/principal');
-    }
-
-    private function establecer_reglas()
-    {
-        $this->form_validation->set_rules('descripcion', 'Descripción', array('required', 'is_unique[venta.descripcion]'),
-           array('required' => 'La descripción es requerida', 'is_unique' => 'Ya existe una venta con la descripción ingresada'));
     }
 }

@@ -1,5 +1,4 @@
 <div class="container">
-	<?php echo validation_errors(); ?>
 	<div id="divErrorVenta" style="display:none;" class="alert alert-warning"></div>
 	<div class="panel panel-info">
 		<div class="panel-heading">
@@ -20,14 +19,14 @@
 
 			<div class="form-group">
 				<label for="descripcion">Cliente</label> 
-				<?php echo form_dropdown('cliente', $clientes, array(), 'class="form-control"') ?>
+				<?php echo form_dropdown('cliente', $clientes, array(), 'id="cliente" class="form-control"') ?>
 			</div>
 
 			<br />
 
 			<div class="form-group">
 				<label for="descripcion">Caja</label> 
-				<?php echo form_dropdown('caja', $cajas, array(), 'class="form-control"') ?>
+				<?php echo form_dropdown('caja', $cajas, array(), 'id="caja" class="form-control"') ?>
 			</div>
 
 			<br />
@@ -64,7 +63,7 @@
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-default" name="submit" value="Aceptar">
+			<input id="txtAceptar" type="button" class="btn btn-default" name="submit" value="Aceptar">
 		</form>	
 
 	</div><!-- Fin panel body -->
@@ -101,7 +100,7 @@
 				};
 
 				var cantidad = "<select class='ddlcantidades form-control'>"+cantidades+"</select>";
-				var fila = "<tr class='producto'><td class='tdproducto'>"+btnEliminar+hdProducto+"</td><td>"+producto+"</td><td>"+formasPago+"</td><td class='tdprecio'>"+txtPrecio+"</td><td class='tdcantidad'>"+cantidad+"</td><td class='tdsubtotal'>"+txtSubtotal+"</td></tr>";
+				var fila = "<tr class='producto'><td class='tdproducto'>"+btnEliminar+hdProducto+"</td><td>"+producto+"</td><td class='tdformaspago'>"+formasPago+"</td><td class='tdprecio'>"+txtPrecio+"</td><td class='tdcantidad'>"+cantidad+"</td><td class='tdsubtotal'>"+txtSubtotal+"</td></tr>";
 				
 
 				$("#tProductos").prepend(fila);
@@ -117,7 +116,7 @@
 			});
 		}
 		else {
-			
+
 			$("#divErrorVenta").html("El producto seleccionado ya se agregó");
 			$("#divErrorVenta").show();
 		}
@@ -214,6 +213,64 @@
 	    });
 
 	    $("#txtTotal").val(sum);
+	});
+
+	//Envía por AJAX los datos de la venta
+	$("#txtAceptar").click(function(){
+
+		var cantProductos = 0;
+
+		$(".producto").each(function(){
+	        cantProductos++;
+	    });
+
+		//Si no se agregaron productos muestro error
+	    if (cantProductos == 0)
+	    {
+	    	$("#divErrorVenta").html("No se agregaron productos a la venta");
+			$("#divErrorVenta").show();
+	    }
+	    //Creo objeto para enviar por AJAX
+	    else {
+
+	    	$("#divErrorVenta").hide();
+	    	var venta = {};
+	    	venta.detalles_venta = [];
+	    	venta.id_cliente = $("#cliente").val();
+	    	venta.id_caja = $("#caja").val();
+	    	venta.importe_total = $("#txtTotal").val();
+
+	    	$(".producto").each(function(){
+
+	    		var detalle_venta = {};
+	    		var producto = JSON.parse($(this).children(".tdproducto").children(".hdProducto").val());
+	    		var id_producto = producto.id_producto;
+	    		var cantidad = $(this).children(".tdcantidad").children(".ddlcantidades").val();
+	    		var id_forma_pago = $(this).children(".tdformaspago").children(".formaspago").val();
+
+	    		detalle_venta.id_producto = id_producto;
+	    		detalle_venta.cantidad = cantidad;
+	    		detalle_venta.id_forma_pago = id_forma_pago;
+
+	    		venta.detalles_venta.push(detalle_venta);
+	        	
+	   		 });
+
+	    	var url = "<?php echo site_url('ventas/registrar_venta')?>";
+
+	    	//Llamada AJAX al método registrar venta del controlador de venta
+
+	    	$.post(url, {"venta" : venta}).done(function(data){
+
+	    		window.location.replace("<?php echo site_url('ventas/resultado')?>/"+data);
+
+	    	}).fail(function(){
+
+				$("#divErrorVenta").html("Error al intentar registrar la venta");
+				$("#divErrorVenta").show();
+
+			});
+	    }
 	});
 
 </script>
