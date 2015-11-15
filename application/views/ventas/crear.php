@@ -49,10 +49,14 @@
 							</tr>
 						</thead>
 						<tbody id="tProductos">
-							<tr>
-								<td colspan="5">TOTAL</td>
+							<r>
+								<td colspan="5">
+									<label>
+										TOTAL
+									</label>
+								</td>
 								<td>
-									<input type="textbox" disabled="disabled" class="form-control">
+									<input id="txtTotal" type="textbox" disabled="disabled" class="form-control" value="0">
 								</td>
 							</tr>
 						</tbody>
@@ -102,6 +106,8 @@
 
 				$("#tProductos").prepend(fila);
 				productosEnVenta.push(idProducto);
+
+				$(".txtsubtotal").trigger("change");
 				
 			}).fail(function(){
 
@@ -111,6 +117,7 @@
 			});
 		}
 		else {
+			
 			$("#divErrorVenta").html("El producto seleccionado ya se agregó");
 			$("#divErrorVenta").show();
 		}
@@ -128,6 +135,27 @@
 
 		//Elimino la fila de la tabla
 		$(this).parents(".producto").remove();
+
+		/*Si se eliminaron todos los productos no existen subtotales por lo tanto asigno 0 al total,
+		caso contrario sumo los subtotales existentes.
+		Ésto es porque disparar el change no funciona si se eliminaron todos los controles con la clase .txtsubtotal*/
+
+
+		var cantProductos = 0;
+		var sum = 0;
+
+	    $(".txtsubtotal").each(function(){
+	        cantProductos ++;
+	        sum += +$(this).val();
+	    });
+
+	    if (cantProductos == 0) {
+	    	$("#txtTotal").val(0);
+	    }
+	    else {
+	    	
+		    $("#txtTotal").val(sum);
+	    }
 	});
 
 	//Actualiza el precio en base a la forma de pago seleccionada
@@ -156,6 +184,9 @@
 
 		//Actualizo el textbox de subtotal
 		$(this).parents(".producto").children(".tdsubtotal").children(".txtsubtotal").val(cantidad*precio);
+
+		//Disparo el change para que se actualice el total
+		$(this).parents(".producto").children(".tdsubtotal").children(".txtsubtotal").trigger("change");
 	});
 
 	//Actualiza el subtotal
@@ -168,6 +199,21 @@
 
 		//Actualizo el textbox de subtotal
 		$(this).parents(".producto").children(".tdsubtotal").children(".txtsubtotal").val(cantidad*precio);
+
+		//Disparo el change para que se actualice el total
+		$(this).parents(".producto").children(".tdsubtotal").children(".txtsubtotal").trigger("change");
+	});
+
+	//Actualiza el total
+	$("#tProductos").on("change", '.txtsubtotal', function(){
+		
+		var sum = 0;
+
+	    $(".txtsubtotal").each(function(){
+	        sum += +$(this).val();
+	    });
+
+	    $("#txtTotal").val(sum);
 	});
 
 </script>
