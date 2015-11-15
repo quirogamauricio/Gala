@@ -45,6 +45,8 @@ class Producto_model extends CI_Model{
             'SELECT p.id_producto, p.codigo, tp.tipo
             FROM producto p 
             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
+            INNER JOIN stock s ON s.id_producto = p.id_producto
+            WHERE s.stock_actual > 0
             ORDER BY tp.tipo'
             )->result();
 
@@ -72,6 +74,25 @@ class Producto_model extends CI_Model{
         }
 
         return $producto;
+    }
+
+    public function obtener_datos_producto($id_producto)
+    {
+        $resultado = $this->db->query(
+        'SELECT p.id_producto, p.precio_venta_efectivo, p.precio_venta_tarjeta, s.stock_actual
+         FROM producto p
+         INNER JOIN stock s ON p.id_producto = s.id_producto
+         WHERE p.id_producto =' . $id_producto
+         );
+
+        $datos_producto = NULL;
+
+        if($resultado && $resultado->num_rows() > 0)
+        {
+            $datos_producto = $resultado->row();
+        }
+
+        return $datos_producto;
     }
 
     public function editar_producto($datos)
