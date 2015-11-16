@@ -27,6 +27,19 @@ class Venta_model extends CI_Model{
         return $this->db->query($query)->result_array();
     }
 
+    public function obtener_productos_mas_vendidos()
+    {
+        $query = "SELECT CONCAT_WS(' - ', p.codigo, p.talle, p.numero) as producto, SUM(dv.cantidad) as cantidad_vendida
+                 FROM producto p 
+                 INNER JOIN detalle_venta dv on dv.id_producto = p.id_producto
+                 GROUP BY p.id_producto
+                 ORDER BY cantidad_vendida DESC
+                 LIMIT 3
+                ";
+
+        return $this->db->query($query)->result_array();
+    }
+
     public function registrar_venta($venta)
     {
         $detalles_venta = $venta['detalles_venta'];

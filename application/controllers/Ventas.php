@@ -99,63 +99,6 @@ class Ventas extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    // public function editar()
-    // {
-    //     $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
-
-    //     $datos = array(
-    //         'id_venta' => $this->input->post('id_venta'),
-    //         'descripcion' => $this->input->post('descripcion')
-    //         );
-
-    //     $this-> establecer_reglas();
-
-    //     if ($this->form_validation->run() === FALSE)
-    //     {
-    //         $this->ver($datos['id_venta']);
-    //     }
-    //     else
-    //     {
-    //         if ($this->venta_model->editar_venta($datos)) 
-    //         {
-    //             $data['mensaje'] = '¡Los datos de la venta se actualizaron correctamente!';
-    //         }
-    //         else
-    //         {
-    //             $data['mensaje'] = '¡No se actualizó la información!';
-    //         }
-    //         $this->cargar_header_y_principal();
-    //         $this->load->view('ventas/exito', $data);
-    //         $this->load->view('templates/footer');
-    //     }
-    // }
-
-    // public function eliminar()
-    // {
-    //     $this->cargar_header_y_principal();
-    //     $id_venta = $this->uri->segment(3);
-
-    //     if ($id_venta === NULL)
-    //     {
-    //          $data['mensaje'] = 'No se especificó una venta a eliminar';
-    //     }
-    //     elseif($this->venta_model->eliminar_venta($id_venta) == 1)
-    //     {
-    //         $data['mensaje'] = '¡venta eliminada correctamente!';
-    //     }
-    //     elseif($this->venta_model->eliminar_venta($id_venta) == 1451)
-    //     {
-    //         $data['mensaje'] = '¡No se puede eliminar una venta que se encuentra en uso!';
-    //     }
-    //     else
-    //     {
-    //         $data['mensaje'] = '¡venta inexistente!';
-    //     }
-
-    //     $this->load->view('ventas/exito', $data);
-    //     $this->load->view('templates/footer');
-    // }
-
     private function cargar_header_y_principal()
     {
         $this->load->view('templates/header');

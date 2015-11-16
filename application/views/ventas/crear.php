@@ -71,6 +71,10 @@
 </div><!-- Fin container -->
 
 <script type="text/javascript">
+	
+	$(function() {
+	    $( document ).tooltip();
+	  });
 
 	var productosEnVenta = [];
 	var url = "<?php echo site_url('ventas/obtener_datos_producto/')?>/";
@@ -104,7 +108,7 @@
 				var clase = "producto";
 
 				//Si el stock actual es menor al mínimo notifico
-				if (parseInt(data.stock_actual) < parseInt(data.stock_minimo)) {
+				if (parseInt(data.stock_actual) <= parseInt(data.stock_minimo)) {
 					clase = clase + " alerta-stock";
 				}
 
