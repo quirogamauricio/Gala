@@ -72,10 +72,6 @@
 
 <script type="text/javascript">
 	
-	$(function() {
-	    $( document ).tooltip();
-	  });
-
 	var productosEnVenta = [];
 	var url = "<?php echo site_url('ventas/obtener_datos_producto/')?>/";
 
@@ -229,6 +225,20 @@
 
 	//Envía por AJAX los datos de la venta
 	$("#txtAceptar").click(function(){
+
+		if ($("#caja").val() === null) 
+		{
+	    	$("#divErrorVenta").html("No se seleccionó una caja");
+			$("#divErrorVenta").show();
+			return;
+		};
+
+		if ($("#cliente").val() === null) 
+		{
+	    	$("#divErrorVenta").html("No se seleccionó un cliente");
+			$("#divErrorVenta").show();
+			return;
+		};
 
 		var cantProductos = 0;
 

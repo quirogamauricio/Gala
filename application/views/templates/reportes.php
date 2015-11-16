@@ -1,9 +1,14 @@
+<div class="container">
+	<div id="divError" style="display:none;" class="alert alert-warning"></div>
+</div>
 
 <div style="margin-right: auto; margin-left: 35%; width: 800px; margin-top: 5%;">
 	<canvas id="myChart" width="400" height="400"></canvas>
 </div>
 
 <script type="text/javascript">
+
+	$("#divError").hide();
 
 	// Get the context of the canvas element we want to select
 	var ctx = document.getElementById("myChart").getContext("2d");
@@ -18,6 +23,11 @@
 		// data.pop();
 
 		switch(data.length) {
+
+			case 0: 
+
+			$("#divError").html("Aún no se han registrado ventas");
+			$("#divError").show();
 
 			case 1:
 

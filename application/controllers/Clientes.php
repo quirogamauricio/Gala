@@ -148,7 +148,7 @@ class Clientes extends CI_Controller {
         }
         elseif($this->cliente_model->eliminar_cliente($id_cliente) == 1)
         {
-           $data['mensaje'] = '¡cliente eliminado correctamente!';
+           $data['mensaje'] = '¡Cliente eliminado correctamente!';
         }
         elseif($this->cliente_model->eliminar_cliente($id_cliente) == 1451)
         {
