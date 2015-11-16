@@ -29,6 +29,24 @@ class Stock_model extends CI_Model
         return $stock;
     }
 
+    public function obtener_stock_por_id_producto($id_producto)
+    {
+        $resultado = $this->db->query(
+           'SELECT *
+            FROM stock s
+            WHERE s.id_producto =' . $id_producto
+        );
+
+        $stock = NULL;
+
+        if($resultado && $resultado->num_rows() > 0)
+        {
+            $stock = $resultado->row();
+        }
+
+        return $stock;
+    }
+
     public function editar_stock($datos)
     {
         $campos = array('stock_actual' => $datos['stock_actual'], 

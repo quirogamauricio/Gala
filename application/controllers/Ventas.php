@@ -11,6 +11,7 @@ class Ventas extends CI_Controller {
         $this->load->model('cliente_model');
         $this->load->model('producto_model');
         $this->load->model('caja_model');
+        $this->load->model('movimiento_caja_model');
     }
 
     public function index()
