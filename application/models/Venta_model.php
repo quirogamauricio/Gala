@@ -43,9 +43,9 @@ class Venta_model extends CI_Model{
     public function obtener_ventas_por_periodo()
     {
         $query = "SELECT  COUNT(*) as cant_ventas, MONTH(ro.fecha) as mes
-                 FROM gala.venta v
-                 INNER JOIN gala.registro_operacion ro on v.id_registro_operacion = ro.id_registro_operacion
-                 INNER JOIN gala.detalle_venta dv on v.id_venta = dv.id_venta
+                 FROM venta v
+                 INNER JOIN registro_operacion ro on v.id_registro_operacion = ro.id_registro_operacion
+                 INNER JOIN detalle_venta dv on v.id_venta = dv.id_venta
                  GROUP BY mes";
 
         return $this->db->query($query)->result_array();

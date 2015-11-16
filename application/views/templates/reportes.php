@@ -1,10 +1,10 @@
 <div class="container">
 	<div id="divError" style="display:none;" class="alert alert-warning"></div>
-</div>
 
-<div style="margin-right: auto; margin-left: 20%; width: 800px; margin-top: 5%;">
-	<canvas id="productosMasVendidos" width="400" height="400"></canvas>
-	<canvas id="periodoMayorVenta" width="400" height="400"></canvas>
+	<div class="row">
+		<div class="col-md-6"><canvas id="productosMasVendidos" width="400" height="400"></canvas></div>
+		<div class="col-md-6"><canvas id="periodoMayorVenta" width="400" height="400"></canvas></div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -102,14 +102,12 @@
 
 		for (var i = 1; i < 13; i++) {
 
+			cant_ventas_mes.push(0);
+
 			for (var j = 0; j < data.length; j++) {
 
 				if (data[j].mes == i) {
-					cant_ventas_mes.push(data[j].cant_ventas);
-				}
-				else {
-
-					cant_ventas_mes.push(0);
+					cant_ventas_mes[i-1]=data[j].cant_ventas;
 				}
 			};
 		};
