@@ -100,7 +100,15 @@
 				};
 
 				var cantidad = "<select class='ddlcantidades form-control'>"+cantidades+"</select>";
-				var fila = "<tr class='producto'><td class='tdproducto'>"+btnEliminar+hdProducto+"</td><td>"+producto+"</td><td class='tdformaspago'>"+formasPago+"</td><td class='tdprecio'>"+txtPrecio+"</td><td class='tdcantidad'>"+cantidad+"</td><td class='tdsubtotal'>"+txtSubtotal+"</td></tr>";
+
+				var clase = "producto";
+
+				//Si el stock actual es menor al mínimo notifico
+				if (parseInt(data.stock_actual) < parseInt(data.stock_minimo)) {
+					clase = clase + " alerta-stock";
+				}
+
+				var fila = "<tr class='"+clase+"'><td class='tdproducto'>"+btnEliminar+hdProducto+"</td><td>"+producto+"</td><td class='tdformaspago'>"+formasPago+"</td><td class='tdprecio'>"+txtPrecio+"</td><td class='tdcantidad'>"+cantidad+"</td><td class='tdsubtotal'>"+txtSubtotal+"</td></tr>";
 				
 
 				$("#tProductos").prepend(fila);

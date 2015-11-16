@@ -42,7 +42,7 @@ class Producto_model extends CI_Model{
         $productos_array = array();
 
         $resultado = $this->db->query(
-            'SELECT p.id_producto, p.codigo, tp.tipo
+            'SELECT p.id_producto, p.codigo, tp.tipo, p.talle, p.numero
             FROM producto p 
             INNER JOIN tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto
             INNER JOIN stock s ON s.id_producto = p.id_producto
@@ -50,9 +50,23 @@ class Producto_model extends CI_Model{
             ORDER BY tp.tipo'
             )->result();
 
+        $talle_nro = '';
+
         foreach ($resultado as $fila)
         {
-            $productos_array[$fila->id_producto] = '[ '. $fila->tipo .' ]' . ' - ' . $fila->codigo;
+            if (!empty($fila->talle)) 
+            {
+                $talle_nro .= ' - Talle '. $fila->talle;
+            }
+                if (!empty($fila->numero))
+            {
+                $talle_nro .= ' - Número ' . $fila->numero;
+            }   
+
+            $productos_array[$fila->id_producto] = '[ '. $fila->tipo .' ]' . ' - ' . $fila->codigo . ' ' . $talle_nro;
+
+            //Reset para que no se repita en todos los productos
+            $talle_nro = '';
         }
 
         return $productos_array;
@@ -79,7 +93,7 @@ class Producto_model extends CI_Model{
     public function obtener_datos_producto($id_producto)
     {
         $resultado = $this->db->query(
-        'SELECT p.id_producto, p.precio_venta_efectivo, p.precio_venta_tarjeta, s.stock_actual
+        'SELECT p.id_producto, p.precio_venta_efectivo, p.precio_venta_tarjeta, s.stock_actual, s.stock_minimo
          FROM producto p
          INNER JOIN stock s ON p.id_producto = s.id_producto
          WHERE p.id_producto =' . $id_producto

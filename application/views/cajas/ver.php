@@ -31,7 +31,7 @@ $this->load->library('form_validation');?>
 
 				    <input type="submit" name="submit" value="Actualizar" class="btn"/>
 
-				    <a href="<?php echo site_url('cajas/eliminar') . '/' . $id_caja?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar éste caja?');">Eliminar</a>
+				    <a href="<?php echo site_url('cajas/eliminar') . '/' . $id_caja?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar ésta caja?');">Eliminar</a>
 
 				</form>	
 			<?php } ?>

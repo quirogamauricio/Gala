@@ -11,11 +11,25 @@ class Venta_model extends CI_Model{
         $this->load->library('operaciones_enum');
     }
 
+    public function obtener_ventas()
+    {
+        $query = "SELECT v.importe_total, CONCAT_WS(', ', cli.apellido, cli.nombre ), p.codigo, p.talle, p.numero, dv.cantidad, ro.fecha, u.email, ca.descripcion as caja, fp.descripcion
+                FROM venta v
+                INNER JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+                INNER JOIN forma_pago fp ON fp.id_forma_pago = dv.id_forma_pago
+                INNER JOIN producto p on dv.id_producto = p.id_producto
+                INNER JOIN cliente cli ON v.id_cliente  = cli.id_cliente
+                INNER JOIN caja ca ON v.id_caja = ca.id_caja
+                INNER JOIN registro_operacion ro ON ro.id_registro_operacion = v.id_registro_operacion
+                INNER JOIN usuario u ON ro.id_usuario = u.id_usuario
+                ORDER BY ro.fecha DESC";
+
+        return $this->db->query($query)->result_array();
+    }
+
     public function registrar_venta($venta)
     {
         $detalles_venta = $venta['detalles_venta'];
-
-        /* Se utiliza transacción para evitar registrar la venta sin detalles y viceversa*/
 
         //Inicia transacción
         $this->db->trans_start();

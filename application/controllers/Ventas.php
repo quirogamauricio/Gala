@@ -67,63 +67,37 @@ class Ventas extends CI_Controller {
     }
 
   
-    // public function ver($id_venta = NULL)
-    // {
-    //     $this->cargar_header_y_principal();
+    public function ver()
+    {
+        $this->cargar_header_y_principal();
 
-    //     if ($id_venta === NULL)
-    //     {
-    //         $data['titulo'] = 'ventas';
+        $data['titulo'] = 'Historial de ventas';
 
-    //         $ventas = $this->venta_model->obtener_ventas_table();
+        $ventas = $this->venta_model->obtener_ventas();
 
-    //         $resultado;
+        $resultado;
 
-    //         if(!empty($ventas))
-    //         {
-    //             $this->load->library('table');
-    //             $this->load->helper('url');
-    //             $this->table->set_template(array('table_open' => '<table class="table">'));
-    //             $this->table->set_heading('Saldo', 'Descripción', '', '');
-    //             $this->table->set_empty('-');
+        if(!empty($ventas))
+        {
+            $this->load->library('table');
+            $this->load->helper('url');
+            $this->table->set_template(array('table_open' => '<table class="table">'));
+            $this->table->set_heading('Importe total', 'Cliente', 'Código producto', 'Talle', 'Número', 'Cantidad', 'Fecha de venta', 'Vendedor', 'Caja', 'Forma de pago');
+            $this->table->set_empty('-');
 
-    //             foreach ($ventas as $indice_fila => $fila)
-    //             {
-    //                 $ventas[$indice_fila]['id_venta'] = anchor('ventas/ver/'.$fila['id_venta'],'Ver', 'class="btn btn-info"');
-    //                 array_push($ventas[$indice_fila], anchor('movimientos_venta/ver/'.$fila['id_venta'],'Movimientos', 'class="btn btn-info"'));
-    //             }
+            $resultado = $this->table->generate($ventas);
+        }
+        else
+        {
+            $resultado = '<h4>No se encontraron resultados</h4>';
+        }
 
-    //             $resultado = $this->table->generate($ventas);
-    //         }
-    //         else
-    //         {
-    //             $resultado = '<h4>No se encontraron resultados</h4>';
-    //         }
+        $data['contenido'] = $resultado;
 
-    //         $data['contenido'] = $resultado;
-    //     }
-    //     else
-    //     { 
-    //         $data['titulo'] = 'Información de la venta';
+        $this->load->view('ventas/ver', $data);
 
-    //         $venta = $this->venta_model->obtener_venta_por_id($id_venta);
-
-    //         if ($venta === NULL) 
-    //         {
-    //             $data['contenido'] = '<h4>Error al recuperar información de la venta seleccionada</h4>';
-    //         }
-    //         else
-    //         {
-    //             $data['id_venta'] = $venta->id_venta;
-    //             $data['descripcion'] = $venta->descripcion;
-    //             $data['saldo'] = $venta->saldo;
-    //         }
-    //     }
-
-    //     $this->load->view('ventas/ver', $data);
-
-    //     $this->load->view('templates/footer');
-    // }
+        $this->load->view('templates/footer');
+    }
 
     // public function editar()
     // {
