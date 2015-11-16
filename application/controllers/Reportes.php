@@ -28,4 +28,15 @@ class Reportes extends CI_Controller {
            echo json_encode( $productos);
          }
     }
+
+    public function  obtener_ventas_por_periodo()
+    {
+        $datos = $this->venta_model->obtener_ventas_por_periodo();
+
+        if (!empty($datos))
+         {
+           header('Content-Type: application/json');
+           echo json_encode( $datos);
+         }
+    }
 }
