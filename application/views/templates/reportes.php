@@ -2,8 +2,16 @@
 	<div id="divError" style="display:none;" class="alert alert-warning"></div>
 
 	<div class="row">
-		<div class="col-md-6"><canvas id="productosMasVendidos" width="400" height="400"></canvas></div>
-		<div class="col-md-6"><canvas id="periodoMayorVenta" width="400" height="400"></canvas></div>
+		<div class="col-md-6" style="text-align: center;">
+			<h3>TOP 3 PRODUCTOS MÁS VENDIDOS</h3>
+			<br>
+			<canvas id="productosMasVendidos" width="400" height="400"></canvas>
+		</div>
+		<div class="col-md-6" style="text-align: center;">
+			<h3>PRODUCTOS VENDIDOS POR MES</h3>
+			<br>
+			<canvas id="periodoMayorVenta" width="400" height="400"></canvas>
+		</div>
 	</div>
 </div>
 
