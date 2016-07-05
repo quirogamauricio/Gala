@@ -12,6 +12,7 @@ class Principal extends CI_Controller {
         {
             $this->load->view('templates/header');
             $this->load->view('templates/principal');
+            $this->load->view('templates/reportes');
             $this->load->view('templates/footer');
         }
 }

@@ -48,7 +48,7 @@
 							</tr>
 						</thead>
 						<tbody id="tProductos">
-							<r>
+							<tr>
 								<td colspan="5">
 									<label>
 										TOTAL
