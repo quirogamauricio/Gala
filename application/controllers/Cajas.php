@@ -90,6 +90,7 @@ class Cajas extends CI_Controller {
             {
                 $data['id_caja'] = $caja->id_caja;
                 $data['descripcion'] = $caja->descripcion;
+                $data['descripcion_original'] = $caja->descripcion;
                 $data['saldo'] = $caja->saldo;
             }
         }
@@ -108,7 +109,14 @@ class Cajas extends CI_Controller {
             'descripcion' => $this->input->post('descripcion')
             );
 
-        $this-> establecer_reglas();
+        $validar_descripcion_unica = TRUE;
+
+        if ($datos['descripcion'] === $this->input->post('descripcion_original'))
+        {
+             $validar_descripcion_unica = FALSE;
+        }
+
+        $this-> establecer_reglas($validar_descripcion_unica);
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -162,9 +170,17 @@ class Cajas extends CI_Controller {
         $this->load->view('templates/principal');
     }
 
-    private function establecer_reglas()
+    private function establecer_reglas($validar_descripcion_unica)
     {
-        $this->form_validation->set_rules('descripcion', 'Descripción', array('required', 'is_unique[caja.descripcion]'),
-         array('required' => 'La descripción es requerida', 'is_unique' => 'Ya existe una caja con la descripción ingresada'));
+        $array_validaciones = array('required');
+        $array_mensajes = array('required' => 'La descripción es requerida');
+
+        if ($validar_descripcion_unica)
+        {
+            array_push($array_validaciones, 'is_unique[caja.descripcion]');
+            $array_mensajes['is_unique'] = 'Ya existe una caja con la descripción ingresada';
+        }
+
+        $this->form_validation->set_rules('descripcion', 'Descripción', $array_validaciones, $array_mensajes);
     }
 }

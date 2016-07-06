@@ -18,6 +18,7 @@ $this->load->library('form_validation');?>
 				<?php echo form_open('cajas/editar'); ?>
 				
 					<input type="hidden" name="id_caja" value="<?php echo set_value('id_caja', $id_caja);?>"/>
+					<input type="hidden" name="descripcion_original" value="<?php echo set_value('descripcion_original', $descripcion_original);?>"/>
 
 					<div class="form-group">
 					    <label for="descripcion">Descripción</label> <span class="badge"> Requerido</span>
