@@ -81,10 +81,16 @@ class Ventas extends CI_Controller {
         if(!empty($ventas))
         {
             $this->load->library('table');
+            $this->load->helper('date');
             $this->load->helper('url');
             $this->table->set_template(array('table_open' => '<table class="table">'));
             $this->table->set_heading('Importe total', 'Cliente', 'Código producto', 'Talle', 'Número', 'Cantidad', 'Fecha de venta', 'Vendedor', 'Caja', 'Forma de pago');
             $this->table->set_empty('-');
+
+            foreach ($ventas as $indice => $fila) 
+            {
+                $ventas[$indice]['fecha'] = transform_date($fila['fecha']);
+            }
 
             $resultado = '<div class="table-responsive">' . $this->table->generate($ventas) . '</div>';
         }

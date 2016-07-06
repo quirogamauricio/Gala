@@ -8,7 +8,7 @@
 			<canvas id="productosMasVendidos" width="400" height="400"></canvas>
 		</div>
 		<div class="col-md-6" style="text-align: center;">
-			<h3>PRODUCTOS VENDIDOS POR MES</h3>
+			<h3>VENTAS POR MES</h3>
 			<br>
 			<canvas id="periodoMayorVenta" width="400" height="400"></canvas>
 		</div>

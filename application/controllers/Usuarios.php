@@ -162,9 +162,13 @@ class Usuarios extends CI_Controller {
         {
             $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No es posible eliminar el usuario actual! </h3>';
         }
-        elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
+        elseif($this->usuario_model->eliminar_usuario($id_usuario) == 1)
         {
             $data['mensaje'] = '<h3 class="alert alert-success"> ¡Usuario eliminado correctamente! </h3>';
+        }
+        elseif($this->usuario_model->eliminar_usuario($id_usuario) == 1451)
+        {
+          $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un usuario que registra actividad! </h3>';
         }
         else
         {
