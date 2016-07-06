@@ -63,9 +63,9 @@ class Color_productos extends CI_Controller {
                         $color_productos[$indice_fila]['id_color_producto'] = anchor('color_productos/ver/'.$fila['id_color_producto'],'Ver', 'class="btn btn-info"');
                     }
 
-                    $this->table->set_heading('Color');
+                    $this->table->set_heading('Color', '');
 
-                    $resultado = $this->table->generate($color_productos);
+                    $resultado = '<div class="table-responsive">' . $this->table->generate($color_productos) . '</div>';
                 }
                 else
                 {

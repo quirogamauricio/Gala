@@ -101,7 +101,7 @@ class Productos extends CI_Controller{
                     }
                 }
 
-                    $resultado = $this->table->generate($productos);
+                    $resultado = '<div class="table-responsive">' . $this->table->generate($productos) . '</div>';
                 }
                 else
                 {

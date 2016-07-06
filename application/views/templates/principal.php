@@ -58,7 +58,7 @@
             <li class="divider"></li>
             <li class="dropdown-header">Movimientos</li>
             <li><a href="<?php echo base_url("index.php/movimientos_caja/nuevo"); ?>">Nuevo movimiento</a></li>
-            <li><a href="<?php echo base_url("index.php/movimientos_caja/ver"); ?>">Administrar movimientos</a></li>
+            <li><a href="<?php echo base_url("index.php/movimientos_caja/ver"); ?>">Historial de movimientos</a></li>
           </ul>
         </li>
       </ul>
@@ -67,7 +67,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url("index.php/ventas/nueva"); ?>">Nueva venta</a></li>
-            <li><a href="<?php echo base_url("index.php/ventas/ver"); ?>">Administrar ventas</a></li>
+            <li><a href="<?php echo base_url("index.php/ventas/ver"); ?>">Historial de ventas</a></li>
           </ul>
         </li>
       </ul>

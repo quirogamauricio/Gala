@@ -63,9 +63,9 @@ class Categoria_usuarios extends CI_Controller {
                         $categorias_usuario[$indice_fila]['id_categoria'] = anchor('categoria_usuarios/ver/'.$fila['id_categoria'],'Ver', 'class="btn btn-info"'); //Permite generar el link para ver el usuario particular
                     }
 
-                    $this->table->set_heading('Categoría');
+                    $this->table->set_heading('Categoría', '');
 
-                    $resultado = $this->table->generate($categorias_usuario);
+                    $resultado = '<div class="table-responsive">' . $this->table->generate($categorias_usuario) . '</div>';
                 }
                 else
                 {

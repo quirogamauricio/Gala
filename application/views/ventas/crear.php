@@ -36,30 +36,32 @@
 					<h3 class="panel-title">Detalles de venta</h3>
 				</div>
 				<div class="panel-body">
-					<table class="table">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Producto</th>
-								<th>Forma de pago</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Subtotal</th>
-							</tr>
-						</thead>
-						<tbody id="tProductos">
-							<tr>
-								<td colspan="5">
-									<label>
-										TOTAL
-									</label>
-								</td>
-								<td>
-									<input id="txtTotal" type="textbox" disabled="disabled" class="form-control" value="0">
-								</td>
-							</tr>
-						</tbody>
-					</table>  
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Producto</th>
+									<th>Forma de pago</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Subtotal</th>
+								</tr>
+							</thead>
+							<tbody id="tProductos">
+								<tr>
+									<td colspan="5">
+										<label>
+											TOTAL
+										</label>
+									</td>
+									<td>
+										<input id="txtTotal" type="textbox" disabled="disabled" class="form-control" value="0">
+									</td>
+								</tr>
+							</tbody>
+						</table>  
+					</div>
 				</div>
 			</div>
 

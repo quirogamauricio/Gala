@@ -85,7 +85,7 @@ class Ventas extends CI_Controller {
             $this->table->set_heading('Importe total', 'Cliente', 'Código producto', 'Talle', 'Número', 'Cantidad', 'Fecha de venta', 'Vendedor', 'Caja', 'Forma de pago');
             $this->table->set_empty('-');
 
-            $resultado = $this->table->generate($ventas);
+            $resultado = '<div class="table-responsive">' . $this->table->generate($ventas) . '</div>';
         }
         else
         {

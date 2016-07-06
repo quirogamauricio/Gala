@@ -63,9 +63,9 @@ class Tipo_productos extends CI_Controller {
                         $tipo_productos[$indice_fila]['id_tipo_producto'] = anchor('tipo_productos/ver/'.$fila['id_tipo_producto'],'Ver', 'class="btn btn-info"');
                     }
 
-                    $this->table->set_heading('Tipo');
+                    $this->table->set_heading('Tipo', '');
 
-                    $resultado = $this->table->generate($tipo_productos);
+                    $resultado = '<div class="table-responsive">' . $this->table->generate($tipo_productos) . '</div>';
                 }
                 else
                 {

@@ -78,21 +78,19 @@ $this->load->library('form_validation'); ?>
 				<input type="input" class="form-control" name="numero" value="<?php echo set_value('numero', $numero);?>"/><br />
 			</div>
 
-			<div class="form-inline">
-				<div class="controls-row">
-					<label for="publicado" class="radio inline control-label">Publicado</label>
-
-					<label class="radio inline"> Si <input type="radio"  name="publicado" value="1" <?php echo  set_radio('publicado', '1', $esta_publicado); ?>/> </label> 
-
-					<label class="radio inline">No <input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', $no_esta_publicado); ?>/> </label>
-				</div>
+			<div class="form-group">
+				<label for="publicado">Publicado</label>
+				<br>
+				<input type="radio"  name="publicado" value="1" <?php echo  set_radio('publicado', '1', $esta_publicado); ?>/>Si
+				<br>
+				<input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', $no_esta_publicado); ?>/>No
 			</div>
-			<br />
 			<input type="hidden" name="imagen_original" value="<?php echo set_value('imagen_original', $imagen_original);?>"/>
 			<div class="form-group">
 				<label for="imagen">Imagen</label>
 				<?php if(!empty($imagen_original)) {echo img('assets/img/'.$imagen_original, FALSE, array('class' => 'img-responsive'));} ?><br />
-				<input type="file" name="imagen"/><br />
+				<input type="file" name="imagen" style="width: 100%"/>
+				<br>
 				<p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>
 			</div>
 

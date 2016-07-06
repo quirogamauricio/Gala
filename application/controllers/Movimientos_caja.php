@@ -83,7 +83,7 @@ class Movimientos_caja extends CI_Controller {
                     $movimientos[$indice]['fecha'] = transform_date($fila['fecha']);
                 }
 
-                $resultado = $this->table->generate($movimientos);
+                $resultado = '<div class="table-responsive">' . $this->table->generate($movimientos) . '</div>';
             }
             else
             {
@@ -116,7 +116,7 @@ class Movimientos_caja extends CI_Controller {
                     $movimientos[$indice]['fecha'] = transform_date($fila['fecha']);
                 }
 
-                $data['contenido'] = $this->table->generate($movimientos);
+                $data['contenido'] = '<div class="table-responsive">' . $this->table->generate($movimientos) . '</div>';
             }
         }
 

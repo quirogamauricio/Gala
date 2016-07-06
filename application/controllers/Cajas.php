@@ -67,7 +67,7 @@ class Cajas extends CI_Controller {
                     array_push($cajas[$indice_fila], anchor('movimientos_caja/ver/'.$fila['id_caja'],'Movimientos', 'class="btn btn-info"'));
                 }
 
-                $resultado = $this->table->generate($cajas);
+                $resultado = '<div class="table-responsive">' . $this->table->generate($cajas) . '</div>';
             }
             else
             {

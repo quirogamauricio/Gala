@@ -64,7 +64,7 @@ class Clientes extends CI_Controller {
                 $this->load->library('table');
                     $this->load->helper('url'); // Cargo helper para usar función anchor
                     $this->load->helper('date');
-                    $this->table->set_heading('Nombre', 'Apellido', 'Teléfono', 'Fecha de alta');
+                    $this->table->set_heading('Nombre', 'Apellido', 'Teléfono', 'Fecha de alta', '');
                     $this->table->set_template(array('table_open' => '<table class="table">'));
                     $this->table->set_empty('-');
 
@@ -74,7 +74,7 @@ class Clientes extends CI_Controller {
                         $clientes[$indice_fila]['fecha_alta'] = transform_date($fila['fecha_alta'], '/');
                     }
 
-                    $resultado = $this->table->generate($clientes);
+                    $resultado = '<div class="table-responsive">' . $this->table->generate($clientes) . '</div>';
                 }
                 else
                 {

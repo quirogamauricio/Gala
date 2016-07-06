@@ -70,23 +70,22 @@
                 <input type="input" class="form-control" name="numero" value="<?php echo set_value('numero');?>"/><br />
             </div>
 
-            <div class="form-inline">
-                <div class="controls-row">
-                    <label for="publicado" class="radio inline control-label">Publicado</label>
-
-                    <label class="radio inline"> Si <input type="radio"  name="publicado" value="1" <?php echo  set_radio('publicado', '1'); ?>/> </label> 
-                    
-                    <label class="radio inline">No <input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', TRUE); ?>/> </label>
-                </div>
+            <div class="form-group">
+                <label for="publicado">Publicado</label>
+                <br>
+                <input type="radio"  name="publicado" value="1" <?php echo  set_radio('publicado', '1'); ?>/> Si
+                <br>
+                <input type="radio"  name="publicado" value="0" <?php echo  set_radio('publicado', '0', TRUE); ?>/> No
             </div>
-            <br />
+
             <div class="form-group">
                 <label for="imagen">Imagen</label>
-                <input type="file" name="imagen"/><br />
+                <input type="file" name="imagen" style="width: 100%"/>
+                <br>
                 <p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>
             </div>
 
-            <br/>
+            <br>
 
             <input type="submit" class="btn btn-default" name="submit" value="Aceptar" />
         </form> 
