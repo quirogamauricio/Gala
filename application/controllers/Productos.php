@@ -60,7 +60,7 @@ class Productos extends CI_Controller{
             $datos_stock = array('id_producto' => $id_nuevo_producto, 'stock_actual' => 0, 'stock_minimo' => 0);
             $this->stock_model->crear_stock($datos_stock);
 
-            $data['mensaje'] = "¡Producto creado correctamente!";
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Producto creado correctamente! </h3>';
             $this->load->view('productos/exito', $data);
         }
 
@@ -176,11 +176,11 @@ class Productos extends CI_Controller{
             {
                 if ($this->producto_model->editar_producto($datos)) 
                 {
-                    $data['mensaje'] = '¡Los datos del producto se actualizaron correctamente!';
+                    $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del producto se actualizaron correctamente! </h3>';
                 }
                 else
                 {
-                    $data['mensaje'] = '¡No se actualizó la información!';
+                    $data['mensaje'] = '<h3 class="alert alert-danger">¡No se actualizó la información! </h3>';
                 }   
                 $this->cargar_header_y_principal();
                 $this->load->view('productos/exito', $data);
@@ -195,19 +195,19 @@ class Productos extends CI_Controller{
 
         if ($id_producto === NULL)
         {
-            $data['mensaje'] = 'No se especificó un producto a eliminar';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un producto a eliminar </h3>';
         }
         elseif($this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
-            $data['mensaje'] = '¡Producto eliminado correctamente!';
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Producto eliminado correctamente! </h3>';
         }
         elseif(!$this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
-            $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un producto que se encuentra en uso! </h3>';
         }
         else
         {
-            $data['mensaje'] = '¡Producto inexistente!';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Producto inexistente! </h3>';
         }
 
         $this->load->view('productos/exito', $data);

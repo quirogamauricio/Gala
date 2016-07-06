@@ -33,7 +33,7 @@ class Tipo_productos extends CI_Controller {
             {
                 $data = array('tipo' => $this->input->post('tipo'));
                 $this->tipo_productos_model->crear_tipo_producto($data);
-                $data['mensaje'] = "¡Tipo de producto creado correctamente!";
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Tipo de producto creado correctamente! </h3>';
                 $this->load->view('tipo_productos/exito', $data);
             }
 
@@ -122,11 +122,11 @@ class Tipo_productos extends CI_Controller {
             {
                 if ($this->tipo_productos_model->editar_tipo_producto($datos)) 
                 {
-                    $data['mensaje'] = '¡Los datos del tipo de producto se actualizaron correctamente!';
+                    $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del tipo de producto se actualizaron correctamente! </h3>';
                 }
                 else
                 {
-                    $data['mensaje'] = '¡No se actualizó la información!';
+                    $data['mensaje'] = '<h3 class="alert alert-danger"> ¡No se actualizó la información! </h3>';
                 }
                 $this->cargar_header_y_principal();
                 $this->load->view('tipo_productos/exito', $data);
@@ -141,19 +141,19 @@ class Tipo_productos extends CI_Controller {
 
             if ($id_tipo_producto === NULL)
             {
-                 $data['mensaje'] = 'No se especificó un tipo de producto a eliminar';
+                 $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un tipo de producto a eliminar </h3>';
             }
             elseif($this->tipo_productos_model->eliminar_tipo_producto($id_tipo_producto) == 1)
             {
-                $data['mensaje'] = '¡Tipo de producto eliminado correctamente!';
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Tipo de producto eliminado correctamente! </h3>';
             }
             elseif($this->tipo_productos_model->eliminar_tipo_producto($id_tipo_producto) == 1451)
             {
-                $data['mensaje'] = '¡No se puede eliminar un tipo de producto que se encuentra en uso!';
+                $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un tipo de producto que se encuentra en uso! </h3>';
             }
             else
             {
-                $data['mensaje'] = '¡Tipo inexistente!';
+                $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Tipo inexistente! </h3>';
             }
 
             $this->load->view('tipo_productos/exito', $data);

@@ -64,11 +64,11 @@ class Stock extends CI_Controller {
         {
             if ($this->stock_model->editar_stock($datos)) 
             {
-                $data['mensaje'] = '¡Los datos del stock se actualizaron correctamente!';
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del stock se actualizaron correctamente! </h3>';
             }
             else
             {
-                $data['mensaje'] = '¡No se actualizó la información!';
+                $data['mensaje'] = '<h3 class="alert alert-danger"> ¡No se actualizó la información! </h3>';
             }
 
             $this->cargar_header_y_principal();

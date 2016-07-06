@@ -60,7 +60,8 @@ class Ventas extends CI_Controller {
 
     public function resultado($resultado)
     {
-        $data['mensaje'] = $resultado == 1 ? "¡Venta registrada exitosamente!" : "Error al intentar registrar venta";
+        $data['mensaje'] = $resultado == 1 ? '<h3 class="alert alert-success"> ¡Venta registrada exitosamente! </h3>' 
+        : '<h3 class="alert alert-danger"> Error al intentar registrar venta </h3>';
         $this->cargar_header_y_principal();
         $this->load->view('ventas/exito', $data);
         $this->load->view('templates/footer');

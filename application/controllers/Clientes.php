@@ -39,7 +39,7 @@ class Clientes extends CI_Controller {
                 );
 
             $this->cliente_model->crear_cliente($datos);
-            $data['mensaje'] = "¡Cliente creado correctamente!";
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Cliente creado correctamente! </h3>';
             $this->load->view('clientes/exito', $data);
         }
 
@@ -125,11 +125,11 @@ class Clientes extends CI_Controller {
            {
                 if ($this->cliente_model->editar_cliente($datos)) 
                 {
-                    $data['mensaje'] = '¡Los datos del cliente se actualizaron correctamente!';
+                    $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del cliente se actualizaron correctamente! </h3>';
                 }
                 else
                 {
-                    $data['mensaje'] = '¡No se actualizó la información!';
+                    $data['mensaje'] = '<h3 class="alert alert-danger"> ¡No se actualizó la información! </h3>';
                 }   
                 $this->cargar_header_y_principal();
                 $this->load->view('clientes/exito', $data);
@@ -144,19 +144,19 @@ class Clientes extends CI_Controller {
 
         if ($id_cliente === NULL)
         {
-           $data['mensaje'] = 'No se especificó un cliente a eliminar';
+           $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un cliente a eliminar </h3>';
         }
         elseif($this->cliente_model->eliminar_cliente($id_cliente) == 1)
         {
-           $data['mensaje'] = '¡Cliente eliminado correctamente!';
+           $data['mensaje'] = '<h3 class="alert alert-success"> ¡Cliente eliminado correctamente! </h3>';
         }
         elseif($this->cliente_model->eliminar_cliente($id_cliente) == 1451)
         {
-          $data['mensaje'] = '¡No se puede eliminar un producto que se encuentra en uso!';
+          $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un cliente que ha realizado compras! </h3>';
         }
         else
         {
-          $data['mensaje'] = '¡Cliente inexistente!';
+          $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Cliente inexistente! </h3>';
         }
 
       $this->load->view('clientes/exito', $data);

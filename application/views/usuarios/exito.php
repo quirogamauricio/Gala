@@ -1,5 +1,8 @@
 <?php $this->load->helper('url'); ?>
+
 <div class="container">
-	<h3><?php echo $mensaje ?></h3>
-	<a href="<?php echo site_url('usuarios/nuevo') ?>">Volver a creación de usuarios</a> <br />
+	<?php echo $mensaje ?>
+	<a href="<?php echo site_url('usuarios/nuevo') ?>">Nuevo usuario</a>
+	<br>
+	<a href="<?php echo site_url('usuarios/ver') ?>">Administrar usuarios</a>
 </div>

@@ -42,7 +42,7 @@ class Usuarios extends CI_Controller {
                 );
 
             $this->usuario_model->crear_usuario($datos);
-            $data['mensaje'] = "¡Usuario creado correctamente!";
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Usuario creado correctamente! </h3>';
             $this->load->view('usuarios/exito', $data);
         }
 
@@ -136,11 +136,11 @@ class Usuarios extends CI_Controller {
         {
             if ($this->usuario_model->editar_usuario($datos)) 
             {
-                $data['mensaje'] = '¡Los datos del usuario se actualizaron correctamente!';
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del usuario se actualizaron correctamente! </h3>';
             }
             else
             {
-                $data['mensaje'] = '¡No se actualizó la información!';
+                $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se actualizó la información! </h3>';
             }   
 
             $this->cargar_header_y_principal();
@@ -156,21 +156,20 @@ class Usuarios extends CI_Controller {
 
         if ($id_usuario === NULL)
         {
-           $data['mensaje'] = 'No se especificó un usuario a eliminar';
+           $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un usuario a eliminar </h3>' ;
         }
         elseif($id_usuario == $_SESSION['usuario_id'])
         {
-            $data['mensaje'] = '¡No es posible eliminar el usuario actual!';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No es posible eliminar el usuario actual! </h3>';
         }
         elseif($this->usuario_model->eliminar_usuario($id_usuario) > 0)
         {
-            $data['mensaje'] = '¡Usuario eliminado correctamente!';
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Usuario eliminado correctamente! </h3>';
         }
         else
         {
-          $data['mensaje'] = '¡Usuario inexistente!';
+          $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Usuario inexistente! </h3>';
         }
-
 
        $this->load->view('usuarios/exito', $data);
        $this->load->view('templates/footer');

@@ -52,7 +52,7 @@ class Movimientos_caja extends CI_Controller {
             
             $this->movimiento_caja_model->registrar_movimiento_caja($data);
 
-            $data['mensaje'] = "¡Movimiento de caja registrado correctamente!";
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Movimiento de caja registrado correctamente! </h3>';
             $this->load->view('movimientos_caja/exito', $data);
         }
 

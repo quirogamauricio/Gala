@@ -34,7 +34,7 @@ class Cajas extends CI_Controller {
             $data = array('descripcion' => $this->input->post('descripcion'));
             
             $this->caja_model->crear_caja($data);
-            $data['mensaje'] = "¡Caja creada correctamente!";
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Caja creada correctamente! </h3>';
             $this->load->view('cajas/exito', $data);
         }
 
@@ -118,11 +118,11 @@ class Cajas extends CI_Controller {
         {
             if ($this->caja_model->editar_caja($datos)) 
             {
-                $data['mensaje'] = '¡Los datos de la caja se actualizaron correctamente!';
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos de la caja se actualizaron correctamente! </h3>';
             }
             else
             {
-                $data['mensaje'] = '¡No se actualizó la información!';
+                $data['mensaje'] = '<h3 class="alert alert-danger"> ¡No se actualizó la información! </h3>';
             }
             $this->cargar_header_y_principal();
             $this->load->view('cajas/exito', $data);
@@ -137,19 +137,19 @@ class Cajas extends CI_Controller {
 
         if ($id_caja === NULL)
         {
-             $data['mensaje'] = 'No se especificó una caja a eliminar';
+             $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó una caja a eliminar </h3>';
         }
         elseif($this->caja_model->eliminar_caja($id_caja) == 1)
         {
-            $data['mensaje'] = '¡Caja eliminada correctamente!';
+            $data['mensaje'] = '<h3 class="alert alert-success"> ¡Caja eliminada correctamente! </h3>';
         }
         elseif($this->caja_model->eliminar_caja($id_caja) == 1451)
         {
-            $data['mensaje'] = '¡No se puede eliminar una caja que se encuentra en uso!';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar una caja que se encuentra en uso! </h3>';
         }
         else
         {
-            $data['mensaje'] = '¡Caja inexistente!';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Caja inexistente! </h3>';
         }
 
         $this->load->view('cajas/exito', $data);

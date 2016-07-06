@@ -33,7 +33,7 @@ class Color_productos extends CI_Controller {
             {
                 $data = array('color' => $this->input->post('color'));
                 $this->color_productos_model->crear_color_producto($data);
-                $data['mensaje'] = "¡Color de producto creado correctamente!";
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Color de producto creado correctamente! </h3>';
                 $this->load->view('color_productos/exito', $data);
             }
 
@@ -122,11 +122,11 @@ class Color_productos extends CI_Controller {
             {
                 if ($this->color_productos_model->editar_color_producto($datos)) 
                 {
-                    $data['mensaje'] = '¡Los datos del color de producto se actualizaron correctamente!';
+                    $data['mensaje'] = '<h3 class="alert alert-success"> ¡Los datos del color de producto se actualizaron correctamente! </h3>';
                 }
                 else
                 {
-                    $data['mensaje'] = '¡No se actualizó la información!';
+                    $data['mensaje'] = '<h3 class="alert alert-danger"> ¡No se actualizó la información! </h3>';
                 }
                 $this->cargar_header_y_principal();
                 $this->load->view('color_productos/exito', $data);
@@ -141,19 +141,19 @@ class Color_productos extends CI_Controller {
 
             if ($id_color_producto === NULL)
             {
-                 $data['mensaje'] = 'No se especificó un color de producto a eliminar';
+                 $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un color de producto a eliminar </h3>';
             }
             elseif($this->color_productos_model->eliminar_color_producto($id_color_producto) == 1)
             {
-                $data['mensaje'] = '¡Color de producto eliminado correctamente!';
+                $data['mensaje'] = '<h3 class="alert alert-success"> ¡Color de producto eliminado correctamente! </h3>';
             }
             elseif($this->color_productos_model->eliminar_color_producto($id_color_producto) == 1451)
             {
-                $data['mensaje'] = '¡No se puede eliminar un color que se encuentra en uso!';
+                $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un color que se encuentra en uso! </h3>';
             }
             else
             {
-                $data['mensaje'] = '¡Color inexistente!';
+                $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Color inexistente! </h3>';
             }
 
             $this->load->view('color_productos/exito', $data);
