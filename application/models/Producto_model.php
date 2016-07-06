@@ -141,4 +141,17 @@ class Producto_model extends CI_Model{
 
         return $this->db->trans_status();
     }
+
+    public function producto_existe($id_producto)
+    {
+        
+        $resultado = $this->db->query(
+        'SELECT *
+         FROM producto p
+         INNER JOIN stock s ON p.id_producto = s.id_producto
+         WHERE p.id_producto =' . $id_producto
+         );
+
+        return  $resultado->num_rows() > 0;
+    }
 }

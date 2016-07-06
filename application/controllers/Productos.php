@@ -197,17 +197,21 @@ class Productos extends CI_Controller{
         {
             $data['mensaje'] = '<h3 class="alert alert-warning"> No se especificó un producto a eliminar </h3>';
         }
+        elseif(!is_numeric($id_producto))
+        {
+            $data['mensaje'] = '<h3 class="alert alert-warning">¡Producto inexistente!</h3>';
+        }
+        elseif(!$this->producto_model->producto_existe($id_producto))
+        {
+            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Producto inexistente! </h3>';
+        }
         elseif($this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
             $data['mensaje'] = '<h3 class="alert alert-success"> ¡Producto eliminado correctamente! </h3>';
         }
         elseif(!$this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
-            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡No se puede eliminar un producto que se encuentra en uso! </h3>';
-        }
-        else
-        {
-            $data['mensaje'] = '<h3 class="alert alert-warning"> ¡Producto inexistente! </h3>';
+            $data['mensaje'] = '<h3 class="alert alert-danger"> Error al intentar eliminar producto </h3>';
         }
 
         $this->load->view('productos/exito', $data);
