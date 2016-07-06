@@ -16,10 +16,10 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url("index.php/usuarios/nuevo"); ?>">Nuevo usuario</a></li>
             <li><a href="<?php echo base_url("index.php/usuarios/ver"); ?>">Administrar usuarios</a></li>
-            <li class="divider"></li>
+            <!--<li class="divider"></li>
             <li class="dropdown-header">Categorías</li>
             <li><a href="<?php echo base_url("index.php/categoria_usuarios/nueva"); ?>">Nueva categoría de usuario</a></li>
-            <li><a href="<?php echo base_url("index.php/categoria_usuarios/ver"); ?>">Administrar categorías de usuario</a></li>
+            <li><a href="<?php echo base_url("index.php/categoria_usuarios/ver"); ?>">Administrar categorías de usuario</a></li>-->
           </ul>
         </li>
       </ul>
@@ -69,6 +69,13 @@
             <li><a href="<?php echo base_url("index.php/ventas/nueva"); ?>">Nueva venta</a></li>
             <li><a href="<?php echo base_url("index.php/ventas/ver"); ?>">Historial de ventas</a></li>
           </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="<?php echo base_url("index.php/logout/terminar_sesion"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" onclick="return confirm('¿Cerrar sesión?');">
+            <span class="glyphicon glyphicon-off"></span> Cerrar sesión
+          </a>
         </li>
       </ul>
     </div>

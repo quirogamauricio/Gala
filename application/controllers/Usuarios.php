@@ -67,7 +67,7 @@ class Usuarios extends CI_Controller {
                 $this->load->library('table');
                 $this->load->helper('url'); // Cargo helper para usar función anchor
                 $this->load->helper('date');
-                $this->table->set_heading('Email', 'Categoría', 'Fecha de alta', '');
+                $this->table->set_heading('Email', 'Fecha de alta', '');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
 
                 foreach ($usuarios as $indice_fila => $fila)

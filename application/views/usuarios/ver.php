@@ -19,7 +19,7 @@ $this->load->library('form_validation');?>
 						<input type="hidden" name="id_usuario" value="<?php echo set_value('id_usuario', $id_usuario);?>"/>
 						<input type="hidden" name="email_original" value="<?php echo set_value('email_original', $email_original);?>"/>
 
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
 							<label for="categoria">Categoría</label>
 						    <?php echo form_dropdown('categoria', $categorias, $id_categoria, 'class="form-control"');?><br />
 						</div>

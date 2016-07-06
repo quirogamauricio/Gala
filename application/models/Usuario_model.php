@@ -14,7 +14,7 @@ class Usuario_model extends CI_Model{
         public function obtener_usuarios()
         {
             return $this->db->query(
-                'SELECT u.email, cu.categoria, u.fecha_alta, u.id_usuario as "id"
+                'SELECT u.email, u.fecha_alta, u.id_usuario as "id"
                  FROM usuario u
                  INNER JOIN categoria_usuario cu on u.id_categoria = cu.id_categoria
                  ORDER BY u.fecha_alta'

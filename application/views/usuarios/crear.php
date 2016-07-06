@@ -8,7 +8,7 @@
 
             <?php echo form_open('usuarios/nuevo'); ?>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="categoria">Categoría</label>
                     <?php echo form_dropdown('categoria', $categorias, array(), 'class="form-control"');?><br />
                 </div>
