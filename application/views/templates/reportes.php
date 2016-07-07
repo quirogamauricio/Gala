@@ -18,7 +18,7 @@
 			<canvas id="ventasPorCliente" width="400" height="400"></canvas>
 		</div>
 		<div class="col-md-6" style="text-align: center;">
-			<h3 class="alert alert-info">VENTAS POR FORMA DE PAGO</h3>
+			<h3 class="alert alert-info">CANT. PRODUCTOS POR FORMA DE PAGO</h3>
 			<br>
 			<canvas id="ventasPorFormaPago" width="400" height="400"></canvas>
 		</div>

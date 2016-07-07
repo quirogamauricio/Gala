@@ -45,7 +45,6 @@ class Venta_model extends CI_Model{
         $query = "SELECT  COUNT(*) as cant_ventas, MONTH(ro.fecha) as mes
                  FROM venta v
                  INNER JOIN registro_operacion ro on v.id_registro_operacion = ro.id_registro_operacion
-                 INNER JOIN detalle_venta dv on v.id_venta = dv.id_venta
                  GROUP BY mes";
 
         return $this->db->query($query)->result_array();
@@ -56,14 +55,15 @@ class Venta_model extends CI_Model{
         $query = "SELECT COUNT(c.id_cliente) as cant_ventas, CONCAT_WS(', ', c.apellido, c.nombre ) as cliente
                 FROM venta v
                 INNER JOIN cliente c ON v.id_cliente = c.id_cliente
-                GROUP BY cliente";
+                GROUP BY cliente
+                ORDER BY c.nombre";
 
         return $this->db->query($query)->result_array();
     }
 
     public function obtener_ventas_por_forma_pago()
     {
-        $query = "SELECT COUNT(dv.id_forma_pago) as cant_pagos, fp.descripcion as forma_pago
+        $query = "SELECT SUM(dv.cantidad) as cant_pagos, fp.descripcion as forma_pago
                     FROM detalle_venta dv
                     INNER JOIN forma_pago fp ON dv.id_forma_pago = fp.id_forma_pago
                     GROUP BY fp.id_forma_pago";
