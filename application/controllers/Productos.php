@@ -206,7 +206,7 @@ class Productos extends CI_Controller{
         }
         elseif(!$this->producto_model->eliminar_producto_y_stock_asociado($id_producto))
         {
-            $data['mensaje'] = '<h3 class="alert alert-danger"> Error al intentar eliminar producto </h3>';
+            $data['mensaje'] = '<h3 class="alert alert-warning"> No se puede eliminar un producto que registra ventas </h3>';
         }
 
         $this->load->view('productos/exito', $data);

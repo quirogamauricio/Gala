@@ -71,31 +71,28 @@
               </a>
             </div>
           </div>
-
         </div>
 
         <div class="row">
-
           <?php foreach ($productos as $producto)  { ?>
 
-          <div class="col-sm-4 col-lg-4 col-md-4">
-           <div class="thumbnail">
-            <img class="img-thumbnail" src="<?php echo base_url('assets/img/'.$producto['imagen_url'] )?>" alt="imagen_producto">
-             <div class="caption">
-               <h4 class="pull-right">$24.99</h4>
-               <h4><a href="#"><?php echo $producto['codigo'] ?></a>
-               </h4>
-               <p><?php echo  $producto['detalles']  ?></p>
-             </div>
-           </div>
-         </div>
+              <div class="col-sm-4 col-lg-4 col-md-4">
+               <div class="thumbnail">
+                <img class="img-thumbnail" src="<?php echo base_url('assets/img/'.$producto['imagen_url'] )?>" alt="imagen_producto">
+                <div class="caption">
+                  <h4 class="pull-right">
+                  <b>$<?php echo $producto['precio_venta_efectivo'] ?></b>
+                  </h4>
+                  <h4><b><?php echo $producto['codigo']?></b></h4>
+                  <p><?php echo $producto['detalles']?></p>
+              </div>
+            </div>
+          </div>
 
-         <?php }?>
+          <?php }?>
+        </div>
+      </div>
 
-       </div>
+    </div>
 
-     </div>
-
-   </div>
-
- </div>
+</div>
