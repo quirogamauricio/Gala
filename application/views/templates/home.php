@@ -33,9 +33,11 @@
 
       <div class="col-md-3">
         <div class="list-group">
+          <a href="#" class="list-group-item" onclick="quitarFiltro();">Todos los productos</a>
+
           <?php foreach ($tipo_productos as $tipo_producto)  { ?>
 
-          <a href="#" class="list-group-item"><?php echo $tipo_producto['tipo'] ?></a>
+          <a href="#" class="list-group-item" onclick="filtrar(<?php echo $tipo_producto['id_tipo_producto'] ?>);"><?php echo $tipo_producto['tipo'] ?></a>
 
           <?php }?>
         </div>
@@ -73,10 +75,10 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="productos">
           <?php foreach ($productos as $producto)  { ?>
 
-              <div class="col-sm-4 col-lg-4 col-md-4">
+              <div class="col-sm-4 col-lg-4 col-md-4 <?php echo $producto['id_tipo_producto'] ?>">
                <div class="thumbnail">
                 <img class="img-thumbnail" src="<?php echo base_url('assets/img/'.$producto['imagen_url'] )?>" alt="imagen_producto">
                 <div class="caption">
@@ -96,3 +98,18 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+  function filtrar(id_tipo_producto){
+
+    filtro = '.' + id_tipo_producto;
+
+    $('#productos').children().not(filtro).hide();
+    $('#productos').children(filtro).show();
+
+  };
+
+  function quitarFiltro(){
+     $('#productos').children().show();
+  }
+</script>

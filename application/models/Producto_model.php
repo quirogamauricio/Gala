@@ -31,7 +31,7 @@ class Producto_model extends CI_Model{
     public function obtener_productos_publicados()
     {
         return $this->db->query(
-            "SELECT p.imagen_url, p.detalles, p.codigo, p.precio_venta_efectivo
+            "SELECT p.imagen_url, p.detalles, p.codigo, p.precio_venta_efectivo, p.id_tipo_producto
             FROM producto p
             WHERE p.publicado = 1 AND  p.imagen_url IS NOT NULL"
             )->result_array();
