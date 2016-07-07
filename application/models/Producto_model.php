@@ -17,7 +17,7 @@ class Producto_model extends CI_Model{
         return $this->db->query(
             "SELECT p.codigo, tp.tipo, p.precio_costo, p.precio_venta_efectivo, 
                     p.precio_venta_tarjeta, cp.color, p.detalles, p.numero,
-                    p.talle, p.imagen_url, (case when p.publicado = 0 then 'No' else 'Si' end), s.stock_actual,
+                    p.talle, (case when p.publicado = 0 then 'No' else 'Si' end), s.stock_actual,
                     s.stock_minimo, s.id_stock, p.id_producto as 'id'
 
             FROM producto p

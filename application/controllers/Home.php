@@ -11,7 +11,7 @@ class Home extends CI_Controller
     public function index()
     {
        
-       $data['imagenes'] = $this->producto_model->obtener_productos_publicados();
+       $data['productos'] = $this->producto_model->obtener_productos_publicados();
        $data['tipo_productos'] = $this->tipo_productos_model->obtener_tipo_productos_table();
 
 

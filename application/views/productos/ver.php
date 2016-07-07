@@ -88,7 +88,12 @@ $this->load->library('form_validation'); ?>
 			<input type="hidden" name="imagen_original" value="<?php echo set_value('imagen_original', $imagen_original);?>"/>
 			<div class="form-group">
 				<label for="imagen">Imagen</label>
-				<?php if(!empty($imagen_original)) {echo img('assets/img/'.$imagen_original, FALSE, array('class' => 'img-responsive'));} ?><br />
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-lg-4">
+						<?php if(!empty($imagen_original)) {echo img('assets/img/'.$imagen_original, FALSE, array('class' => 'img-thumbnail'));} ?>
+					</div>
+				</div>
+				<br>
 				<input type="file" name="imagen" style="width: 100%"/>
 				<br>
 				<p class="help-block">Extensiones permitidas: .gif | .jpg | .png | .bmp</p>

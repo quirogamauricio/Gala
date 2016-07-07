@@ -86,7 +86,7 @@ class Productos extends CI_Controller{
                 $this->load->library('table');
                 $this->load->helper('url'); // Cargo helper para usar función anchor
                 $this->load->helper('date');
-                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Precio venta efectivo', 'Precio venta tarjeta', 'Color', 'Detalles', 'Número', 'Talle', 'Imagen', 'Publicado', 'Stock actual', 'Stock mínimo', '', '');
+                $this->table->set_heading('Código', 'Tipo', 'Precio costo', 'Precio venta efectivo', 'Precio venta tarjeta', 'Color', 'Detalles', 'Número', 'Talle', 'Publicado', 'Stock actual', 'Stock mínimo', '', '');
                 $this->table->set_template(array('table_open' => '<table class="table">'));
                 $this->table->set_empty('-');
 
@@ -94,11 +94,6 @@ class Productos extends CI_Controller{
                 {
                     $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"');
                     $productos[$indice_fila]['id_stock'] = anchor('stock/ver/'.$fila['id_stock'],'Stock', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
-
-                    if (!empty($fila['imagen_url']))
-                    {
-                        $productos[$indice_fila]['imagen_url'] = img('assets/img/'.$fila['imagen_url'], FALSE, array('class' => 'img-responsive'));
-                    }
                 }
 
                     $resultado = '<div class="table-responsive">' . $this->table->generate($productos) . '</div>';
