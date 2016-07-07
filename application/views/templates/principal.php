@@ -16,10 +16,6 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url("index.php/usuarios/nuevo"); ?>">Nuevo usuario</a></li>
             <li><a href="<?php echo base_url("index.php/usuarios/ver"); ?>">Administrar usuarios</a></li>
-            <!--<li class="divider"></li>
-            <li class="dropdown-header">Categorías</li>
-            <li><a href="<?php echo base_url("index.php/categoria_usuarios/nueva"); ?>">Nueva categoría de usuario</a></li>
-            <li><a href="<?php echo base_url("index.php/categoria_usuarios/ver"); ?>">Administrar categorías de usuario</a></li>-->
           </ul>
         </li>
       </ul>
@@ -72,13 +68,23 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="<?php echo base_url("index.php/logout/terminar_sesion"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" onclick="return confirm('¿Cerrar sesión?');">
-            <span class="glyphicon glyphicon-off"></span> Cerrar sesión
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!--/.nav-collapse -->
+       <li>
+        <a href="<?php echo base_url("index.php/principal"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+          Reportes
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo base_url("index.php/home"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+          Sitio público
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo base_url("index.php/logout/terminar_sesion"); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" onclick="return confirm('¿Cerrar sesión?');">
+          <span class="glyphicon glyphicon-off"></span> Cerrar sesión
+        </a>
+      </li>
+    </ul>
   </div>
+  <!--/.nav-collapse -->
+</div>
 </div>

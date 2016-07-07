@@ -71,6 +71,28 @@ class Venta_model extends CI_Model{
         return $this->db->query($query)->result_array();
     }
 
+    public function obtener_ventas_por_tipo_producto()
+    {
+        $query = "SELECT sum(dv.cantidad) as cant , tp.tipo
+                    from detalle_venta dv
+                    inner join producto p on dv.id_producto = p.id_producto
+                    inner join tipo_producto tp on p.id_tipo_producto = tp.id_tipo_producto
+                    group by p.id_tipo_producto";
+
+        return $this->db->query($query)->result_array();
+    }
+
+    public function obtener_ventas_por_usuario()
+    {
+        $query = "SELECT COUNT(*) as cant, u.email as usuario
+                    from venta v    
+                    inner join registro_operacion ro on v.id_registro_operacion = ro.id_registro_operacion
+                    inner join usuario u on ro.id_usuario = u.id_usuario
+                    group by u.id_usuario";
+
+        return $this->db->query($query)->result_array();
+    }
+
     public function registrar_venta($venta)
     {
         $detalles_venta = $venta['detalles_venta'];

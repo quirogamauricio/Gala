@@ -22,6 +22,16 @@
 			<br>
 			<canvas id="ventasPorFormaPago" width="400" height="400"></canvas>
 		</div>
+		<div class="col-md-6" style="text-align: center;">
+			<h3 class="alert alert-info">CANT. PROD. VENDIDOS POR TIPO</h3>
+			<br>
+			<canvas id="ventasProductosPorTipo" width="400" height="400"></canvas>
+		</div>
+		<div class="col-md-6" style="text-align: center;">
+			<h3 class="alert alert-info">CANT. VENTAS POR USUARIO</h3>
+			<br>
+			<canvas id="ventasPorUsuario" width="400" height="400"></canvas>
+		</div>
 	</div>
 </div>
 
@@ -222,5 +232,98 @@
 
 		var myPieChart = new Chart(ctxVentasFormasPago).Pie(ventas_forma_pago);
 	});
+
+	//Ventas por tipo de producto
+	var ctxVentaProdPorTipo = document.getElementById("ventasProductosPorTipo").getContext("2d");
+	var url = "<?php echo site_url('reportes/obtener_ventas_por_tipo_producto')?>";
+	
+	$.get(url).done(function(data){
+
+		if (data.length == 0) {
+
+			$("#divError").html("Aún no se han registrado ventas");
+			$("#divError").show();
+			return;
+		};
+
+		var tipos = [];
+		var cant_venta_producto_por_tipo = [];
+
+		for (var i = 0; i < data.length; i++) {
+
+			tipos.push(data[i].tipo);
+		};
+
+		for (var i = 0; i < data.length; i++) {
+
+			if (tipos[i] == data[i].tipo)
+			 {
+			 	cant_venta_producto_por_tipo.push(data[i].cant);
+			 }
+		};
+
+		var data = {
+	    labels: tipos,
+	    datasets: [
+			        {
+			            label: "Ventas por tipo de producto",
+			            fillColor: "#b3f3ed",
+			            strokeColor: "#1df1de",
+			            highlightFill: "#1df1de",
+			            highlightStroke: "#1df1de",
+			            data: cant_venta_producto_por_tipo
+			        }
+	   			  ]
+		};
+
+		var myBarChart = new Chart(ctxVentaProdPorTipo).Bar(data);
+	});
+
+	//Ventas por usuario
+	var ctxVentasPorUsuario = document.getElementById("ventasPorUsuario").getContext("2d");
+	var url = "<?php echo site_url('reportes/obtener_ventas_por_usuario')?>";
+	
+	$.get(url).done(function(data){
+
+		if (data.length == 0) {
+
+			$("#divError").html("Aún no se han registrado ventas");
+			$("#divError").show();
+			return;
+		};
+
+		var usuarios = [];
+		var cant_ventas_por_usuario = [];
+
+		for (var i = 0; i < data.length; i++) {
+
+			usuarios.push(data[i].usuario);
+		};
+
+		for (var i = 0; i < data.length; i++) {
+
+			if (usuarios[i] == data[i].usuario)
+			 {
+			 	cant_ventas_por_usuario.push(data[i].cant);
+			 }
+		};
+
+		var data = {
+	    labels: usuarios,
+	    datasets: [
+			        {
+			            label: "Ventas por usuario",
+			            fillColor: "#d584f5",
+			            strokeColor: "#bd30f5",
+			            highlightFill: "#bd30f5",
+			            highlightStroke: "#bd30f5",
+			            data: cant_ventas_por_usuario
+			        }
+	   			  ]
+		};
+
+		var myBarChart = new Chart(ctxVentasPorUsuario).Bar(data);
+	});
+
 
 </script>

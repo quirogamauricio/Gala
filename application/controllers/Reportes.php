@@ -61,4 +61,26 @@ class Reportes extends CI_Controller {
            echo json_encode( $datos);
          }
     }
+
+    public function obtener_ventas_por_tipo_producto()
+    {
+        $datos = $this->venta_model->obtener_ventas_por_tipo_producto();
+
+        if (!empty($datos))
+         {
+           header('Content-Type: application/json');
+           echo json_encode( $datos);
+         }
+    }
+
+    public function obtener_ventas_por_usuario()
+    {
+        $datos = $this->venta_model->obtener_ventas_por_usuario();
+
+        if (!empty($datos))
+         {
+           header('Content-Type: application/json');
+           echo json_encode( $datos);
+         }
+    }
 }
