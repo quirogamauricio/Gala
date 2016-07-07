@@ -107,7 +107,7 @@
 
 				//Si el stock actual es menor al mínimo notifico
 				if (parseInt(data.stock_actual) <= parseInt(data.stock_minimo)) {
-					clase = clase + " alerta-stock";
+					clase = clase + " danger";
 				}
 
 				var fila = "<tr class='"+clase+"'><td class='tdproducto'>"+btnEliminar+hdProducto+"</td><td>"+producto+"</td><td class='tdformaspago'>"+formasPago+"</td><td class='tdprecio'>"+txtPrecio+"</td><td class='tdcantidad'>"+cantidad+"</td><td class='tdsubtotal'>"+txtSubtotal+"</td></tr>";

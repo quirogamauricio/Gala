@@ -15,6 +15,5 @@
 	<script type="text/javascript" src="<?php echo base_url("assets/js/jquery.min.js"); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
 	<script src="<?php echo base_url("assets/js/Chart.js/Chart.js"); ?>"></script>
-	<style>.alerta-stock {background-color: #FFEB85}</style>
 </head>
 <body>
