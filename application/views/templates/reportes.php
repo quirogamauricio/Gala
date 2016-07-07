@@ -3,15 +3,23 @@
 
 	<div class="row">
 		<div class="col-md-6" style="text-align: center;">
-			<h3>TOP 3 PRODUCTOS MÁS VENDIDOS</h3>
+			<h3 class="alert alert-info">TOP 3 PRODUCTOS MÁS VENDIDOS</h3>
 			<br>
 			<canvas id="productosMasVendidos" width="400" height="400"></canvas>
 		</div>
 		<div class="col-md-6" style="text-align: center;">
-			<h3>VENTAS POR MES</h3>
+			<h3 class="alert alert-info">VENTAS POR MES</h3>
 			<br>
 			<canvas id="periodoMayorVenta" width="400" height="400"></canvas>
 		</div>
+		<div class="col-md-6" style="text-align: center;">
+			<h3 class="alert alert-info">VENTAS POR CLIENTE</h3>
+			<br>
+			<canvas id="ventasPorCliente" width="400" height="400"></canvas>
+		</div>
+	</div>
+	<div class="row">
+		
 	</div>
 </div>
 
@@ -124,7 +132,7 @@
 	    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 	    datasets: [
 			        {
-			            label: "Productos",
+			            label: "Ventas por mes",
 			            fillColor: "rgba(220,220,220,0.5)",
 			            strokeColor: "rgba(220,220,220,0.8)",
 			            highlightFill: "rgba(220,220,220,0.75)",
@@ -135,6 +143,52 @@
 		};
 
 		var myBarChart = new Chart(ctxCanvPeriod).Bar(data);
-	}); 
+	});
+
+	//Ventas por cliente
+	var ctxCanvVentasPorCliente = document.getElementById("ventasPorCliente").getContext("2d");
+	var url = "<?php echo site_url('reportes/obtener_ventas_por_cliente')?>";
+	
+	$.get(url).done(function(data){
+
+		if (data.length == 0) {
+
+			$("#divError").html("Aún no se han registrado ventas");
+			$("#divError").show();
+			return;
+		};
+
+		var clientes = [];
+		var cant_ventas_cliente = [];
+
+		for (var i = 0; i < data.length; i++) {
+
+			clientes.push(data[i].cliente);
+		};
+
+		for (var i = 0; i < data.length; i++) {
+
+			if (clientes[i] == data[i].cliente)
+			 {
+			 	cant_ventas_cliente.push(data[i].cant_ventas);
+			 }
+		};
+
+		var data = {
+	    labels: clientes,
+	    datasets: [
+			        {
+			            label: "Ventas por cliente",
+			            fillColor: "rgba(255,224,230,1)",
+			            strokeColor: "rgba(255,136,161,1)",
+			            highlightFill: "rgba(220,220,220,0.75)",
+			            highlightStroke: "rgba(220,220,220,1)",
+			            data: cant_ventas_cliente
+			        }
+	   			  ]
+		};
+
+		var myBarChart = new Chart(ctxCanvVentasPorCliente).Bar(data);
+	});
 
 </script>

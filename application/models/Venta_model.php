@@ -51,6 +51,16 @@ class Venta_model extends CI_Model{
         return $this->db->query($query)->result_array();
     }
 
+    public function obtener_ventas_por_cliente()
+    {
+        $query = "SELECT COUNT(c.id_cliente) as cant_ventas, CONCAT_WS(', ', c.apellido, c.nombre ) as cliente
+                FROM venta v
+                INNER JOIN cliente c ON v.id_cliente = c.id_cliente
+                GROUP BY cliente";
+
+        return $this->db->query($query)->result_array();
+    }
+
     public function registrar_venta($venta)
     {
         $detalles_venta = $venta['detalles_venta'];

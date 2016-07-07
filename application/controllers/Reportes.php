@@ -39,4 +39,15 @@ class Reportes extends CI_Controller {
            echo json_encode( $datos);
          }
     }
+
+    public function  obtener_ventas_por_cliente()
+    {
+        $datos = $this->venta_model->obtener_ventas_por_cliente();
+
+        if (!empty($datos))
+         {
+           header('Content-Type: application/json');
+           echo json_encode( $datos);
+         }
+    }
 }
