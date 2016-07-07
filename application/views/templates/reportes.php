@@ -17,9 +17,11 @@
 			<br>
 			<canvas id="ventasPorCliente" width="400" height="400"></canvas>
 		</div>
-	</div>
-	<div class="row">
-		
+		<div class="col-md-6" style="text-align: center;">
+			<h3 class="alert alert-info">VENTAS POR FORMA DE PAGO</h3>
+			<br>
+			<canvas id="ventasPorFormaPago" width="400" height="400"></canvas>
+		</div>
 	</div>
 </div>
 
@@ -181,14 +183,44 @@
 			            label: "Ventas por cliente",
 			            fillColor: "rgba(255,224,230,1)",
 			            strokeColor: "rgba(255,136,161,1)",
-			            highlightFill: "rgba(220,220,220,0.75)",
-			            highlightStroke: "rgba(220,220,220,1)",
+			            highlightFill: "#f991a5",
+			            highlightStroke: "#f991a5",
 			            data: cant_ventas_cliente
 			        }
 	   			  ]
 		};
 
 		var myBarChart = new Chart(ctxCanvVentasPorCliente).Bar(data);
+	});
+
+	//Ventas por forma de pago
+	var ctxVentasFormasPago = document.getElementById("ventasPorFormaPago").getContext("2d");
+	var url = "<?php echo site_url('reportes/obtener_ventas_por_forma_pago')?>";
+
+	$.get(url).done(function(data){
+
+		if (data.length == 0) {
+
+			$("#divError").html("Aún no se han registrado ventas");
+			$("#divError").show();
+			return;
+		};
+
+		var ventas_forma_pago = [];
+		var colores = ["#36A2EB","#ef8a08"];
+		var resaltado = ["#89c1e6", "#f5ca93"];
+
+		for (var i = 0; i < data.length; i++) {
+			
+		 	ventas_forma_pago.push({
+		 		value: data[i].cant_pagos,
+		 		color: colores[i],
+		 		highlight: resaltado[i],
+				label: data[i].forma_pago
+		 	});
+		};
+
+		var myPieChart = new Chart(ctxVentasFormasPago).Pie(ventas_forma_pago);
 	});
 
 </script>

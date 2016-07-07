@@ -61,6 +61,16 @@ class Venta_model extends CI_Model{
         return $this->db->query($query)->result_array();
     }
 
+    public function obtener_ventas_por_forma_pago()
+    {
+        $query = "SELECT COUNT(dv.id_forma_pago) as cant_pagos, fp.descripcion as forma_pago
+                    FROM detalle_venta dv
+                    INNER JOIN forma_pago fp ON dv.id_forma_pago = fp.id_forma_pago
+                    GROUP BY fp.id_forma_pago";
+
+        return $this->db->query($query)->result_array();
+    }
+
     public function registrar_venta($venta)
     {
         $detalles_venta = $venta['detalles_venta'];

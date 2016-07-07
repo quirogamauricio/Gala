@@ -18,7 +18,7 @@ class Reportes extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function  obtener_productos_mas_vendidos()
+    public function obtener_productos_mas_vendidos()
     {
         $productos = $this->venta_model->obtener_productos_mas_vendidos();
 
@@ -29,7 +29,7 @@ class Reportes extends CI_Controller {
          }
     }
 
-    public function  obtener_ventas_por_periodo()
+    public function obtener_ventas_por_periodo()
     {
         $datos = $this->venta_model->obtener_ventas_por_periodo();
 
@@ -40,9 +40,20 @@ class Reportes extends CI_Controller {
          }
     }
 
-    public function  obtener_ventas_por_cliente()
+    public function obtener_ventas_por_cliente()
     {
         $datos = $this->venta_model->obtener_ventas_por_cliente();
+
+        if (!empty($datos))
+         {
+           header('Content-Type: application/json');
+           echo json_encode( $datos);
+         }
+    }
+
+    public function obtener_ventas_por_forma_pago()
+    {
+        $datos = $this->venta_model->obtener_ventas_por_forma_pago();
 
         if (!empty($datos))
          {
