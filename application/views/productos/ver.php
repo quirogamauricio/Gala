@@ -109,3 +109,12 @@ $this->load->library('form_validation'); ?>
 	</div><!-- Fin panel body -->
 </div> <!-- Fin panel-->
 </div><!-- Fin container-->
+
+<script type="text/javascript">
+
+	$(window).load(function () {
+
+	    $('.alerta-stock').parents('tr').addClass('danger').attr('title', 'Alerta de stock mínimo');
+	});
+
+</script>

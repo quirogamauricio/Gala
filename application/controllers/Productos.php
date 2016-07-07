@@ -94,6 +94,11 @@ class Productos extends CI_Controller{
                 {
                     $productos[$indice_fila]['id'] = anchor('productos/ver/'.$fila['id'],'Ver', 'class="btn btn-info"');
                     $productos[$indice_fila]['id_stock'] = anchor('stock/ver/'.$fila['id_stock'],'Stock', 'class="btn btn-info"'); //Permite generar el link para ver el producto particular
+                    
+                    if ($productos[$indice_fila]['stock_actual'] < $productos[$indice_fila]['stock_minimo'])
+                    {
+                        $productos[$indice_fila]['id'] .= form_input(array('type' => 'hidden', 'class' => 'alerta-stock'));
+                    }
                 }
 
                     $resultado = '<div class="table-responsive">' . $this->table->generate($productos) . '</div>';
